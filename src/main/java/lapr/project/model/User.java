@@ -56,7 +56,6 @@ public class User {
         }
         this.password = password;
         this.name = name;
-        this.email = NAME_BY_OMISSION;
     }
 
     /**

@@ -5,10 +5,14 @@
  */
 package lapr.project.ui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import lapr.project.controller.LoginController;
+import lapr.project.model.FairCenter;
 
 /**
  *
@@ -16,47 +20,31 @@ import lapr.project.controller.LoginController;
  */
 public class LoginUI extends JFrame {
 
-    /**
-     * User ID used in the Login
-     */
-    private String userID;
-
-    /**
-     * User Password used in the Login
-     */
-    private String userPassword;
-
     private final JButton loginButton = new JButton("Login");
     private final JButton cancelButton = new JButton("Cancel");
+    private final int WIDTH = 250;
+    private final int HEIGHT = 400;
 
-    private LoginController loginController;
+    protected LoginController loginController;
+    protected FairCenter fc;
 
-    public LoginUI(/**
-             * FairCenter fc
-             */
-            ) {
-        LoginWindow loginWindow = new LoginWindow();
-
-        //loginController = new LoginController(ce, userID, userPassword);
+    public LoginUI(FairCenter fc) {
+        this.fc=fc;
+        loginController = new LoginController(fc);
+        JFrame window = new JFrame("Login Window");
+        createFrame(window);
     }
 
-    class LoginWindow extends JFrame {
-
-        private int HEIGHT = 400;
-        private int WIDTH = 250;
-
-        private LoginWindow() {
-            JFrame loginFrame = new JFrame("Login Window");
-            loginFrame.setSize(HEIGHT, WIDTH);
-            BorderLayout layout = new BorderLayout();
-            loginFrame.setLayout(layout);
-            loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            createElements(loginFrame);
-            loginFrame.setResizable(false);
-            loginFrame.setLocationRelativeTo(null);
-            loginFrame.setVisible(true);
-        }
-
+    private JFrame createFrame(JFrame window) {
+        window.setSize(HEIGHT, WIDTH);
+        BorderLayout layout = new BorderLayout();
+        window.setLayout(layout);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createElements(window);
+        window.setResizable(false);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        return window;
     }
 
     private void createElements(JFrame loginFrame) {
@@ -87,12 +75,12 @@ public class LoginUI extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userIDTemp=userIdentification.getText();
-                String userPasswordTemp=userPasswordField.getText();
-                if (loginController.authenticate(userIDTemp,userPasswordTemp) == true) {
-                    loginController.setID(userIdentification.getText());
-                    loginController.setPassword(userIdentification.getText());
-                    //Carry on para o menu de UC's de acordo com o que pode fazer
+                String userIDTemp = userIdentification.getText();
+                String userPasswordTemp = userPasswordField.getText();
+                if (loginController.authenticate(userIDTemp, userPasswordTemp) == true) {
+                    loginFrame.setVisible(false);
+                    loginFrame.dispose();
+                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser());
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this,
                             "Invalid username or password",
@@ -117,5 +105,4 @@ public class LoginUI extends JFrame {
         centralPanel.add(cancelButton, pos);
         loginFrame.add(centralPanel);
     }
-
 }

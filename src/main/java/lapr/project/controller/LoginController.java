@@ -28,15 +28,15 @@ public class LoginController {
     /**
      *
      */
-    private User user;
+    protected User user;
 
     /**
      *
      */
-    private static FairCenter fairCenter;
+    private FairCenter fairCenter;
 
-    public LoginController(FairCenter fairCenter, User user) {
-
+    public LoginController(FairCenter fc) {
+        this.fairCenter=fc;
     }
 
     /**
@@ -61,16 +61,16 @@ public class LoginController {
      * @param password
      * @return
      */
-    public boolean authenticate(String ID, String password) {
-        ArrayList<User> usersList;
-        usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
-        for (User u : usersList) {
-            if (checkID(u, ID) == true && checkPassword(u, password) == true) {
-                user = u;
-                return true;
+    public boolean authenticate(String ID, String password){
+            ArrayList<User> usersList;
+            usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
+            for (User u : usersList) {
+                if (checkID(u, ID) == true && checkPassword(u, password) == true) {
+                    user = u;
+                    return true;
+                }
             }
-        }
-        return false;
+            return false;
     }
 
     /**
@@ -99,5 +99,9 @@ public class LoginController {
         } else {
             return false;
         }
+    }
+    
+    public User getUser(){
+        return this.user;
     }
 }
