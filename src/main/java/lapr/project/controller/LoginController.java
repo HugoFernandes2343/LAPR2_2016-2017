@@ -5,6 +5,7 @@
  */
 package lapr.project.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import lapr.project.model.FairCenter;
@@ -14,8 +15,9 @@ import lapr.project.model.User;
  *
  * @author PC
  */
-public class LoginController {
+public class LoginController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     /**
      *
      */
@@ -37,7 +39,7 @@ public class LoginController {
     private FairCenter fairCenter;
 
     public LoginController(FairCenter fc) {
-        this.fairCenter=fc;
+        this.fairCenter = fc;
     }
 
     /**
@@ -62,16 +64,16 @@ public class LoginController {
      * @param password
      * @return
      */
-    public boolean authenticate(String ID, char[] password){
-            ArrayList<User> usersList;
-            usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
-            for (User u : usersList) {
-                if (checkID(u, ID) == true && checkPassword(u, password) == true) {
-                    user = u;
-                    return true;
-                }
+    public boolean authenticate(String ID, char[] password) {
+        ArrayList<User> usersList;
+        usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
+        for (User u : usersList) {
+            if (checkID(u, ID) == true && checkPassword(u, password) == true) {
+                user = u;
+                return true;
             }
-            return false;
+        }
+        return false;
     }
 
     /**
@@ -97,8 +99,8 @@ public class LoginController {
     private boolean checkPassword(User u, char[] password) {
         return Arrays.equals(u.getPassword(), password); //Usage of Arrays library to allow char[] arrays comparisons
     }
-    
-    public User getUser(){
+
+    public User getUser() {
         return this.user;
     }
 }

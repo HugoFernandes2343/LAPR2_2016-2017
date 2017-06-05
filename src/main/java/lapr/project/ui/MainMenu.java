@@ -6,10 +6,13 @@
 package lapr.project.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 import lapr.project.utils.MainMenuElements;
@@ -49,10 +52,19 @@ public class MainMenu implements MainMenuElements{
     }
 
     private void createElements(JFrame menuWindow) {
-        JPanel infoUser = new JPanel();
-        JLabel userLabel = new JLabel("Logged in as : "+this.user.getNome()+" \n Username : "+this.user.getUsername()+" \n Email : "+this.user.getEmail());
+        JPanel infoUser = new JPanel(new GridLayout(1,5));
+        JLabel userLabel = new JLabel("<html>Logged in as : "+this.user.getNome()+" <br> Username : "+this.user.getUsername()+" <br> Email : "+this.user.getEmail());
         infoUser.add(userLabel);
-        JPanel buttonPanel = new JPanel(new GridLayout(0,5,5,5));
+        JPanel buttonPanel = new JPanel(new GridLayout(0,5,8,8));
+        addAllButtons(buttonPanel);
+
+        //Add the rest + actionListener
+        menuWindow.add(infoUser,BorderLayout.PAGE_START);
+        menuWindow.add(buttonPanel,BorderLayout.CENTER);
+        
+    }
+
+    private JPanel addAllButtons(JPanel buttonPanel) {
         buttonPanel.add(UC01Button);
         buttonPanel.add(UC02Button);
         buttonPanel.add(UC03Button);
@@ -63,12 +75,10 @@ public class MainMenu implements MainMenuElements{
         buttonPanel.add(UC08Button);
         buttonPanel.add(UC09Button);
         buttonPanel.add(UC10Button);
-        //Add thr rest + actionListener
-        menuWindow.add(infoUser,BorderLayout.NORTH);
-        menuWindow.add(buttonPanel,BorderLayout.CENTER);
-        
+        buttonPanel.add(UC11Button);
+        return buttonPanel;
     }
-
+    
     public void setActiveUser(User user) {
         this.user = user;
     }
@@ -76,5 +86,7 @@ public class MainMenu implements MainMenuElements{
     private User getActiveUser() {
         return this.user;
     }
+
+
 
 }
