@@ -5,11 +5,15 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PC
  */
-public class User {
+public class User implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     private String username;
     private String email;

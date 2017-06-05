@@ -5,13 +5,16 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author PC
  */
-public class UserRegistry {
+public class UserRegistry implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      *

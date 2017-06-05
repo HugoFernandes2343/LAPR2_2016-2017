@@ -6,6 +6,7 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 
@@ -94,11 +95,7 @@ public class LoginController {
      * @return
      */
     private boolean checkPassword(User u, char[] password) {
-        if (u.getPassword().equals(password)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Arrays.equals(u.getPassword(), password); //Usage of Arrays library to allow char[] arrays comparisons
     }
     
     public User getUser(){

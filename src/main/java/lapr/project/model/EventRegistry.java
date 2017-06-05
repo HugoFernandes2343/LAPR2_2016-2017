@@ -5,10 +5,14 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PC
  */
-public class EventRegistry {
+public class EventRegistry implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     
 }
