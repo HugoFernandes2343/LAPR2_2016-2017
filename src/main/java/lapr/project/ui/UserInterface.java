@@ -5,15 +5,14 @@
  */
 package lapr.project.ui;
 
-import java.awt.BorderLayout;
 import javax.swing.*;
 import lapr.project.model.FairCenter;
-import lapr.project.model.User;
 
 /**
  *
  * @author PC
  */
+@SuppressWarnings("serial")
 public class UserInterface extends JFrame {
 
 //    public UserInterface(FairCenter fc) {

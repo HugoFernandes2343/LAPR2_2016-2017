@@ -18,6 +18,7 @@ import lapr.project.model.FairCenter;
  *
  * @author PC
  */
+@SuppressWarnings("serial")
 public class LoginUI extends JFrame {
 
     private final JButton loginButton = new JButton("Login");
@@ -76,7 +77,7 @@ public class LoginUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userIDTemp = userIdentification.getText();
-                String userPasswordTemp = userPasswordField.getText();
+                char[] userPasswordTemp = userPasswordField.getPassword();
                 if (loginController.authenticate(userIDTemp, userPasswordTemp) == true) {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();

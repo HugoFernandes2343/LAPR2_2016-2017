@@ -8,6 +8,7 @@ package lapr.project.ui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
@@ -40,22 +41,31 @@ public class MainMenu implements MainMenuElements{
         menuWindow.setLayout(layout);
         menuWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         createElements(menuWindow);
-        menuWindow.setResizable(false);
+//        menuWindow.setResizable(false);
         menuWindow.setLocationRelativeTo(null);
+        menuWindow.pack();
         menuWindow.setVisible(true);
         return menuWindow;
     }
 
     private void createElements(JFrame menuWindow) {
-        JPanel panel = new JPanel(new GridLayout(0,5,2,2));
-        panel.add(UC01Button);
-        panel.add(UC02Button);
-        panel.add(UC03Button);
-        panel.add(UC04Button);
-        panel.add(UC05Button);
-        panel.add(UC06Button);
+        JPanel infoUser = new JPanel();
+        JLabel userLabel = new JLabel("Logged in as : "+this.user.getNome()+" \n Username : "+this.user.getUsername()+" \n Email : "+this.user.getEmail());
+        infoUser.add(userLabel);
+        JPanel buttonPanel = new JPanel(new GridLayout(0,5,5,5));
+        buttonPanel.add(UC01Button);
+        buttonPanel.add(UC02Button);
+        buttonPanel.add(UC03Button);
+        buttonPanel.add(UC04Button);
+        buttonPanel.add(UC05Button);
+        buttonPanel.add(UC06Button);
+        buttonPanel.add(UC07Button);
+        buttonPanel.add(UC08Button);
+        buttonPanel.add(UC09Button);
+        buttonPanel.add(UC10Button);
         //Add thr rest + actionListener
-        menuWindow.add(panel);
+        menuWindow.add(infoUser,BorderLayout.NORTH);
+        menuWindow.add(buttonPanel,BorderLayout.CENTER);
         
     }
 

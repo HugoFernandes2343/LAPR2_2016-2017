@@ -13,7 +13,7 @@ public class User {
 
     private String username;
     private String email;
-    private String password;
+    private char[] password;
     private String name;
     private String language;
     private String timeZone;
@@ -31,7 +31,7 @@ public class User {
      * @param language
      * @param timeZone
      */
-    public User(String username, String email, String password, String name, String language, String timeZone) {
+    public User(String username, String email, char[] password, String name, String language, String timeZone) {
         this.email = email;
         this.language = language;
         this.name = name;
@@ -46,7 +46,7 @@ public class User {
      * @param password
      * @param name
      */
-    public User(String ID, String password, String name) {
+    public User(String ID, char[] password, String name) {
         if (ID.contains("@")) {
             this.email = ID;
             this.username = USERNAME_BY_OMISSION;
@@ -110,7 +110,7 @@ public class User {
      *
      * @param pwd
      */
-    private void setPassword(String pwd) {
+    private void setPassword(char[] pwd) {
         this.password = pwd;
     }
 
@@ -118,7 +118,7 @@ public class User {
      *
      * @return
      */
-    public String getPassword() {
+    public char[] getPassword() {
         return this.password;
     }
 

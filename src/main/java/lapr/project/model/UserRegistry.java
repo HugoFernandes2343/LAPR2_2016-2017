@@ -22,7 +22,7 @@ public class UserRegistry {
      * 
      */
     public UserRegistry() {
-        usersList = new ArrayList();
+        usersList = new ArrayList<>();
     }
 
     /**

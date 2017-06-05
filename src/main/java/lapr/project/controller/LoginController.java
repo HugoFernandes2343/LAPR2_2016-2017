@@ -61,7 +61,7 @@ public class LoginController {
      * @param password
      * @return
      */
-    public boolean authenticate(String ID, String password){
+    public boolean authenticate(String ID, char[] password){
             ArrayList<User> usersList;
             usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
             for (User u : usersList) {
@@ -93,7 +93,7 @@ public class LoginController {
      * @param password
      * @return
      */
-    private boolean checkPassword(User u, String password) {
+    private boolean checkPassword(User u, char[] password) {
         if (u.getPassword().equals(password)) {
             return true;
         } else {

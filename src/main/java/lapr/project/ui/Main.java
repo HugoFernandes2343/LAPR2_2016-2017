@@ -22,7 +22,7 @@ class Main {
     public static void main(String[] args) {
         FairCenter fc = new FairCenter();
         
-        User uTest = new User("default","default","defaultName");
+        User uTest = new User("default","default".toCharArray(),"defaultName");
         fc.getUserRegistry().getUsersList().add(uTest);
         
         UserInterface UI = new UserInterface(fc);
