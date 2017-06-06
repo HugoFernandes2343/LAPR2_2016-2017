@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,9 +30,10 @@ public class MainMenu implements MainMenuElements{
     private final int HEIGHT = 500;
     private final int WIDTH = 800;
 
-    
+    private FairCenter fc;
     
     public MainMenu(FairCenter fc, User u) {
+        this.fc=fc;
         JFrame menuWindow = new JFrame("[PH]FairCenter_Name");
         this.setActiveUser(u);
         createFrame(menuWindow);
@@ -57,8 +60,7 @@ public class MainMenu implements MainMenuElements{
         infoUser.add(userLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(0,5,8,8));
         addAllButtons(buttonPanel);
-
-        //Add the rest + actionListener
+        addActions(buttonPanel);
         menuWindow.add(infoUser,BorderLayout.PAGE_START);
         menuWindow.add(buttonPanel,BorderLayout.CENTER);
         
@@ -77,6 +79,23 @@ public class MainMenu implements MainMenuElements{
         buttonPanel.add(UC10Button);
         buttonPanel.add(UC11Button);
         return buttonPanel;
+    }
+    
+    private JPanel addActions(JPanel panel){
+        UC01Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UC01UI uc01ui = new UC01UI(fc,user);
+            }
+        });
+        
+        UC02Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UC02UI uc02ui = new UC02UI(fc,user);
+            }
+        });
+        return panel;
     }
     
     public void setActiveUser(User user) {
