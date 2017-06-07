@@ -49,4 +49,8 @@ public class FairCenter implements Serializable {
         return eventRegistry;
     }
 
+    public boolean registerEvent(Event event) {
+        return eventRegistry.registerEvent(event);
+    }
+
 }

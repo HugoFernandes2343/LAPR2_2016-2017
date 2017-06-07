@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author PC
  */
 public class User implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     private String username;
@@ -142,4 +142,7 @@ public class User implements Serializable {
         this.timeZone = timeZone;
     }
 
+    public String toString() {
+        return String.format("Name: %s%nEmail: %s%n", name, email);
+    }
 }
