@@ -37,6 +37,7 @@ public class User implements Serializable {
      * @param name
      * @param language
      * @param timeZone
+     * @param keyword
      */
     public User(String username, String email, char[] password, String name, String language, String timeZone, String keyword) {
         this.encryption = new Encryption(keyword);
@@ -53,8 +54,10 @@ public class User implements Serializable {
      * @param ID
      * @param password
      * @param name
+     * @param keyword
      */
-    public User(String ID, char[] password, String name) {
+    public User(String ID, char[] password, String name,String keyword) {
+        this.encryption=new Encryption(keyword);
         if (ID.contains("@")) {
             this.email = ID;
             this.username = USERNAME_BY_OMISSION;
@@ -66,19 +69,19 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    /**
-     *
-     * @param nome
-     */
-    private void setNome(String nome) {
-        this.name = nome;
-    }
+//    /**
+//     *
+//     * @param nome
+//     */
+//    private void setNome(String nome) {
+//        this.name = nome;
+//    }
 
     /**
      *
      * @return
      */
-    public String getNome() {
+    public String getName() {
         return this.name;
     }
 
@@ -145,8 +148,21 @@ public class User implements Serializable {
     public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
     }
-
-    public String toString() {
+    
+    public String getLanguage(){
+        return this.language;
+    }
+    
+    public String getTimeZone(){
+        return this.timeZone;
+    }
+    
+    public String toInfoString(){
         return String.format("Name: %s%nEmail: %s%n", name, email);
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email,String.valueOf(password));
     }
 }

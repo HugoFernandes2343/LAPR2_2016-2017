@@ -7,28 +7,21 @@ package lapr.project.ui;
 
 import lapr.project.controller.UC01Controller;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.model.FairCenter;
@@ -38,16 +31,18 @@ import lapr.project.model.User;
  *
  * @author Hugo
  */
+@SuppressWarnings("serial")
 public class UC01UI extends JFrame {
 
     private final JButton createButton = new JButton("Create");
     private final JButton cancelButton = new JButton("Cancel");
     private String eventType;
+    private final JDialog mainWindow = new JDialog();
 
     private UC01Controller controller;
 
-    public UC01UI(FairCenter fc, User user) {
-        CreateEventWindow Window = new CreateEventWindow();
+    public UC01UI(FairCenter fc, User user, JFrame menuWindow) {
+        CreateEventWindow Window = new CreateEventWindow(mainWindow, menuWindow);
 
         controller = new UC01Controller(fc, user);
     }
@@ -57,22 +52,35 @@ public class UC01UI extends JFrame {
         private int HEIGHT = 600;
         private int WIDTH = 250;
 
-        private CreateEventWindow() {
-            JFrame CreateEventFrame = new JFrame("UC01");
+        private CreateEventWindow(JDialog CreateEventFrame, JFrame menuWindow) {
+//            JFrame CreateEventFrame = new JFrame("UC01");
             CreateEventFrame.setSize(HEIGHT, WIDTH);
             BorderLayout layout = new BorderLayout();
             CreateEventFrame.setLayout(layout);
-            CreateEventFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            createElements(CreateEventFrame);
+            CreateEventFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            WindowListener exitListener = new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    int confirm = JOptionPane.showOptionDialog(
+                            null, "Are You Sure You Want To Exit?",
+                            "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (confirm == 0) {
+                        mainWindow.dispose();
+                        mainWindow.setVisible(false);
+                        menuWindow.setVisible(true);
+                    }
+                }
+            };
+            createElements(CreateEventFrame,menuWindow);
             CreateEventFrame.setResizable(true);
             CreateEventFrame.setLocationRelativeTo(null);
             CreateEventFrame.setVisible(true);
-
         }
 
     }
 
-    private void createElements(JFrame createEventFrame) {
+    private void createElements(JDialog createEventFrame,JFrame menuWindow) {
 
         JPanel centralPanel = new JPanel(new GridBagLayout());
         centralPanel.setSize(200, 200);
@@ -255,6 +263,7 @@ public class UC01UI extends JFrame {
             public void actionPerformed(ActionEvent e
             ) {
                 createEventFrame.dispose();
+                menuWindow.setVisible(true);
             }
         }
         );
@@ -268,13 +277,13 @@ public class UC01UI extends JFrame {
 
     private void createAddOrganiserGUI() {
 
-        JFrame addOrganisersFrame = new JFrame("UC01");
+        JFrame addOrganisersFrame = new JFrame("UC01 - Create Event");
         addOrganisersFrame.setSize(HEIGHT, WIDTH);
         BorderLayout layout = new BorderLayout();
         addOrganisersFrame.setLayout(layout);
-        addOrganisersFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addOrganisersFrame.add(new ADDorganisers(addOrganisersFrame, controller));
-        addOrganisersFrame.pack();
+        addOrganisersFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addOrganisersFrame.add(new ADDorganisers(addOrganisersFrame, controller), BorderLayout.CENTER);
+//        addOrganisersFrame.pack();
         addOrganisersFrame.setResizable(true);
         addOrganisersFrame.setLocationRelativeTo(null);
         addOrganisersFrame.setVisible(true);
@@ -283,11 +292,11 @@ public class UC01UI extends JFrame {
 
     private void createFinalConfirmationGUI() {
 
-        JFrame finalConfirmationFrame = new JFrame("UC01");
+        JDialog finalConfirmationFrame = new JDialog();
         finalConfirmationFrame.setSize(HEIGHT, WIDTH);
         BorderLayout layout = new BorderLayout();
         finalConfirmationFrame.setLayout(layout);
-        finalConfirmationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        finalConfirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         finalConfirmationFrame.add(createFinalConfirmationComponents(finalConfirmationFrame));
         finalConfirmationFrame.pack();
         finalConfirmationFrame.setResizable(true);
@@ -296,7 +305,7 @@ public class UC01UI extends JFrame {
 
     }
 
-    private JPanel createFinalConfirmationComponents(JFrame finalConfirmationFrame) {
+    private JPanel createFinalConfirmationComponents(JDialog finalConfirmationFrame) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints pos = new GridBagConstraints();
         JLabel eventInfoLabel = new JLabel(controller.getEventInfo());
@@ -349,40 +358,44 @@ public class UC01UI extends JFrame {
 
     private class ADDorganisers extends JPanel implements ListSelectionListener {
 
-        private JList list;
-        private DefaultListModel listModel;
+        private JList<String> list;
+        private JLabel nOrganizers;
+        private DefaultListModel<String> listModel;
         private ArrayList<User> users;
         private JButton addButton;
-
+        private int HEIGHT = 400;
+        private int WIDTH = 400;
         private int counter;
 
         public ADDorganisers(JFrame addOrganisersFrame, UC01Controller controller) {
             JPanel panel = new JPanel(new GridBagLayout());
+            panel.setSize(HEIGHT, WIDTH);
             GridBagConstraints pos = new GridBagConstraints();
-            counter = 0;
-            listModel = new DefaultListModel();
+            this.counter = 0;
+            listModel = new DefaultListModel<>();
             users = controller.getUsers();
             for (int i = 0; i < users.size(); i++) {
                 listModel.addElement(users.get(i).toString());
             }
 
-            list = new JList(listModel);
+            list = new JList<>(listModel);
             list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            list.setSelectedIndex(0);
+            list.setSelectedIndex(users.size());
             list.addListSelectionListener(this);
-            list.setVisibleRowCount(5);
+            list.setVisibleRowCount(10);
             JScrollPane listScrollPane = new JScrollPane(list);
+            listScrollPane.getViewport().setViewSize(new Dimension(200, 200));
             pos.gridx = 0;
             pos.gridy = 0;
-            add(listScrollPane, pos);
-            JLabel nOrganisers = new JLabel("Number of Organisers: " + counter);
-            pos.gridx = 3;
-            pos.gridy = 1;
-            panel.add(nOrganisers, pos);
+            panel.add(listScrollPane, pos);
+            nOrganizers = new JLabel("Number of Organizers: " + getCounter());
+            pos.gridx = 0;
+            pos.gridy = 2;
+            panel.add(nOrganizers, pos);
             JButton finishButton = new JButton("Finish");
             finishButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (counter >= 2) {
+                    if (getCounter() >= 2) {
                         addOrganisersFrame.dispose();
                         createFinalConfirmationGUI();
                     } else {
@@ -393,20 +406,21 @@ public class UC01UI extends JFrame {
                     }
                 }
             });
-            pos.gridx = 1;
+            pos.gridx = 0;
             pos.gridy = 1;
-            add(finishButton, pos);
-            addButton = new JButton("ADD");
+            panel.add(finishButton, pos);
+
+            addButton = new JButton("Add");
             addButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     int index = list.getSelectedIndex();
-                    listModel.remove(index);
-                    System.out.println(index);
                     controller.newOrganizer(users.get(index));
-                    counter++;
-                    nOrganisers.setText("Number of Organisers: " + counter);
+//                    System.out.println(index);  
+                    listModel.remove(index);
+                    list.remove(index);
+                    sum1ToCounter();
+                    nOrganizers.setText("Number of Organizers: " + getCounter());
                     int size = listModel.getSize();
-
                     if (size == 0) { //Nobody's left, disable adding organisers.
                         addButton.setEnabled(false);
 
@@ -421,9 +435,9 @@ public class UC01UI extends JFrame {
                     }
                 }
             });
-            pos.gridx = 0;
-            pos.gridy = 1;
-            add(addButton, pos);
+            pos.gridx = 1;
+            pos.gridy = 2;
+            panel.add(addButton, pos);
             JButton cancelButton = new JButton("Cancel");
             cancelButton.addActionListener(
                     new ActionListener() {
@@ -434,11 +448,10 @@ public class UC01UI extends JFrame {
                 }
             }
             );
-
-            pos.gridx = 2;
-            pos.gridy = 1;
-            add(cancelButton, pos);
-
+            pos.gridx = 1;
+            pos.gridy = 3;
+            panel.add(cancelButton, pos);
+            addOrganisersFrame.add(panel, BorderLayout.CENTER);
         }
 
         //This method is required by ListSelectionListener.
@@ -454,6 +467,14 @@ public class UC01UI extends JFrame {
                     addButton.setEnabled(true);
                 }
             }
+        }
+
+        public int sum1ToCounter() {
+            return this.counter + 1;
+        }
+
+        public int getCounter() {
+            return this.counter;
         }
 
     }

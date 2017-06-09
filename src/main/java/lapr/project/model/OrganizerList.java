@@ -21,7 +21,7 @@ public class OrganizerList {
     }
 
     public void addOrganizer(User user) {
-        organizerList.add(new Organizer(user));
+        this.organizerList.add(new Organizer(user));
     }
 
     public ArrayList<Organizer> getList() {

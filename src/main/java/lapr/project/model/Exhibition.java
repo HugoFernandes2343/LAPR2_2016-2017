@@ -23,10 +23,9 @@ public class Exhibition extends Event implements Serializable {
         super(title, description, place, startDate, endDate, applicationBegin, applicationEnd);
         this.eventType = EVENT_TYPE;
     }
-    
-    
-public String toString(){
-return String.format("Event type: %s%n", eventType)+super.toString();
-}
-        
+
+    public String toString() {
+        return String.format("Event type: %s%n", eventType) + super.toString();
+    }
+
 }

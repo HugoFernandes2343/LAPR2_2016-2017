@@ -7,7 +7,7 @@ package lapr.project.model;
 
 /**
  *
- * @author Hugo
+ * @author PC
  */
 public class Organizer {
 
@@ -20,4 +20,9 @@ public class Organizer {
     public String toString() {
         return user.toString();
     }
+
+    public User getUser() {
+        return this.user;
+    }
+
 }

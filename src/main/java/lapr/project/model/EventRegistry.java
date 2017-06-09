@@ -25,17 +25,33 @@ public class EventRegistry implements Serializable {
         this.exhibitionList = new ArrayList<>();
     }
 
-    public ArrayList<Event> getEventsByOrganizer() {
+    public ArrayList<Event> getEventsByOrganizer(User u) {
+        ArrayList<Event> allEvents = getAllEvents();
+        ArrayList<Event> validEvents = new ArrayList<>();
+        for (Event e : allEvents) {
+            if (e.getOrganizersList_UserRef().contains(u)) {
+                validEvents.add(e);
+            }
+        }
+        return validEvents;
+    }
+
+    public ArrayList<Event> getEventsNotFAEDefined(){
+        ArrayList<Event> allEvents = getAllEvents();
+        ArrayList<Event> validEvents = new ArrayList<>();
+        for (Event e : allEvents) {
+            if (e.validateEventStateCreated() == true) {
+                validEvents.add(e);
+            }
+        }
+        return validEvents;
+    }
+    
+    public ArrayList<Event> getAllEvents() {
         ArrayList<Event> allEvents = new ArrayList<>();
         allEvents.addAll(congressList);
         allEvents.addAll(exhibitionList);
-        for (Event e : allEvents) {
-            if (e.validateEventStateFAEDefined()) {
-                //A implementar
-            }
-
-        }
-        return null;
+        return allEvents;
     }
 
     public Event createEvent(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd, String eventType) {
