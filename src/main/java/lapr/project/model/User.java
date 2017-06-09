@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import lapr.project.utils.Encryption;
 
 /**
  *
@@ -21,6 +22,8 @@ public class User implements Serializable {
     private String name;
     private String language;
     private String timeZone;
+    private Encryption encryption;
+    private String keyword;
 
     private static String USERNAME_BY_OMISSION = "-";
     private static String EMAIL_BY_OMISSION = "-";
@@ -35,7 +38,8 @@ public class User implements Serializable {
      * @param language
      * @param timeZone
      */
-    public User(String username, String email, char[] password, String name, String language, String timeZone) {
+    public User(String username, String email, char[] password, String name, String language, String timeZone, String keyword) {
+        this.encryption = new Encryption(keyword);
         this.email = email;
         this.language = language;
         this.name = name;
