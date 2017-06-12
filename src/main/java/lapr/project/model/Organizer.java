@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.Arrays;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -25,7 +26,7 @@ public class Organizer {
     public Organizer() {
         //Avoiding xml conflicts
     }
-    
+
     public String toString() {
         return user.toString();
     }
@@ -34,4 +35,17 @@ public class Organizer {
         return this.user;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Organizer)) {
+            return false;
+        }
+
+        Organizer that = (Organizer) o;
+
+        return this.user.equals(that.user);
+
+    }
 }

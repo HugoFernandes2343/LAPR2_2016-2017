@@ -5,8 +5,8 @@
  */
 package lapr.project.ui;
 
-import lapr.project.controller.UC01Controller;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,66 +22,67 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import lapr.project.controller.UC01Controller;
 import lapr.project.model.FairCenter;
+import lapr.project.model.Organizer;
 import lapr.project.model.User;
 
 /**
  *
- * @author Hugo
+ * @author PC
  */
 @SuppressWarnings("serial")
-public class UC01UI extends JFrame {
+public class UC01UI extends JDialog {
 
-    private final JButton createButton = new JButton("Create");
-    private final JButton cancelButton = new JButton("Cancel");
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 600;
     private String eventType;
-    private final JDialog mainWindow = new JDialog();
 
     private UC01Controller controller;
 
-    public UC01UI(FairCenter fc, User user, JFrame menuWindow) {
-        CreateEventWindow Window = new CreateEventWindow(mainWindow, menuWindow);
-
-        controller = new UC01Controller(fc, user);
+    public UC01UI(FairCenter fc, User u, JFrame menuWindow) {
+        controller = new UC01Controller(fc, u);
+        this.setName("UC01 - Create Event");
+        this.createFrame(menuWindow);
+        this.pack();
     }
 
-    class CreateEventWindow extends JFrame {
-
-        private int HEIGHT = 600;
-        private int WIDTH = 250;
-
-        private CreateEventWindow(JDialog CreateEventFrame, JFrame menuWindow) {
-//            JFrame CreateEventFrame = new JFrame("UC01");
-            CreateEventFrame.setSize(HEIGHT, WIDTH);
-            BorderLayout layout = new BorderLayout();
-            CreateEventFrame.setLayout(layout);
-            CreateEventFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            WindowListener exitListener = new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    int confirm = JOptionPane.showOptionDialog(
-                            null, "Are You Sure You Want To Exit?",
-                            "Exit Confirmation", JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null, null, null);
-                    if (confirm == 0) {
-                        mainWindow.dispose();
-                        mainWindow.setVisible(false);
-                        menuWindow.setVisible(true);
-                    }
+    private void createFrame(JFrame menuWindow) {
+        setSize(WIDTH, HEIGHT);
+        BorderLayout layout = new BorderLayout();
+        setLayout(layout);
+        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        WindowListener exitListener = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(
+                        null, "Are You Sure You Want To Exit?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    dispose();
+                    setVisible(false);
+                    menuWindow.setVisible(true);
                 }
-            };
-            createElements(CreateEventFrame,menuWindow);
-            CreateEventFrame.setResizable(true);
-            CreateEventFrame.setLocationRelativeTo(null);
-            CreateEventFrame.setVisible(true);
-        }
-
+            }
+        };
+        addWindowListener(exitListener);
+        createElements(menuWindow);
+        setResizable(true);
+        setLocationRelativeTo(null);
     }
 
-    private void createElements(JDialog createEventFrame,JFrame menuWindow) {
+    private void createElements(JFrame menuWindow) {
+        JPanel allScreens = new JPanel(new CardLayout());
+        JPanel eventCreationScreen = new JPanel(new BorderLayout());
+        JPanel organizerSelectionScreen = new JPanel(new BorderLayout());
+        createEventScreen(eventCreationScreen, allScreens, menuWindow, organizerSelectionScreen);
+        allScreens.add(eventCreationScreen, "1");
+        allScreens.add(organizerSelectionScreen, "2");
+        add(allScreens, BorderLayout.CENTER);
+    }
 
+    private void createEventScreen(JPanel screen, JPanel allScreens, JFrame menuWindow, JPanel FAESelectionScreen) {
         JPanel centralPanel = new JPanel(new GridBagLayout());
         centralPanel.setSize(200, 200);
         GridBagConstraints pos = new GridBagConstraints();
@@ -218,6 +219,7 @@ public class UC01UI extends JFrame {
             }
 
         });
+        JButton createButton = new JButton("Create");
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -232,8 +234,9 @@ public class UC01UI extends JFrame {
                         Date applicationBegin = format.parse(applicationBeginField.getText());
                         Date applicationEnd = format.parse(applicationEndField.getText());
                         controller.createEvent(title, description, place, startDate, endDate, applicationBegin, applicationEnd, eventType);
-                        createEventFrame.dispose();
-                        createAddOrganiserGUI();
+                        createFAESelectionScreen(FAESelectionScreen, menuWindow);
+                        CardLayout cl = (CardLayout) (allScreens.getLayout());
+                        cl.show(allScreens, "2");//USE a string with a number and its solved 
                     } catch (ParseException ex) {
                         System.out.println(ex.getMessage());
                         JOptionPane.showMessageDialog(UC01UI.this,
@@ -257,12 +260,13 @@ public class UC01UI extends JFrame {
 
         centralPanel.add(createButton, pos);
 
+        JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e
             ) {
-                createEventFrame.dispose();
+                dispose();
                 menuWindow.setVisible(true);
             }
         }
@@ -271,212 +275,89 @@ public class UC01UI extends JFrame {
         pos.gridy = 4;
 
         centralPanel.add(cancelButton, pos);
-
-        createEventFrame.add(centralPanel);
+        screen.add(centralPanel, BorderLayout.PAGE_START);
     }
 
-    private void createAddOrganiserGUI() {
+    private void createFAESelectionScreen(JPanel organizerSelectionScreen, JFrame menuWindow) {//Format not good
+        JPanel organizerSelectionBox = new JPanel(new BorderLayout());
+        organizerSelectionBox.add(new JLabel("Select the desired organizerss (allows several):"), BorderLayout.PAGE_START);
 
-        JFrame addOrganisersFrame = new JFrame("UC01 - Create Event");
-        addOrganisersFrame.setSize(HEIGHT, WIDTH);
-        BorderLayout layout = new BorderLayout();
-        addOrganisersFrame.setLayout(layout);
-        addOrganisersFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        addOrganisersFrame.add(new ADDorganisers(addOrganisersFrame, controller), BorderLayout.CENTER);
-//        addOrganisersFrame.pack();
-        addOrganisersFrame.setResizable(true);
-        addOrganisersFrame.setLocationRelativeTo(null);
-        addOrganisersFrame.setVisible(true);
+        ArrayList<User> allUsers = controller.getUsers();
+        String[] listPresentableOrganizers = new String[allUsers.size()];
+        for (int i = 0; i < allUsers.size(); i++) {
+            listPresentableOrganizers[i] = allUsers.get(i).toInfoString();
+        }
+        JList<String> organizerList = new JList<>(listPresentableOrganizers);
+        organizerList.setSize(new Dimension(100, 150));
+        JScrollPane listScroller = new JScrollPane(organizerList);
+        listScroller.setPreferredSize(new Dimension(100, 150));
 
-    }
+        JPanel organizerSelectionButtonPanel = new JPanel();
+        JButton selectOrganizerButton = new JButton("Add Selection(s)");
+        JButton cancelOrganizerSelection = new JButton("Cancel");
+        JButton finishOrganizerSelection = new JButton("Finish");
 
-    private void createFinalConfirmationGUI() {
-
-        JDialog finalConfirmationFrame = new JDialog();
-        finalConfirmationFrame.setSize(HEIGHT, WIDTH);
-        BorderLayout layout = new BorderLayout();
-        finalConfirmationFrame.setLayout(layout);
-        finalConfirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        finalConfirmationFrame.add(createFinalConfirmationComponents(finalConfirmationFrame));
-        finalConfirmationFrame.pack();
-        finalConfirmationFrame.setResizable(true);
-        finalConfirmationFrame.setLocationRelativeTo(null);
-        finalConfirmationFrame.setVisible(true);
-
-    }
-
-    private JPanel createFinalConfirmationComponents(JDialog finalConfirmationFrame) {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints pos = new GridBagConstraints();
-        JLabel eventInfoLabel = new JLabel(controller.getEventInfo());
-        pos.gridx = 0;
-        pos.gridy = 0;
-        panel.add(eventInfoLabel, pos);
-        JLabel organiserInfoLabel = new JLabel(controller.getOrganizerInfo());
-        pos.gridx = 1;
-        pos.gridy = 0;
-        panel.add(organiserInfoLabel, pos);
-        JButton confirmButton = new JButton("Confirm");
-        confirmButton.addActionListener(
-                new ActionListener() {
+        finishOrganizerSelection.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e
-            ) {
-                if (controller.registerEvent()) {
-                    JOptionPane.showMessageDialog(UC01UI.this,
-                            "Operation successfull.",
-                            "Event creation status",
-                            JOptionPane.INFORMATION_MESSAGE);
+            public void actionPerformed(ActionEvent ae) {
+                if (controller.getNumberOfOrganizers() >= 2) {
+                    int confirm = JOptionPane.showOptionDialog(
+                            null, "Are You Sure ?",
+                            "Selection Confirmation", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (confirm == 0) {
+                        controller.registerEvent();
+                        dispose();
+                        setVisible(false);
+                        menuWindow.setVisible(true);
+                    } else {
+                        dispose();
+                        setVisible(false);
+                        menuWindow.setVisible(true);
+                    }
                 } else {
-
                     JOptionPane.showMessageDialog(UC01UI.this,
-                            "Operation unsuccessfull.",
-                            "Event creation status",
+                            "Missing Organizers. You need at least 2 Organizers.",
+                            "Event creation error",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
-        );
-        pos.gridx = 0;
-        pos.gridy = 1;
-        panel.add(confirmButton, pos);
-        JButton cancelButton = new JButton("Cancel");
-        confirmButton.addActionListener(
-                new ActionListener() {
+        });
+
+        cancelOrganizerSelection.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e
-            ) {
-                finalConfirmationFrame.dispose();
-            }
-        }
-        );
-        pos.gridx = 1;
-        pos.gridy = 1;
-        panel.add(cancelButton, pos);
-        return panel;
-    }
-
-    private class ADDorganisers extends JPanel implements ListSelectionListener {
-
-        private JList<String> list;
-        private JLabel nOrganizers;
-        private DefaultListModel<String> listModel;
-        private ArrayList<User> users;
-        private JButton addButton;
-        private int HEIGHT = 400;
-        private int WIDTH = 400;
-        private int counter;
-
-        public ADDorganisers(JFrame addOrganisersFrame, UC01Controller controller) {
-            JPanel panel = new JPanel(new GridBagLayout());
-            panel.setSize(HEIGHT, WIDTH);
-            GridBagConstraints pos = new GridBagConstraints();
-            this.counter = 0;
-            listModel = new DefaultListModel<>();
-            users = controller.getUsers();
-            for (int i = 0; i < users.size(); i++) {
-                listModel.addElement(users.get(i).toString());
+            public void actionPerformed(ActionEvent ae) {
+                dispose();
+                setVisible(false);
+                menuWindow.setVisible(true);
             }
 
-            list = new JList<>(listModel);
-            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            list.setSelectedIndex(users.size());
-            list.addListSelectionListener(this);
-            list.setVisibleRowCount(10);
-            JScrollPane listScrollPane = new JScrollPane(list);
-            listScrollPane.getViewport().setViewSize(new Dimension(200, 200));
-            pos.gridx = 0;
-            pos.gridy = 0;
-            panel.add(listScrollPane, pos);
-            nOrganizers = new JLabel("Number of Organizers: " + getCounter());
-            pos.gridx = 0;
-            pos.gridy = 2;
-            panel.add(nOrganizers, pos);
-            JButton finishButton = new JButton("Finish");
-            finishButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (getCounter() >= 2) {
-                        addOrganisersFrame.dispose();
-                        createFinalConfirmationGUI();
+        });
+
+        selectOrganizerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int[] selection = organizerList.getSelectedIndices();
+                for (int i : selection) {
+                    if (controller.validateOrganizer(allUsers.get(i))) {
+                        controller.newOrganizer(allUsers.get(i));
                     } else {
                         JOptionPane.showMessageDialog(UC01UI.this,
-                                "Need more organizers.",
-                                "Organizers error",
+                                "You have already defined this organizer. Please choose another.",
+                                "Event creation error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            });
-            pos.gridx = 0;
-            pos.gridy = 1;
-            panel.add(finishButton, pos);
-
-            addButton = new JButton("Add");
-            addButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    int index = list.getSelectedIndex();
-                    controller.newOrganizer(users.get(index));
-//                    System.out.println(index);  
-                    listModel.remove(index);
-                    list.remove(index);
-                    sum1ToCounter();
-                    nOrganizers.setText("Number of Organizers: " + getCounter());
-                    int size = listModel.getSize();
-                    if (size == 0) { //Nobody's left, disable adding organisers.
-                        addButton.setEnabled(false);
-
-                    } else { //Select an index.
-                        if (index == listModel.getSize()) {
-                            //removed item in last position
-                            index--;
-                        }
-
-                        list.setSelectedIndex(index);
-                        list.ensureIndexIsVisible(index);
-                    }
-                }
-            });
-            pos.gridx = 1;
-            pos.gridy = 2;
-            panel.add(addButton, pos);
-            JButton cancelButton = new JButton("Cancel");
-            cancelButton.addActionListener(
-                    new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e
-                ) {
-                    addOrganisersFrame.dispose();
-                }
             }
-            );
-            pos.gridx = 1;
-            pos.gridy = 3;
-            panel.add(cancelButton, pos);
-            addOrganisersFrame.add(panel, BorderLayout.CENTER);
-        }
 
-        //This method is required by ListSelectionListener.
-        public void valueChanged(ListSelectionEvent e) {
-            if (e.getValueIsAdjusting() == false) {
+        });
 
-                if (list.getSelectedIndex() == -1) {
-                    //No selection, disable fire button.
-                    addButton.setEnabled(false);
-
-                } else {
-                    //Selection, enable the fire button.
-                    addButton.setEnabled(true);
-                }
-            }
-        }
-
-        public int sum1ToCounter() {
-            return this.counter + 1;
-        }
-
-        public int getCounter() {
-            return this.counter;
-        }
-
+        organizerSelectionButtonPanel.add(selectOrganizerButton);
+        organizerSelectionButtonPanel.add(finishOrganizerSelection);
+        organizerSelectionButtonPanel.add(cancelOrganizerSelection);
+        organizerSelectionBox.add(organizerList, BorderLayout.CENTER);
+        organizerSelectionScreen.add(organizerSelectionButtonPanel, BorderLayout.PAGE_END);
+        organizerSelectionScreen.add(organizerSelectionBox, BorderLayout.CENTER);
     }
 
 }

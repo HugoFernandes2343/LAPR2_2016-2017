@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.Encryption;
 
@@ -31,8 +32,6 @@ public class User {
     private String timeZone;
     @XmlElement
     private Encryption encryption;
-    @XmlElement
-    private String keyword;
 
     private static String USERNAME_BY_OMISSION = "-";
     private static String EMAIL_BY_OMISSION = "-";
@@ -172,5 +171,36 @@ public class User {
     public String toString() {
         return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email, String.valueOf(password));
     }
+@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof User)) {
+			return false;
+		}
 
+		User that = (User) o;
+
+		if (!name.equals(that.name)) {
+			return false;
+		}
+		if (!email.equals(that.email)) {
+			return false;
+		}
+		if (!username.equals(that.username)) {
+			return false;
+		}
+		return Arrays.equals(password, that.password);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name.hashCode();
+		result = 31 * result + email.hashCode();
+		result = 31 * result + username.hashCode();
+		result = 31 * result + Arrays.hashCode(password);
+		return result;
+	}
 }

@@ -38,4 +38,9 @@ public class UserRegistry {
         return usersList;
     }
 
+    public boolean registerUser(User user) {
+        usersList.add(user);
+        return true;
+     }
+
 }

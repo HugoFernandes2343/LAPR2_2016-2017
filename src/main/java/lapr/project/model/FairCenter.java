@@ -63,4 +63,8 @@ public class FairCenter {
         return eventRegistry.registerEvent(event);
     }
 
+    public boolean registerUser(User user) {
+        return confirmedUsers.registerUser(user);
+    }
+
 }

@@ -23,9 +23,10 @@ public class UC01Controller {
 
     private Event event;
     private FairCenter fc;
-    private OrganizerList organizerList;
+    private ArrayList<Organizer> organizerList;
 
     public UC01Controller(FairCenter fc, User user) {
+        organizerList = new ArrayList<>();
         this.fc = fc;
     }
 
@@ -41,7 +42,7 @@ public class UC01Controller {
     }
 
     public void newOrganizer(User user) {
-        organizerList.addOrganizer(user);
+        organizerList.add(new Organizer(user));
         event.addOrganizer(user);
     }
 
@@ -49,17 +50,23 @@ public class UC01Controller {
         return event.toString();
     }
 
-    public String getOrganizerInfo() {
-        String organizersInfo = "";
-        ArrayList<Organizer> organizers = organizerList.getList();
-        for (int i = 0; i < organizers.size(); i++) {
-            organizersInfo = organizersInfo + organizers.get(i).toString();
-        }
-        return organizersInfo;
+    public int getNumberOfOrganizers() {
+        return organizerList.size();
     }
 
     public boolean registerEvent() {
         return fc.registerEvent(event);
+    }
+
+    public boolean validateOrganizer(User user) {
+        Organizer organizer = new Organizer(user);
+        for (int i = 0; i < organizerList.size(); i++) {
+            if (organizerList.get(i).equals(organizer)) {
+                return false;
+            }
+
+        }
+        return true;
     }
 
 }
