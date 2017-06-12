@@ -5,18 +5,25 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.FAEState;
 
 /**
  *
  * @author PC
  */
+@XmlRootElement
 public class FAECreatedState implements FAEState {
 
+    @XmlTransient
     public FAE fae;
 
     public FAECreatedState(FAE fae) {
         this.fae = fae;
+    }
+
+    public FAECreatedState() {
+        //Avoiding xml conflicts
     }
 
     @Override

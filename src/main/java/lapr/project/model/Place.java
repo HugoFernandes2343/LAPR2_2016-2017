@@ -6,19 +6,25 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author Hugo
  */
-public class Place implements Serializable {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Place {
     
-    private static final long serialVersionUID = 1L;
-
+    @XmlElement
     private String localName;
 
     public Place(String localName) {
         this.localName = localName;
+    }
+    
+    public Place(){
+        
     }
     
     public String toString(){

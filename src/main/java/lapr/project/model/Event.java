@@ -5,29 +5,38 @@
  */
 package lapr.project.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
 /**
  *
  * @author PC
  */
-public abstract class Event implements Serializable {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public abstract class Event {
 
-    private static final long serialVersionUID = 1L;
-
+    @XmlElement
     private EventState state;
-
+    @XmlElement
     private String title;
+    @XmlElement
     private String description;
+    @XmlElement
     private Place place;
+    @XmlElement
     private Date startDate;
+    @XmlElement
     private Date endDate;
+    @XmlElement
     private Date applicationBegin;
+    @XmlElement
     private Date applicationEnd;
+    @XmlElement
     private OrganizerList organizerList;
+    @XmlElement
     private FAEList FaeList;
 
     public Event(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
@@ -43,6 +52,11 @@ public abstract class Event implements Serializable {
         setState(new EventCreatedState(this));
     }
 
+    
+    public Event(){
+        //to avoid xml conflicts
+    }
+    
     /**
      * Return a user list of all the users who are organizers in the event
      *
@@ -105,8 +119,8 @@ public abstract class Event implements Serializable {
     public void registerFAEs() {
         this.FaeList.registerFAEs();
     }
-    
-    public void discardFAEs(){
+
+    public void discardFAEs() {
         this.FaeList.discardFAE();
     }
 

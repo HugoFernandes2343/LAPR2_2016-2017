@@ -5,7 +5,6 @@
  */
 package lapr.project.controller;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import lapr.project.model.Event;
 import lapr.project.model.EventRegistry;
@@ -17,13 +16,11 @@ import lapr.project.model.UserRegistry;
  *
  * @author PC
  */
-public class UC02Controller implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UC02Controller {
 
     private User user;
     private FairCenter fc;
-    public Event selectedEvent;
+    public  Event selectedEvent;
 
     public UC02Controller(FairCenter fc, User u) {
         this.user = u;
@@ -44,7 +41,7 @@ public class UC02Controller implements Serializable {
     }
 
     public ArrayList<User> getUsersList() {
-        UserRegistry ur = fc.getUserRegistry();
+        UserRegistry ur = fc.getConfirmedUsers();
         ArrayList<User> userList = ur.getUsersList();
         return userList;
     }

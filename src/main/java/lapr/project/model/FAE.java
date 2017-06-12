@@ -5,26 +5,32 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.FAEState;
 
 /**
  *
  * @author PC
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FAE {
 
+    @XmlElement
     private FAEState state;
 
-    private final User u;
+    @XmlElement
+    private User u;
 
     public FAE(User u) {
         setState(new FAECreatedState(this));
         this.u = u;
     }
 
-//    public FAE(){
-//        this.state= new FAECreatedState();
-//    }
+    public FAE() {
+        //to avoid xml conflicts
+    }
+
     public User getUser() {
         return this.u;
     }
@@ -33,8 +39,8 @@ public class FAE {
         this.state = state;
     }
 
-    public FAEState getState() {
-        return this.state;
+    public FAEState getFAEState() {
+        return state;
     }
 
     public void valida() {

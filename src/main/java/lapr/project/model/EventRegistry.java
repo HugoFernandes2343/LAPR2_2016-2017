@@ -8,16 +8,19 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author PC
  */
-public class EventRegistry implements Serializable {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class EventRegistry {
 
-    private static final long serialVersionUID = 1L;
-
+    @XmlElement
     private ArrayList<Congress> congressList;
+    @XmlElement
     private ArrayList<Exhibition> exhibitionList;
 
     public EventRegistry() {

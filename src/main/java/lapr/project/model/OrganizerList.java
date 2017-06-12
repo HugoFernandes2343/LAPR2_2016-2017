@@ -6,13 +6,17 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author Hugo
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OrganizerList {
 
+    @XmlElement
     private ArrayList<Organizer> organizerList;
 
     public OrganizerList() {
@@ -27,6 +31,5 @@ public class OrganizerList {
     public ArrayList<Organizer> getList() {
         return organizerList;
     }
-    
- 
+
 }

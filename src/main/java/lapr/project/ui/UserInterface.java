@@ -5,6 +5,8 @@
  */
 package lapr.project.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import lapr.project.model.FairCenter;
 
@@ -15,13 +17,21 @@ import lapr.project.model.FairCenter;
 @SuppressWarnings("serial")
 public class UserInterface extends JFrame {
 
-//    public UserInterface(FairCenter fc) {
-//        MainMenu menu = new MainMenu(fc);
-//        menu.setActiveUser();
-//    }
-
-
     public UserInterface(FairCenter fc){
+        //SetLookAndFeel
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //CreateUI
         LoginUI loginUI = new LoginUI(fc);
     }
 }

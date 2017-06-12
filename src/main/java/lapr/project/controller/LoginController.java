@@ -5,7 +5,6 @@
  */
 package lapr.project.controller;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import lapr.project.model.FairCenter;
@@ -15,9 +14,8 @@ import lapr.project.model.User;
  *
  * @author PC
  */
-public class LoginController implements Serializable {
+public class LoginController {
 
-    private static final long serialVersionUID = 1L;
     /**
      *
      */
@@ -66,7 +64,7 @@ public class LoginController implements Serializable {
      */
     public boolean authenticate(String ID, char[] password) {
         ArrayList<User> usersList;
-        usersList = fairCenter.getUserRegistry().getUsersList();//Still dont know how to implement encryption without hash
+        usersList = fairCenter.getConfirmedUsers().getUsersList();//Still dont know how to implement encryption without hash
         for (User u : usersList) {
             if (checkID(u, ID) == true && checkPassword(u, password) == true) {
                 user = u;

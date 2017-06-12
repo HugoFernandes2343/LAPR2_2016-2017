@@ -5,10 +5,16 @@
  */
 package lapr.project.utils;
 
+import javax.xml.bind.annotation.*;
+import lapr.project.model.*;
+
+
 /**
  *
  * @author PC
  */
+@XmlTransient
+@XmlSeeAlso({EventCreatedState.class,EventDefinedFAEState.class})//Add the rest
 public interface EventState {
     
     public boolean validate();

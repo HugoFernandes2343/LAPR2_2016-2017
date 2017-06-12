@@ -6,23 +6,35 @@
 package lapr.project.utils;
 
 import java.util.Random;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author Hugo
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Encryption {
 
     private String keyword;
     private char[] decryptKey;
     private int shift;
-    private final char[] characterKey = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.', ';', ':', '-', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '};
+    private final char[] characterKey = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+        'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ',', '.', ';', ':', '-', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+        'W', 'X', 'Y', 'Z', ' '};
 
     public Encryption(String keyword) {
         Random rn = new Random();
         this.keyword = keyword;
         this.shift = rn.nextInt(68);
         this.decryptKey = createDecryptKeyword();
+    }
+
+    public Encryption() {
+        //Avoiding xml conflicts
     }
 
     public String encrypt(String word) {
@@ -206,7 +218,7 @@ public class Encryption {
         char[] keywordByChar = keyword.toCharArray();
         char[] DecryptKey = new char[keywordByChar.length];
         for (int i = 0; i < DecryptKey.length; i++) {
-            String n=Integer.toString(decryptKeyPosition);
+            String n = Integer.toString(decryptKeyPosition);
             DecryptKey[i] = n.charAt(0);
             decryptKeyPosition++;
         }

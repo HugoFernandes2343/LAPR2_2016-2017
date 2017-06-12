@@ -5,18 +5,27 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
+
 /**
  *
  * @author PC
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organizer {
 
+    @XmlElement
     private User user;
 
     public Organizer(User user) {
         this.user = user;
     }
 
+    public Organizer() {
+        //Avoiding xml conflicts
+    }
+    
     public String toString() {
         return user.toString();
     }

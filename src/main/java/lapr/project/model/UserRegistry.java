@@ -7,18 +7,20 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author PC
  */
-public class UserRegistry implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class UserRegistry {
 
     /**
      *
      */
+    @XmlElement
     private ArrayList<User> usersList;
     
         /**

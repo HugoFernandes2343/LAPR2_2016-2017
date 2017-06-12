@@ -6,23 +6,32 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.Encryption;
 
 /**
  *
  * @author PC
  */
-public class User implements Serializable {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)//Usar isto para aceder a private atributtes senao tenho de dar @XmlElement a todos os getters
+public class User {
 
-    private static final long serialVersionUID = 1L;
-
+    @XmlElement
     private String username;
+    @XmlElement
     private String email;
+    @XmlElementWrapper(name="password")
     private char[] password;
+    @XmlElement
     private String name;
+    @XmlElement
     private String language;
+    @XmlElement
     private String timeZone;
+    @XmlElement
     private Encryption encryption;
+    @XmlElement
     private String keyword;
 
     private static String USERNAME_BY_OMISSION = "-";
@@ -56,8 +65,8 @@ public class User implements Serializable {
      * @param name
      * @param keyword
      */
-    public User(String ID, char[] password, String name,String keyword) {
-        this.encryption=new Encryption(keyword);
+    public User(String ID, char[] password, String name, String keyword) {
+        this.encryption = new Encryption(keyword);
         if (ID.contains("@")) {
             this.email = ID;
             this.username = USERNAME_BY_OMISSION;
@@ -69,13 +78,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-//    /**
-//     *
-//     * @param nome
-//     */
-//    private void setNome(String nome) {
-//        this.name = nome;
-//    }
+    
+    public User(){
+        //to avoid xml conflicts
+    }
+    
 
     /**
      *
@@ -137,32 +144,33 @@ public class User implements Serializable {
      *
      * @param lang
      */
-    public void setLanguage(String lang) {
+    public void setCurrentLanguage(String lang) {
         this.language = lang;
     }
 
     /**
      *
-     * @param timeZone
+     * @param timezone
      */
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
+    public void setTimezone(String timezone) {
+        this.timeZone = timezone;
     }
-    
-    public String getLanguage(){
-        return this.language;
+
+    public String getCurrentLanguage() {
+        return language;
     }
-    
-    public String getTimeZone(){
-        return this.timeZone;
+
+    public String getTimezone() {
+        return timeZone;
     }
-    
-    public String toInfoString(){
+
+    public String toInfoString() {
         return String.format("Name: %s%nEmail: %s%n", name, email);
     }
-    
+
     @Override
     public String toString() {
-        return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email,String.valueOf(password));
+        return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email, String.valueOf(password));
     }
+
 }

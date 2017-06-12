@@ -50,7 +50,7 @@ public class FAETest {
         System.out.println("valida");
         FAE instance = new FAE(u);
         instance.valida();
-        assertNotNull(instance.getState());
+        assertNotNull(instance.getFAEState());
     }
     
 }

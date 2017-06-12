@@ -9,9 +9,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
@@ -93,6 +93,58 @@ public class MainMenu implements MainMenuElements {
                 menuWindow.setVisible(false);
                 UC02UI uc02ui = new UC02UI(fc, user, menuWindow);
                 uc02ui.setVisible(true);
+            }
+        });
+
+        UC03Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuWindow,
+                        "Not implemented",
+                        "Assign Application",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        //Add
+        
+        UC07Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuWindow,
+                        "Not implemented",
+                        "Assign Application",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        UC08Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuWindow,
+                        "Not implemented",
+                        "Assign Application",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        UC09Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuWindow,
+                        "Not implemented",
+                        "Assign Application",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        UC10Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(menuWindow,
+                        "Not implemented",
+                        "Assign Application",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
     }

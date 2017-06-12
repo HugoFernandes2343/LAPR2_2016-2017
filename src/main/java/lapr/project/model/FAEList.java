@@ -6,13 +6,17 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author PC
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FAEList {
 
+    @XmlElement
     private ArrayList<FAE> FaeList;
     private ArrayList<FAE> tempList;
     private FAE temp;

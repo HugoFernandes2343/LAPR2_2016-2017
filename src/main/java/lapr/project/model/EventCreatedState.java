@@ -5,18 +5,25 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
 /**
  *
  * @author PC
  */
+@XmlRootElement
 public class EventCreatedState implements EventState {
 
+    @XmlTransient
     public Event e;
 
     public EventCreatedState(Event e) {
         this.e = e;
+    }
+
+    public EventCreatedState() {
+        //Avoiding xml conflicts
     }
 
     @Override
@@ -26,10 +33,10 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean setEventDefinedFAEState() {
-        if(validate()){
+        if (validate()) {
             e.setState(new EventDefinedFAEState(e));
             return true;
-        }else{
+        } else {
             return false;
         }
     }

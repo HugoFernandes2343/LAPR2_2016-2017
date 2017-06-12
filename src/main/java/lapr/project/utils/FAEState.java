@@ -5,10 +5,17 @@
  */
 package lapr.project.utils;
 
+import javax.xml.bind.annotation.*;
+import lapr.project.model.FAECreatedState;
+import lapr.project.model.FAEDefinedState;
+
+
 /**
  *
  * @author PC
  */
+@XmlTransient
+@XmlSeeAlso({FAECreatedState.class,FAEDefinedState.class})
 public interface FAEState {
     
     public boolean validate();

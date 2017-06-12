@@ -18,9 +18,8 @@ import lapr.project.model.FairCenter;
  *
  * @author PC
  */
+@SuppressWarnings("serial")
 public class LoginUI extends JFrame {
-
-    private static final long serialVersionUID = 1L;
     
     private final JButton loginButton = new JButton("Login");
     private final JButton cancelButton = new JButton("Cancel");

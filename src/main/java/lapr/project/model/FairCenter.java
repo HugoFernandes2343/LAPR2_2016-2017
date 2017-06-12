@@ -6,39 +6,49 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author PC
  */
-public class FairCenter implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class FairCenter {
 
     /**
      *
      */
+    @XmlElement
     private EventRegistry eventRegistry;
 
     /**
      *
      */
-    private UserRegistry userRegistry;
+    @XmlElement
+    private UserRegistry confirmedUsers;
+
+    /**
+     *
+     */
+    @XmlElement
+    private UserRegistry unconfirmedUsers;
 
     /**
      *
      */
     public FairCenter() {//Add Params , nome?, local?
-        userRegistry = new UserRegistry();
+        confirmedUsers = new UserRegistry();
         eventRegistry = new EventRegistry();
+        unconfirmedUsers = new UserRegistry();
     }
-    
-        /**
+
+    /**
      *
      * @return
      */
-    public UserRegistry getUserRegistry() {
-        return userRegistry;
+    public UserRegistry getConfirmedUsers() {
+        return confirmedUsers;
     }
 
     /**

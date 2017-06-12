@@ -35,7 +35,7 @@ public class UC01Controller {
     }
 
     public ArrayList<User> getUsers() {
-        UserRegistry userList = fc.getUserRegistry();
+        UserRegistry userList = fc.getConfirmedUsers();
         ArrayList<User> users = userList.getUsersList();
         return users;
     }
