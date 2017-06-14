@@ -37,10 +37,18 @@ public class FairCenter {
     /**
      *
      */
+    @XmlElement
+    private EventManagerRegistry eventManagers;
+
+    /**
+     *
+     */
     public FairCenter() {//Add Params , nome?, local?
         confirmedUsers = new UserRegistry();
         eventRegistry = new EventRegistry();
         unconfirmedUsers = new UserRegistry();
+        eventManagers = new EventManagerRegistry();
+
     }
 
     /**
@@ -63,8 +71,20 @@ public class FairCenter {
         return eventRegistry.registerEvent(event);
     }
 
+    /**
+     *
+     * @return
+     */
+    public EventManagerRegistry getEventManagerRegistry() {
+        return eventManagers;
+    }
+
     public boolean registerUser(User user) {
         return confirmedUsers.registerUser(user);
+    }
+
+    public void exportData() {
+        //Todo
     }
 
 }

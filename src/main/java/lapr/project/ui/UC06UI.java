@@ -186,10 +186,10 @@ public class UC06UI extends JFrame {
                 String name = nameField.getText();
                 String username = usernameField.getText();
                 String email = emailField.getText();
-                char[] password = passwordField.getPassword();
-                char[] confirmPassword = confirmPasswordField.getPassword();
+                String password = new String(passwordField.getPassword());
+                String confirmPassword = new String(confirmPasswordField.getPassword());
                 String keyword = keywordField.getText();
-                if (name.equals("") || username.equals("") || email.equals("") || password.length <= 0 || confirmPassword.length <= 0 || keyword.equals("")) {
+                if (name.equals("") || username.equals("") || email.equals("") || password.length() <= 0 || confirmPassword.length() <= 0 || keyword.equals("")) {
                     JOptionPane.showMessageDialog(UC06UI.this,
                             "Missing data. Please check.",
                             "Missing data error",
@@ -257,14 +257,14 @@ public class UC06UI extends JFrame {
         add(centralPanel);
     }
 
-    private boolean checkPassword(char[] password, char[] passwordCheck) {
-        if (!Arrays.equals(password, passwordCheck)) {
+    private boolean checkPassword(String password, String passwordCheck) {
+        if (!password.equals(passwordCheck)) {
             return false;
         }
-        if (checkIfPasswordContaisOneOfTheCharacters(password, UPPER_CASES)
-                && checkIfPasswordContaisOneOfTheCharacters(password, LOWER_CASES)
-                && checkIfPasswordContaisOneOfTheCharacters(password, NUMBER)
-                && checkIfPasswordContaisOneOfTheCharacters(password, PUNCTUATION_MARK)) {
+        if (checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), UPPER_CASES)
+                && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), LOWER_CASES)
+                && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), NUMBER)
+                && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), PUNCTUATION_MARK)) {
             return true;
         }
         return false;

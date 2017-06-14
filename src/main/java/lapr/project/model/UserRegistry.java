@@ -20,8 +20,10 @@ public class UserRegistry {
     /**
      *
      */
-    @XmlElement
+    @XmlElementWrapper
+    @XmlElement(name="user")
     private ArrayList<User> usersList;
+
     
         /**
      * 

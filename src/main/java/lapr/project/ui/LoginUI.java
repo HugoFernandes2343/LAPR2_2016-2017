@@ -77,7 +77,7 @@ public class LoginUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userIDTemp = userIdentification.getText();
-                char[] userPasswordTemp = userPasswordField.getPassword();
+                String userPasswordTemp = new String(userPasswordField.getPassword());
                 if (loginController.authenticate(userIDTemp, userPasswordTemp) == true) {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();

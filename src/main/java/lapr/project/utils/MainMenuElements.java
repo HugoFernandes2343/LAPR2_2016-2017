@@ -32,4 +32,5 @@ public interface MainMenuElements {
     //30 Export data
     //31 Import data
     public JButton UC40Button = new JButton("Show Event Submission Keywords");
+    public JButton SaveButton = new JButton("Save Data");
 }

@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -35,6 +36,7 @@ public class Organizer {
         return this.user;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -47,5 +49,12 @@ public class Organizer {
 
         return this.user.equals(that.user);
 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.user);
+        return hash;
     }
 }

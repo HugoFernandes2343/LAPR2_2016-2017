@@ -22,8 +22,8 @@ public class User {
     private String username;
     @XmlElement
     private String email;
-    @XmlElementWrapper(name="password")
-    private char[] password;
+    @XmlElement
+    private String password;
     @XmlElement
     private String name;
     @XmlElement
@@ -32,6 +32,8 @@ public class User {
     private String timeZone;
     @XmlElement
     private Encryption encryption;
+    @XmlElement
+    private String keyword;
 
     private static String USERNAME_BY_OMISSION = "-";
     private static String EMAIL_BY_OMISSION = "-";
@@ -47,7 +49,7 @@ public class User {
      * @param timeZone
      * @param keyword
      */
-    public User(String username, String email, char[] password, String name, String language, String timeZone, String keyword) {
+    public User(String username, String email, String password, String name, String language, String timeZone, String keyword) {
         this.encryption = new Encryption(keyword);
         this.email = email;
         this.language = language;
@@ -64,7 +66,7 @@ public class User {
      * @param name
      * @param keyword
      */
-    public User(String ID, char[] password, String name, String keyword) {
+    public User(String ID, String password, String name, String keyword) {
         this.encryption = new Encryption(keyword);
         if (ID.contains("@")) {
             this.email = ID;
@@ -77,11 +79,9 @@ public class User {
         this.name = name;
     }
 
-    
-    public User(){
+    public User() {
         //to avoid xml conflicts
     }
-    
 
     /**
      *
@@ -127,7 +127,7 @@ public class User {
      *
      * @param pwd
      */
-    private void setPassword(char[] pwd) {
+    private void setPassword(String pwd) {
         this.password = pwd;
     }
 
@@ -135,7 +135,7 @@ public class User {
      *
      * @return
      */
-    public char[] getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -171,36 +171,37 @@ public class User {
     public String toString() {
         return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email, String.valueOf(password));
     }
-@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof User)) {
-			return false;
-		}
 
-		User that = (User) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
 
-		if (!name.equals(that.name)) {
-			return false;
-		}
-		if (!email.equals(that.email)) {
-			return false;
-		}
-		if (!username.equals(that.username)) {
-			return false;
-		}
-		return Arrays.equals(password, that.password);
+        User that = (User) o;
 
-	}
+        if (!name.equals(that.name)) {
+            return false;
+        }
+        if (!email.equals(that.email)) {
+            return false;
+        }
+        if (!username.equals(that.username)) {
+            return false;
+        }
+        return this.password.equals(that.getPassword());
 
-	@Override
-	public int hashCode() {
-		int result = name.hashCode();
-		result = 31 * result + email.hashCode();
-		result = 31 * result + username.hashCode();
-		result = 31 * result + Arrays.hashCode(password);
-		return result;
-	}
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + username.hashCode();
+        result = 31 * result + password.hashCode();
+        return result;
+    }
 }

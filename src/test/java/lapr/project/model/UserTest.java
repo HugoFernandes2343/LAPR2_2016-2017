@@ -24,7 +24,7 @@ import org.w3c.dom.Node;
  */
 public class UserTest {
 
-    private User u = new User("testUserName","test@Email","testPassword".toCharArray(),"testName","portuguese","GMT+1","key");
+    private User u = new User("testUserName","test@Email","testPassword","testName","portuguese","GMT+1","key");
     /**
      * Test of getName method, of class User.
      */
@@ -71,10 +71,10 @@ public class UserTest {
     public void testGetPassword() {
         System.out.println("getPassword");
         User instance = u;
-        char[] expResult = "testPassword".toCharArray();
-        char[] result = instance.getPassword();
-        assertArrayEquals(expResult, result);
-        System.out.println("Sucess?:"+Arrays.equals(expResult, result));
+        String expResult = "testPassword";
+        String result = instance.getPassword();
+        assertEquals(expResult, result);
+        System.out.println("Sucess?:"+expResult.equals(result));
     }
 
     /**

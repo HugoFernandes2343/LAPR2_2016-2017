@@ -30,7 +30,7 @@ public class UC06ControllerTest {
         System.out.println("validateUser");
         String username = "htc";
         String email = "htc@gamil.com";
-        char[] password = {'A', 'a', '-', '1'};
+        String password = "Aa-1";
         String name = "Hugo Carvalho";
         String language = "Portuguese";
         String timeZone = "GMT+00";
@@ -55,7 +55,7 @@ public class UC06ControllerTest {
         System.out.println("validateUser");
         String username = "htc";
         String email = "htc@gamil.com";
-        char[] password = {'A', 'a', '-', '1'};
+        String password = "Aa-1";
         String name = "Hugo Carvalho";
         String language = "Portuguese";
         String timeZone = "GMT+00";
@@ -76,7 +76,7 @@ public class UC06ControllerTest {
         System.out.println("registerUser");
         FairCenter fc = new FairCenter();
         UC06Controller instance = new UC06Controller(fc);
-        char[] password = {'A', 'a', '-', '1'};
+        String password = "Aa-1";
         instance.validateUser("htc", "htc@gmail.com", password, "Hugo Carvalho", "Portuguese", "GMT+00", "delta");
         boolean expResult = true;
         boolean result = instance.registerUser();

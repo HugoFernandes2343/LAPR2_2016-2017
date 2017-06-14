@@ -25,7 +25,7 @@ public class UC06Controller {
         this.fc = fc;
     }
 
-    public boolean validateUser(String username, String email, char[] password, String name, String language, String timeZone, String keyword) {
+    public boolean validateUser(String username, String email, String password, String name, String language, String timeZone, String keyword) {
         this.user = new User(username, email, password, name, language, timeZone, keyword);
         this.userRegistry = fc.getConfirmedUsers();
         this.userList = userRegistry.getUsersList();

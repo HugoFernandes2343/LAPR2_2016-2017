@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fairCenter>
+    <eventRegistry/>
+    <confirmedUsers>
+        <usersList>
+            <user>
+                <username>default</username>
+                <password>default</password>
+                <email>default@isep.ipp.pt</email>
+                <name>defaultName</name>
+                <keyword>key</keyword>
+            </user>
+        </usersList>
+    </confirmedUsers>
+    <unconfirmedUsers/>
+    <eventManagers>
+        <eventManagerList>
+            <eventManager>
+                <user>
+                    <username>default</username>
+                    <password>default</password>
+                    <email>default@isep.ipp.pt</email>
+                    <name>defaultName</name>
+                    <keyword>key</keyword>
+                </user>
+            </eventManager>
+        </eventManagerList>
+    </eventManagers>
+</fairCenter>

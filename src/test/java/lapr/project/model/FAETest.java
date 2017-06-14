@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class FAETest {
     
-    private User u = new User("UserName","password".toCharArray(),"aName","key");
+    private User u = new User("UserName","password","aName","key");
     
     /**
      * Test of getUser method, of class FAE.

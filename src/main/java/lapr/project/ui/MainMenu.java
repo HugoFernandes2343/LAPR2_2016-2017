@@ -9,13 +9,17 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.xml.bind.JAXBException;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 import lapr.project.utils.MainMenuElements;
+import lapr.project.utils.XMLExporter;
 
 /**
  *
@@ -61,6 +65,7 @@ public class MainMenu implements MainMenuElements {
         addActions(buttonPanel);
         menuWindow.add(infoUser, BorderLayout.PAGE_START);
         menuWindow.add(buttonPanel, BorderLayout.CENTER);
+        menuWindow.add(addSaveButton(),BorderLayout.PAGE_END);
 
     }
 
@@ -84,6 +89,7 @@ public class MainMenu implements MainMenuElements {
             public void actionPerformed(ActionEvent e) {
                 menuWindow.setVisible(false);
                 UC01UI uc01ui = new UC01UI(fc, user, menuWindow);
+                uc01ui.setVisible(true);
             }
         });
 
@@ -101,52 +107,73 @@ public class MainMenu implements MainMenuElements {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menuWindow,
                         "Not implemented",
-                        "Assign Application",
+                        "UC03",
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        
+
         //Add
-        
         UC07Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menuWindow,
                         "Not implemented",
-                        "Assign Application",
+                        "UC07",
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        
+
         UC08Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menuWindow,
                         "Not implemented",
-                        "Assign Application",
+                        "UC08",
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        
+
         UC09Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menuWindow,
                         "Not implemented",
-                        "Assign Application",
+                        "UC09",
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        
+
         UC10Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(menuWindow,
                         "Not implemented",
-                        "Assign Application",
+                        "UC10",
                         JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+
+    private JPanel addSaveButton() {
+        JPanel confirmationDataPanel = new JPanel();
+        SaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    XMLExporter<?> exporter = new XMLExporter<>();
+                    exporter.exportAllData(fc);
+                    JOptionPane.showMessageDialog(menuWindow,
+                            "Saved",
+                            "Saving",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (JAXBException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+        confirmationDataPanel.add(SaveButton);
+        return confirmationDataPanel;
     }
 
     public void setActiveUser(User user) {
