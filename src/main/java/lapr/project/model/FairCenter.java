@@ -67,10 +67,12 @@ public class FairCenter {
         return eventRegistry;
     }
 
-    public boolean registerEvent(Event event) {
-        return eventRegistry.registerEvent(event);
+   public boolean registerEvent(Event event) {
+        if(eventRegistry.validateEvent(event)){
+         return eventRegistry.registerEvent(event);
+        }
+       return false;
     }
-
     /**
      *
      * @return
