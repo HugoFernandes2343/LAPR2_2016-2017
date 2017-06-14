@@ -62,4 +62,5 @@ public class UC02Controller {
     public void registerFAEs() {
         selectedEvent.registerFAEs();
     }
+    
 }

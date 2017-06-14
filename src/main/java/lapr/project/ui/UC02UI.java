@@ -107,7 +107,7 @@ public class UC02UI extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 if (uc02Controller.selectedEvent != null) {
                     CardLayout cl = (CardLayout) (allScreens.getLayout());
-                    cl.show(allScreens, "2");//USE a string with a number and its solved                    
+                    cl.show(allScreens, "2");//USE a string with a number and its solved (TAG)                
                 } else {
                     JOptionPane.showMessageDialog(UC02UI.this,
                             "Select one Event",

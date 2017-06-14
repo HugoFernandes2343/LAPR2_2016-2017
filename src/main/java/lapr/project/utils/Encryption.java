@@ -18,23 +18,18 @@ public class Encryption {
 
     @XmlElement
     private String keyword;
-    @XmlElementWrapper(name="decryptKey")
-    @XmlElement(name="elements")
+    @XmlElementWrapper(name = "decryptKey")
+    @XmlElement(name = "elements")
     private char[] decryptKey;
     @XmlElement
     private int shift;
     @XmlTransient
-    private final char[] characterKey = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-        'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        ',', '.', ';', ':', '-', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-        'W', 'X', 'Y', 'Z', ' '};
+    private final char[] characterKey = getAscii();
 
     public Encryption(String keyword) {
         Random rn = new Random();
         this.keyword = keyword;
-        this.shift = rn.nextInt(68);
+        this.shift = rn.nextInt(95);
         this.decryptKey = createDecryptKeyword();
     }
 
@@ -150,9 +145,6 @@ public class Encryption {
         for (int j = 0; j < order.length; j++) {
             for (int a = j + 1; a < order.length; a++) {
                 if (order[j] > order[a]) {
-                    char trade1 = decryptKey[a];
-                    decryptKey[a] = decryptKey[j];
-                    decryptKey[j] = trade1;
                     char[] trade = cT[j];
                     cT[j] = cT[a];
                     cT[a] = trade;
@@ -183,12 +175,16 @@ public class Encryption {
 
     private char[][] decryptBasedOnDecryptKey(char[][] cT) {
         cT = transposeMatrix(cT);
-        for (int j = 0; j < decryptKey.length; j++) {
-            for (int a = j + 1; a < decryptKey.length; a++) {
-                if (decryptKey[j] > decryptKey[a]) {
-                    char trade1 = decryptKey[a];
-                    decryptKey[a] = decryptKey[j];
-                    decryptKey[j] = trade1;
+        char[] decrypt = new char[decryptKey.length];
+        for (int i = 0; i < decrypt.length; i++) {
+            decrypt[i] = decryptKey[i];
+        }
+        for (int j = 0; j < decrypt.length; j++) {
+            for (int a = j + 1; a < decrypt.length; a++) {
+                if (decrypt[j] > decrypt[a]) {
+                    char trade1 = decrypt[a];
+                    decrypt[a] = decrypt[j];
+                    decrypt[j] = trade1;
                     char[] trade = cT[j];
                     cT[j] = cT[a];
                     cT[a] = trade;
@@ -227,6 +223,24 @@ public class Encryption {
             DecryptKey[i] = n.charAt(0);
             decryptKeyPosition++;
         }
+        for (int j = 0; j < keywordByChar.length; j++) {
+            for (int a = j + 1; a < keywordByChar.length; a++) {
+                if (keywordByChar[j] > keywordByChar[a]) {
+                    char trade1 = DecryptKey[a];
+                    DecryptKey[a] = DecryptKey[j];
+                    DecryptKey[j] = trade1;
+                }
+            }
+        }
         return DecryptKey;
+    }
+
+    private char[] getAscii() {
+        char[] ascii = new char[127 - 32];
+        for (int i = 32; i < 127; i++) {
+            ascii[i - 32] = (char) i;
+            System.out.println((char) i);
+        }
+        return ascii;
     }
 }

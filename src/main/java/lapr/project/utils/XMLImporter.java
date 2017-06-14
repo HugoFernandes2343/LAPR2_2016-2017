@@ -14,7 +14,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Unmarshaller;
 import lapr.project.model.FairCenter;
 import lapr.project.ui.UserInterface;
@@ -56,6 +55,7 @@ public class XMLImporter<T> {
             fc = new FairCenter();
             System.out.println(ex.getMessage());
         }
+        fc.decryptUsers();
         return fc;
     }
     

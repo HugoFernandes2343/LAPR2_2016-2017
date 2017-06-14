@@ -83,8 +83,16 @@ public class FairCenter {
         return confirmedUsers.registerUser(user);
     }
 
-    public void exportData() {
-        //Todo
+//    public void exportData() {
+//        //Todo
+//    }
+
+    public void encryptUsers() {
+        this.confirmedUsers.encryptAll();
+    }
+
+    public void decryptUsers() {
+        this.confirmedUsers.decryptAll();
     }
 
 }

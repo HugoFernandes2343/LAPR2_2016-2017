@@ -6,9 +6,9 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
+import lapr.project.utils.Encryption;
 
 /**
  *

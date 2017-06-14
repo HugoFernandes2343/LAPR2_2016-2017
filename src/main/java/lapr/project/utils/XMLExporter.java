@@ -39,7 +39,7 @@ public class XMLExporter<T> {
         JAXBContext jaxbContext = JAXBContext.newInstance(FairCenter.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);// output pretty printed
-
+        fc.encryptUsers();
         jaxbMarshaller.marshal(fc, fileLocation);
         jaxbMarshaller.marshal(fc, System.out);
 

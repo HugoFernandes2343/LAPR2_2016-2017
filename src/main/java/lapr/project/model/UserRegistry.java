@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.*;
 
@@ -21,20 +20,19 @@ public class UserRegistry {
      *
      */
     @XmlElementWrapper
-    @XmlElement(name="user")
+    @XmlElement(name = "user")
     private ArrayList<User> usersList;
 
-    
-        /**
-     * 
+    /**
+     *
      */
     public UserRegistry() {
         usersList = new ArrayList<>();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<User> getUsersList() {
         return usersList;
@@ -43,6 +41,18 @@ public class UserRegistry {
     public boolean registerUser(User user) {
         usersList.add(user);
         return true;
-     }
+    }
+
+    void decryptAll() {
+        for (User u : usersList) {
+            u.decryptData();
+        }
+    }
+
+    void encryptAll() {
+        for (User u : usersList) {
+            u.encryptData();
+        }
+    }
 
 }

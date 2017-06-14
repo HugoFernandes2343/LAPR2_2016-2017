@@ -8,7 +8,11 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.xml.bind.annotation.*;
+import javax.xml.parsers.ParserConfigurationException;
 import lapr.project.utils.EventState;
+import lapr.project.utils.Exportable;
+import lapr.project.utils.Importable;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -16,7 +20,7 @@ import lapr.project.utils.EventState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Event {
+public abstract class Event implements Importable<Event>,Exportable{
 
     @XmlElement
     private EventState state;
@@ -107,6 +111,7 @@ public abstract class Event {
         organizerList.addOrganizer(user);
     }
 
+    @Override
     public String toString() {
         return String.format("Title: %s%n  Description: %s%n  Place : %s%n  Start Date: %s%n  End Date: %s%n", title, description, place.toString(), startDate.toString(), endDate.toString());
 
@@ -123,5 +128,8 @@ public abstract class Event {
     public void discardFAEs() {
         this.FaeList.discardFAE();
     }
+
+    @Override
+    public abstract Event importContentFromXMLNode(Node node) throws ParserConfigurationException;
 
 }

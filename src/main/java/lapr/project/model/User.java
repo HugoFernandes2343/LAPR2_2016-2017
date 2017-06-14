@@ -91,6 +91,14 @@ public class User {
 
     /**
      *
+     * @return
+     */
+    public Encryption getEncryption() {
+        return this.encryption;
+    }
+
+    /**
+     *
      * @param username
      */
     private void setUsername(String username) {
@@ -154,11 +162,11 @@ public class User {
     }
 
     public String getCurrentLanguage() {
-        return language;
+        return this.language;
     }
 
     public String getTimezone() {
-        return timeZone;
+        return this.timeZone;
     }
 
     public String toInfoString() {
@@ -201,5 +209,23 @@ public class User {
         result = 31 * result + username.hashCode();
         result = 31 * result + password.hashCode();
         return result;
+    }
+
+    void encryptData() {
+        this.email = this.encryption.encrypt(email).trim();
+        this.username = this.encryption.encrypt(username).trim();
+        this.name = this.encryption.encrypt(name).trim();
+        this.password = this.encryption.encrypt(password).trim();
+        this.timeZone = this.encryption.encrypt(timeZone).trim();
+        this.language = this.encryption.encrypt(language).trim();
+    }
+
+    void decryptData() {
+        this.email = this.encryption.decrypt(email).trim();
+        this.username = this.encryption.decrypt(username).trim();
+        this.name = this.encryption.decrypt(name).trim();
+        this.password = this.encryption.decrypt(password).trim();
+        this.timeZone = this.encryption.decrypt(timeZone).trim();
+        this.language = this.encryption.decrypt(language).trim();
     }
 }

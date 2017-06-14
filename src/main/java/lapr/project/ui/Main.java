@@ -1,14 +1,7 @@
 package lapr.project.ui;
 
-import lapr.project.utils.XMLExporter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import lapr.project.model.Congress;
 import lapr.project.model.EventManager;
 import lapr.project.model.Exhibition;
@@ -28,7 +21,7 @@ class Main {
      * Private constructor to hide implicit public one.
      */
     private Main() {
-
+        
     }
 
     /**
@@ -43,6 +36,8 @@ class Main {
         if (fc == null) {
             throw new FileNotFoundException();
         }
+        User test = new User("default","default","default","default","English","GMT+00","delta");
+        fc.registerUser(test);
         //Program
         UserInterface UI = new UserInterface(fc);
 
