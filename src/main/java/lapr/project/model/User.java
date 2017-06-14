@@ -5,8 +5,6 @@
  */
 package lapr.project.model;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.Encryption;
 

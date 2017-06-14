@@ -65,7 +65,7 @@ public class MainMenu implements MainMenuElements {
         addActions(buttonPanel);
         menuWindow.add(infoUser, BorderLayout.PAGE_START);
         menuWindow.add(buttonPanel, BorderLayout.CENTER);
-        menuWindow.add(addSaveButton(),BorderLayout.PAGE_END);
+        menuWindow.add(addSaveButton(), BorderLayout.PAGE_END);
 
     }
 
@@ -109,6 +109,15 @@ public class MainMenu implements MainMenuElements {
                         "Not implemented",
                         "UC03",
                         JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        UC06Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuWindow.setVisible(false);
+                UC06UI uc06ui = new UC06UI(fc, user, menuWindow);
+                uc06ui.setVisible(true);
             }
         });
 
