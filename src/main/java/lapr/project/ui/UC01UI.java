@@ -306,7 +306,17 @@ public class UC01UI extends JDialog {
                             "Selection Confirmation", JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if (confirm == 0) {
-                        controller.registerEvent();
+                         if(controller.registerEvent()){
+                        JOptionPane.showMessageDialog(UC01UI.this,
+                            "Event created.",
+                            "Event creation sucessfull",
+                            JOptionPane.INFORMATION_MESSAGE);
+                        } else{
+                        JOptionPane.showMessageDialog(UC01UI.this,
+                            "Event already exists.",
+                            "Event creation error",
+                            JOptionPane.ERROR_MESSAGE);
+                        }
                         dispose();
                         setVisible(false);
                         menuWindow.setVisible(true);

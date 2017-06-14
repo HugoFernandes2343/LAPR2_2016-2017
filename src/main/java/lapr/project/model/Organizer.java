@@ -28,6 +28,7 @@ public class Organizer {
         //Avoiding xml conflicts
     }
 
+    @Override
     public String toString() {
         return user.toString();
     }
@@ -53,8 +54,8 @@ public class Organizer {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.user);
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.user);
         return hash;
     }
 }

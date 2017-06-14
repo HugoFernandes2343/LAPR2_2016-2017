@@ -75,4 +75,19 @@ public class EventRegistry {
         }
         return true;
     }
+    
+    public boolean validateEvent(Event event) {
+        for (int i = 0; i < exhibitionList.size(); i++) {
+            if (exhibitionList.get(i).equals(event)) {
+                return false;
+            }
+        }
+        for (int j = 0; j < congressList.size(); j++) {
+            if (congressList.get(j).equals(event)) {
+                return false;
+            }
+
+        }
+        return true;
+    }
 }
