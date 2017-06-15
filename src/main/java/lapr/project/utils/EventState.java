@@ -20,5 +20,8 @@ public interface EventState {
     public boolean validate();
     public boolean setEventCreatedState();
     public boolean setEventDefinedFAEState();
+    public boolean setEventApplicationsOpenState();
+   // public boolean setEventApplicationsEvaluatingState();  THIS IS TO BE CHANGED TO IMPLEMENT UC04 
     //Rest as needed
 }
+

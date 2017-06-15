@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Candidatura class.
@@ -19,157 +20,232 @@ import java.util.List;
  * @author by Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.
  */
 public class Application implements Importable<Application>, Exportable {
-	private static final String ROOT_ELEMENT_NAME = "application";
-	private static final String DESCRIPTION_ELEMENT_NAME = "description";
-	private static final String KEYWORDS_ELEMENT_NAME = "keywords";
-	private final List<Keyword> keywordList = new ArrayList<>();
-	private String description = "";
 
-	/**
-	 * Constructor for Application
-	 *
-	 * @param description CandidaturaDescription
-	 * @param keywordList Keyword List
-	 */
-	public Application(String description, List<Keyword> keywordList) {
-		this.description = description;
-		this.keywordList.addAll(keywordList);
-	}
+    private static final String ROOT_ELEMENT_NAME = "application";
+    private static final String DESCRIPTION_ELEMENT_NAME = "description";
+    private static final String KEYWORDS_ELEMENT_NAME = "keywords";
+    private ArrayList<String> keywordList = new ArrayList<>();
+    //private String description = "";
+    private Boolean accepted;
+    private String tradeName;
+    private String address;
+    private int phone;
+    private double boothArea;
+    private String[] productsToBeDisplayed;
+    private int numberOfInvitations;
 
-	/**
-	 * Default public constructor.
-	 */
-	public Application() {
+    /**
+     * Constructor for Application
+     *
+     * @param description CandidaturaDescription
+     * @param keywordList Keyword List
+     */
+    public Application(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+        this.tradeName = tradeName;
+        this.address = address;
+        this.phone = phone;
+        this.boothArea = boothArea;
+        this.productsToBeDisplayed = productsToBeDisplayed;
+        this.numberOfInvitations = numberOfInvitations;
+        for (int i = 0; i < keywords.length; i++) {
+            String keyword = new String(keywords[i]);
+            keywordList.add(keyword);
+        }
+    }
 
-	}
+    /**
+     * Default public constructor.
+     */
+    public Application() {
 
-	/**
-	 * Obtain Candidatura's description.
-	 *
-	 * @return Candidatura description
-	 */
-	private String getDescription() {
-		return description;
-	}
+    }
 
-	/**
-	 * Add a keyword to Candidatura.
-	 *
-	 * @param keyword Keyword to be added.
-	 */
-	public void addKeyword(Keyword keyword) {
-		getKeywordList().add(keyword);
-	}
+    public String getTradeName() {
+        return tradeName;
+    }
 
-	/**
-	 * Obtain the list of existing keywords.
-	 *
-	 * @return A list of existing keywords.
-	 */
-	public List<Keyword> getKeywordList() {
-		return keywordList;
+    public String getAddress() {
+        return address;
+    }
 
-	}
+    public int getPhone() {
+        return phone;
+    }
 
-	@Override
-	public Node exportContentToXMLNode() throws ParserConfigurationException {
-		Node rootNode = null;
+    public double getBoothArea() {
+        return boothArea;
+    }
 
-		DocumentBuilderFactory factory =
-				DocumentBuilderFactory.newInstance();
-		//Create document builder
-		DocumentBuilder builder = factory.newDocumentBuilder();
+    public String[] getProductsToBeDisplayed() {
+        return productsToBeDisplayed;
+    }
 
-		//Obtain a new document
-		Document document = builder.newDocument();
+    public int getNumberOfInvitations() {
+        return numberOfInvitations;
+    }
 
-		//Create root element
-		Element elementCandidatura = document.createElement(ROOT_ELEMENT_NAME);
+    /* private String getDescrition() {
+        return description;
+    }*/
+    /**
+     * Add a keyword to Candidatura.
+     *
+     * @param keyword Keyword to be added.
+     */
+    public void addKeyword(String keyword) {
+        getKeywordList().add(keyword);
+    }
 
-		//Create a sub-element
-		Element elementDescription = document.createElement(DESCRIPTION_ELEMENT_NAME);
+    /**
+     * Obtain the list of existing keywords.
+     *
+     * @return A list of existing keywords.
+     */
+    public ArrayList<String> getKeywordList() {
+        return keywordList;
 
-		//Set the sub-element value
-		elementDescription.setTextContent(getDescription());
+    }
 
-		//Add sub-element to root element
-		elementCandidatura.appendChild(elementDescription);
+    @Override
+    public String toString() {
+        String string1 = "";
+        String string2 = "";
+        for (int i = 0; i < productsToBeDisplayed.length; i++) {
+            if (i == 0) {
+                string1 = string1 + productsToBeDisplayed[0];
+            } else {
+                string1 = string1 + "," + productsToBeDisplayed[i];
+            }
+        }
+        for (int i = 0; i < keywordList.size(); i++) {
+            if (i == 0) {
+                string2 = string2 + keywordList.get(i);
+            } else {
+                string2 = string2 + "," + keywordList.get(i);
+            }
+        }
+        return "Trade name - " + tradeName + "; Address - " + address + "; Phone - " + phone + "; Intended booth area - " + boothArea + "; Products to be displayed - " + string1 + "; Keywords - " + string2;
+    }
 
-		//Create a sub-element
-		Element elementKeywords = document.createElement(KEYWORDS_ELEMENT_NAME);
-		elementCandidatura.appendChild(elementKeywords);
+    @Override
+    public Node exportContentToXMLNode() throws ParserConfigurationException {
+        Node rootNode = null;
 
-		//iterate over keywords
-		for (Keyword keyword : getKeywordList()
-				) {
-			Node keywordNode = keyword.exportContentToXMLNode();
-			elementKeywords.appendChild(document.importNode(keywordNode, true));
-		}
+        DocumentBuilderFactory factory
+                = DocumentBuilderFactory.newInstance();
+        //Create document builder
+        DocumentBuilder builder = factory.newDocumentBuilder();
 
-		//Add root element to document
-		document.appendChild(elementCandidatura);
+        //Obtain a new document
+        Document document = builder.newDocument();
 
-		//It exports only the element representation to XMÇ, ommiting the XML header
-		rootNode = elementCandidatura;
+        //Create root element
+        Element elementCandidatura = document.createElement(ROOT_ELEMENT_NAME);
 
-		return rootNode;
-	}
+        //Create a sub-element
+        Element elementDescription = document.createElement(DESCRIPTION_ELEMENT_NAME);
 
-	@Override
-	public Application importContentFromXMLNode(Node node) throws ParserConfigurationException {
+        //Set the sub-element value
+        // elementDescription.setTextContent(getDescription());
+        //Add sub-element to root element
+        elementCandidatura.appendChild(elementDescription);
 
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        //Create a sub-element
+        Element elementKeywords = document.createElement(KEYWORDS_ELEMENT_NAME);
+        elementCandidatura.appendChild(elementKeywords);
 
-		//Create document builder
-		DocumentBuilder builder = factory.newDocumentBuilder();
+        //iterate over keywords
+        for (String keyword : getKeywordList()) {
+            //      Node keywordNode = keyword.exportContentToXMLNode();
+            //      elementKeywords.appendChild(document.importNode(keywordNode, true));
+        }
 
-		//Obtain a new document
-		Document document = builder.newDocument();
-		document.appendChild(document.importNode(node, true));
+        //Add root element to document
+        document.appendChild(elementCandidatura);
 
-		NodeList elementsCandidatura = document.getElementsByTagName(ROOT_ELEMENT_NAME);
+        //It exports only the element representation to XMÇ, ommiting the XML header
+        rootNode = elementCandidatura;
 
-		Node elementCandidatura = elementsCandidatura.item(0);
+        return rootNode;
+    }
 
-		//Get description
-		this.description = elementCandidatura.getFirstChild().getFirstChild().getNodeValue();
+    @Override
+    public Application importContentFromXMLNode(Node node) throws ParserConfigurationException {
 
-		NodeList elementsKeywords = document.getElementsByTagName(KEYWORDS_ELEMENT_NAME);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-		NodeList keywords = elementsKeywords.item(0).getChildNodes();
-		for (int position = 0; position < keywords.getLength(); position++) {
-			Node keyword = keywords.item(position);
-			Keyword keywordExample = new Keyword();
+        //Create document builder
+        DocumentBuilder builder = factory.newDocumentBuilder();
 
-			keywordExample = keywordExample.importContentFromXMLNode(keyword);
-			addKeyword(keywordExample);
-		}
+        //Obtain a new document
+        Document document = builder.newDocument();
+        document.appendChild(document.importNode(node, true));
 
-		return this;
-	}
+        NodeList elementsCandidatura = document.getElementsByTagName(ROOT_ELEMENT_NAME);
 
-	@Override
-	public int hashCode() {
-		int result = getDescription().hashCode();
-		result = 31 * result + getKeywordList().hashCode();
-		return result;
-	}
+        Node elementCandidatura = elementsCandidatura.item(0);
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Application)) {
-			return false;
-		}
+        //Get description
+//        this.description = elementCandidatura.getFirstChild().getFirstChild().getNodeValue();
+        NodeList elementsKeywords = document.getElementsByTagName(KEYWORDS_ELEMENT_NAME);
 
-		Application that = (Application) o;
+        NodeList keywords = elementsKeywords.item(0).getChildNodes();
+        for (int position = 0; position < keywords.getLength(); position++) {
+            Node keyword = keywords.item(position);
+            Keyword keywordExample = new Keyword();
 
-		if (!getDescription().equals(that.getDescription())) {
-			return false;
-		}
-		return getKeywordList().equals(that.getKeywordList());
+            keywordExample = keywordExample.importContentFromXMLNode(keyword);
+            //  addKeyword(keywordExample);
+        }
 
-	}
+        return this;
+    }
+
+    public boolean compareProducts(Application application) {
+        String[] toCompare = application.getProductsToBeDisplayed();
+        for (int i = 0; i < productsToBeDisplayed.length; i++) {
+            if (!productsToBeDisplayed[i].equals(toCompare[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean compareKeywordList(Application application) {
+        ArrayList<String> toCompare = application.getKeywordList();
+        for (int i = 0; i < keywordList.size(); i++) {
+            if (!keywordList.get(i).equals(toCompare.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Application)) {
+            return false;
+        }
+
+        Application that = (Application) o;
+
+        if (getTradeName().equals(that.getTradeName()) && getAddress().equals(that.getAddress()) && String.valueOf(getPhone()).equals(String.valueOf(that.getPhone()))) {
+            return true;
+        }
+        return getKeywordList().equals(that.getKeywordList());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.tradeName);
+        hash = 47 * hash + Objects.hashCode(this.address);
+        hash = 47 * hash + this.phone;
+        return hash;
+    }
+
 }

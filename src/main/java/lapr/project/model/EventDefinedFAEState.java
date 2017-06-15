@@ -41,5 +41,19 @@ public class EventDefinedFAEState implements EventState{
         //Specific
         return false;
     }
+
+    @Override
+    public boolean setEventApplicationsOpenState() {
+        if (validate()) {
+            e.setState(new EventApplicationsOpenState(e));
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /* @Override
+    public boolean setEventApplicationsEvaluatingState() {
+       return false;
+    }*/
     
 }

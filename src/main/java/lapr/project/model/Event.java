@@ -42,6 +42,10 @@ public abstract class Event implements Importable<Event>,Exportable{
     private OrganizerList organizerList;
     @XmlElement
     private FAEList FaeList;
+    @XmlElement
+    private ApplicationList applicationList;
+    @XmlElement
+    private ArrayList<Stand> stands;
 
     public Event(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
         this.FaeList = new FAEList();
@@ -53,6 +57,7 @@ public abstract class Event implements Importable<Event>,Exportable{
         this.endDate = endDate;
         this.applicationBegin = applicationBegin;
         this.applicationEnd = applicationEnd;
+        this.applicationList=new ApplicationList();
         setState(new EventCreatedState(this));
     }
 
@@ -131,5 +136,24 @@ public abstract class Event implements Importable<Event>,Exportable{
 
     @Override
     public abstract Event importContentFromXMLNode(Node node) throws ParserConfigurationException;
+    
+    boolean validateEventStateApplicationsOpen() {
+        return true;
+    }
 
+    public ApplicationList getApplicationList() {
+        return applicationList;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean registerApplication(Application application) {
+        return applicationList.registerApplication(application);
+    }
 }

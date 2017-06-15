@@ -67,12 +67,13 @@ public class FairCenter {
         return eventRegistry;
     }
 
-   public boolean registerEvent(Event event) {
-        if(eventRegistry.validateEvent(event)){
-         return eventRegistry.registerEvent(event);
+    public boolean registerEvent(Event event) {
+        if (eventRegistry.validateEvent(event)) {
+            return eventRegistry.registerEvent(event);
         }
-       return false;
+        return false;
     }
+
     /**
      *
      * @return
@@ -88,13 +89,16 @@ public class FairCenter {
 //    public void exportData() {
 //        //Todo
 //    }
-
     public void encryptUsers() {
         this.confirmedUsers.encryptAll();
     }
 
     public void decryptUsers() {
         this.confirmedUsers.decryptAll();
+    }
+
+    public boolean registerApplication(Event event, Application application) {
+        return eventRegistry.registerApplication(event, application);
     }
 
 }
