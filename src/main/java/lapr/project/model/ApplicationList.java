@@ -5,18 +5,31 @@
  */
 package lapr.project.model;
 
+import lapr.project.utils.ApplicationState;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ApplicationList {
-
-    private ArrayList<Application> Applications;
+    
+    @XmlElement(name="application")
+    private ArrayList<Application> applications;
 
     public ApplicationList() {
-        this.Applications = new ArrayList<>();
+        this.applications = new ArrayList<>();
     }
 
     /**
-     * creates a new application
+     * 
+     * @param tradeName
+     * @param address
+     * @param phone
+     * @param boothArea
+     * @param productsToBeDisplayed
+     * @param numberOfInvitations
+     * @param keywords
+     * @return 
      */
     public Application createApplication(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         Application application = new Application(tradeName, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
@@ -53,12 +66,12 @@ public class ApplicationList {
     }
 
     public boolean registerApplication(Application application) {
-        Applications.add(application);
+        applications.add(application);
         return true;
     }
 
     public void addApplication(Application application) {
-       Applications.add(application);
+       applications.add(application);
     }
 
 }

@@ -8,19 +8,16 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.xml.bind.annotation.*;
-import javax.xml.parsers.ParserConfigurationException;
 import lapr.project.utils.EventState;
-import lapr.project.utils.Exportable;
-import lapr.project.utils.Importable;
-import org.w3c.dom.Node;
 
 /**
  *
  * @author PC
  */
 @XmlRootElement
+@XmlSeeAlso({Exhibition.class, Congress.class})
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Event implements Importable<Event>,Exportable{
+public class Event {
 
     @XmlElement
     private EventState state;
@@ -40,11 +37,15 @@ public abstract class Event implements Importable<Event>,Exportable{
     private Date applicationEnd;
     @XmlElement
     private OrganizerList organizerList;
-    @XmlElement
+
+    @XmlElement(name = "FAESet")
     private FAEList FaeList;
-    @XmlElement
+
+    @XmlElement(name = "applicationSet")
     private ApplicationList applicationList;
-    @XmlElement
+
+    @XmlElementWrapper(name = "stands")
+    @XmlElement(name = "stand")
     private ArrayList<Stand> stands;
 
     public Event(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
@@ -57,15 +58,15 @@ public abstract class Event implements Importable<Event>,Exportable{
         this.endDate = endDate;
         this.applicationBegin = applicationBegin;
         this.applicationEnd = applicationEnd;
-        this.applicationList=new ApplicationList();
+        this.applicationList = new ApplicationList();
+        this.stands=new ArrayList<>();
         setState(new EventCreatedState(this));
     }
 
-    
-    public Event(){
+    public Event() {
         //to avoid xml conflicts
     }
-    
+
     /**
      * Return a user list of all the users who are organizers in the event
      *
@@ -134,9 +135,6 @@ public abstract class Event implements Importable<Event>,Exportable{
         this.FaeList.discardFAE();
     }
 
-    @Override
-    public abstract Event importContentFromXMLNode(Node node) throws ParserConfigurationException;
-    
     boolean validateEventStateApplicationsOpen() {
         return true;
     }
@@ -155,5 +153,11 @@ public abstract class Event implements Importable<Event>,Exportable{
 
     public boolean registerApplication(Application application) {
         return applicationList.registerApplication(application);
+    }
+
+    public void recieveXMLData(Event xmlEvent) {
+        this.FaeList = xmlEvent.getFAEList();
+        this.applicationList = xmlEvent.getApplicationList();
+        this.stands.addAll(xmlEvent.stands);
     }
 }

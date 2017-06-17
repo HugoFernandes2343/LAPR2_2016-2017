@@ -5,12 +5,27 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "stand")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Stand {
 
-	public boolean verifyAvailability() {
-		// TODO - implement Stand.verifyAvailability
-		throw new UnsupportedOperationException();
-	}
+    private int area;
+    private String description;
+
+    public Stand(int area, String description) {
+        this.area = area;
+        this.description = description;
+    }
+
+    public Stand() {
+        
+    }
+
+    public boolean verifyAvailability() {
+        // TODO - implement Stand.verifyAvailability
+        throw new UnsupportedOperationException();
+    }
 
 }

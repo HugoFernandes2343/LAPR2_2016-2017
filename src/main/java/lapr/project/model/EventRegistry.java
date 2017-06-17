@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.xml.bind.annotation.*;
@@ -58,7 +57,7 @@ public class EventRegistry {
     }
 
     public Event createEvent(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd, String eventType) {
-        Event event = null;
+        Event event;
         if (eventType.equals("Exhibition")) {
             event = new Exhibition(title, description, place, startDate, endDate, applicationBegin, applicationEnd);
         } else {

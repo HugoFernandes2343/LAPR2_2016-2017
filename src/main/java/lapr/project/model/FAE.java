@@ -19,7 +19,7 @@ public class FAE {
     @XmlElement
     private FAEState state;
 
-    @XmlElement
+    @XmlElement(name="user")
     private User u;
 
     public FAE(User u) {

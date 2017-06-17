@@ -25,6 +25,8 @@ public class LoginUI extends JFrame {
     private final JButton cancelButton = new JButton("Cancel");
     private final int WIDTH = 250;
     private final int HEIGHT = 400;
+    
+    private JFrame window = new JFrame("Login Window");
 
     protected LoginController loginController;
     protected FairCenter fc;
@@ -32,7 +34,7 @@ public class LoginUI extends JFrame {
     public LoginUI(FairCenter fc) {
         this.fc=fc;
         loginController = new LoginController(fc);
-        JFrame window = new JFrame("Login Window");
+//        JFrame window = new JFrame("Login Window");
         createFrame(window);
     }
 
@@ -81,7 +83,7 @@ public class LoginUI extends JFrame {
                 if (loginController.authenticate(userIDTemp, userPasswordTemp) == true) {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();
-                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser());
+                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser(),window);
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this,
                             "Invalid username or password",

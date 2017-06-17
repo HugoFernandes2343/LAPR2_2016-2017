@@ -7,14 +7,13 @@ package lapr.project.model;
 
 import java.util.Date;
 import javax.xml.bind.annotation.*;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Node;
 
 /**
  *
  * @author PC
  */
 @XmlRootElement
+@XmlSeeAlso(Event.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Congress extends Event {
     
@@ -32,18 +31,9 @@ public class Congress extends Event {
         //to avoid xml conflicts
     }
 
+    @Override
     public String toString() {
         return String.format("Event type: %s%n", eventType) + super.toString();
-    }
-
-    @Override
-    public Node exportContentToXMLNode() throws ParserConfigurationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Event importContentFromXMLNode(Node node) throws ParserConfigurationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

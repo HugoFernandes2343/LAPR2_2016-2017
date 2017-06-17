@@ -28,53 +28,48 @@ class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-        FairCenter fc;
-        //Import All Data From File
-        XMLImporter<?> importer = new XMLImporter<>();
-        fc = importer.importAllData();
-
-        if (fc == null) {
-            throw new FileNotFoundException();
-        }
-        User test = new User("default","default","default","default","English","GMT+00","delta");
-        fc.registerUser(test);
+        FairCenter fc = new FairCenter();
+//        //Import All Data From File
+//        XMLImporter importer = new XMLImporter();
+//        fc = importer.importAllData();
+//        if (fc == null) {
+//            throw new FileNotFoundException();
+//        }
+        User eventManagerDefault = new User("default","default","default","default","English","GMT+00","delta");
+        fc.registerUser(eventManagerDefault);
         //Program
         UserInterface UI = new UserInterface(fc);
-
-//            //Export All Data To File (Wrong Place)
-//            XMLExporter exporter = new XMLExporter();
-//            exporter.exportAllData(fc);
     }
 
-    public static void addTestObjects(FairCenter fc) {
-        User userManager = new User("default", "default", "defaultName", "key");
-        fc.getConfirmedUsers().getUsersList().add(userManager);
-
-        EventManager eventManager = new EventManager(userManager);
-        fc.getEventManagerRegistry().getEventManagersList().add(eventManager);
-
-        User uTest = new User("defaultUser", "default", "defaultName", "key");
-        fc.getConfirmedUsers().getUsersList().add(uTest);
-
-        User uTest2 = new User("defaultUser2", "default2", "defaultName2", "key");
-        fc.getConfirmedUsers().getUsersList().add(uTest2);
-
-        User uTest3 = new User("defaultUser3", "default3", "defaultName3", "key");
-        fc.getConfirmedUsers().getUsersList().add(uTest3);
-
-        Congress eventTest1 = new Congress("EventTest", "Description", "Home", new Date(), new Date(), new Date(), new Date());
-        Exhibition eventTest2 = new Exhibition("EventTest2", "Description2", "Home", new Date(), new Date(), new Date(), new Date());
-
-        fc.getEventRegistry().registerEvent(eventTest1);
-        fc.getEventRegistry().registerEvent(eventTest2);
-
-        eventTest1.addOrganizer(uTest2);
-        FAE example = new FAE(uTest2);
-        eventTest1.getFAEList().addFAE(example);
-
-        FAE example2 = new FAE(uTest3);
-        eventTest1.getFAEList().addFAE(example2);
-
-    }
+//    public static void addTestObjects(FairCenter fc) {
+//        User userManager = new User("default", "default", "defaultName", "key");
+//        fc.getConfirmedUsers().getUsersList().add(userManager);
+//
+//        EventManager eventManager = new EventManager(userManager);
+//        fc.getEventManagerRegistry().getEventManagersList().add(eventManager);
+//
+//        User uTest = new User("defaultUser", "default", "defaultName", "key");
+//        fc.getConfirmedUsers().getUsersList().add(uTest);
+//
+//        User uTest2 = new User("defaultUser2", "default2", "defaultName2", "key");
+//        fc.getConfirmedUsers().getUsersList().add(uTest2);
+//
+//        User uTest3 = new User("defaultUser3", "default3", "defaultName3", "key");
+//        fc.getConfirmedUsers().getUsersList().add(uTest3);
+//
+//        Congress eventTest1 = new Congress("EventTest", "Description", "Home", new Date(), new Date(), new Date(), new Date());
+//        Exhibition eventTest2 = new Exhibition("EventTest2", "Description2", "Home", new Date(), new Date(), new Date(), new Date());
+//
+//        fc.getEventRegistry().registerEvent(eventTest1);
+//        fc.getEventRegistry().registerEvent(eventTest2);
+//
+//        eventTest1.addOrganizer(uTest2);
+//        FAE example = new FAE(uTest2);
+//        eventTest1.getFAEList().addFAE(example);
+//
+//        FAE example2 = new FAE(uTest3);
+//        eventTest1.getFAEList().addFAE(example2);
+//
+//    }
 
 }

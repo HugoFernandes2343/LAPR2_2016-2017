@@ -21,7 +21,6 @@ import org.custommonkey.xmlunit.XMLUnit;
 /**
  *
  * @author PC
- * @param <T>
  */
 public class XMLExporter<T> {
 

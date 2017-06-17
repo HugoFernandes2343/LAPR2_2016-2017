@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FAEList {
 
-    @XmlElement
+    @XmlElement(name="fae")
     private ArrayList<FAE> FaeList;
     private ArrayList<FAE> tempList;
     private FAE temp;

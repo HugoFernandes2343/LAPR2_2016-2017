@@ -5,7 +5,7 @@
  */
 package lapr.project.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -41,14 +41,24 @@ public class FairCenter {
     private EventManagerRegistry eventManagers;
 
     /**
-     *
+     * 
      */
     public FairCenter() {//Add Params , nome?, local?
         confirmedUsers = new UserRegistry();
         eventRegistry = new EventRegistry();
         unconfirmedUsers = new UserRegistry();
         eventManagers = new EventManagerRegistry();
+    }
 
+    /**
+     * 
+     * @param newFC 
+     */
+    public FairCenter(FairCenter newFC) {
+        this.confirmedUsers = newFC.confirmedUsers;
+        this.eventManagers = newFC.eventManagers;
+        this.eventRegistry = newFC.eventRegistry;
+        this.unconfirmedUsers = newFC.unconfirmedUsers;
     }
 
     /**
@@ -95,6 +105,11 @@ public class FairCenter {
 
     public void decryptUsers() {
         this.confirmedUsers.decryptAll();
+    }
+
+    public void updatedDataFromXML(Event selectedEvent,Event ev) {
+//        ArrayList<User> newImportedUserList=new ArrayList<>();
+        this.confirmedUsers.getUsersList().addAll(ev.getFAEList_UserRef());
     }
 
     public boolean registerApplication(Event event, Application application) {

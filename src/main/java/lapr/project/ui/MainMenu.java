@@ -6,9 +6,11 @@
 package lapr.project.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -33,12 +35,14 @@ public class MainMenu implements MainMenuElements {
     private final int WIDTH = 800;
 
     private FairCenter fc;
+    private JFrame window;
 
     private final JFrame menuWindow = new JFrame("[PH]FairCenter_Name");
 //    private final JDialog window;
 
-    public MainMenu(FairCenter fc, User u) {
+    public MainMenu(FairCenter fc, User u, JFrame window) {
         this.fc = fc;
+        this.window = window;
         setActiveUser(u);
         createFrame();
         menuWindow.pack();
@@ -57,15 +61,18 @@ public class MainMenu implements MainMenuElements {
     }
 
     private void createElements() {
-        JPanel infoUser = new JPanel(new GridLayout(1, 5));
+//        JPanel infoUser = new JPanel(new GridLayout(1, 5));
+        JPanel infoUser = new JPanel(new BorderLayout());
         JLabel userLabel = new JLabel("<html>Logged in as : " + this.user.getName() + " <br> Username : " + this.user.getUsername() + " <br> Email : " + this.user.getEmail());
         infoUser.add(userLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(0, 5, 8, 8));
         addAllButtons(buttonPanel);
-        addActions(buttonPanel);
+        addActions();
+        LogoutButton.setSize(new Dimension(10, 25));
+        infoUser.add(LogoutButton, BorderLayout.EAST);
         menuWindow.add(infoUser, BorderLayout.PAGE_START);
         menuWindow.add(buttonPanel, BorderLayout.CENTER);
-        menuWindow.add(addSaveButton(), BorderLayout.PAGE_END);
+        menuWindow.add(addImportExportAllDataButtons(menuWindow), BorderLayout.PAGE_END);
 
     }
 
@@ -81,9 +88,21 @@ public class MainMenu implements MainMenuElements {
         buttonPanel.add(UC09Button);
         buttonPanel.add(UC10Button);
         buttonPanel.add(UC11Button);
+        //~
+        buttonPanel.add(UC31Button);
+        buttonPanel.add(UC32Button);
     }
 
-    private void addActions(JPanel panel) {
+    private void addActions() {
+        LogoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setActiveUser(null);
+                menuWindow.setVisible(false);
+                window.setVisible(true);
+            }
+        });
+
         UC01Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,14 +180,29 @@ public class MainMenu implements MainMenuElements {
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-    }
 
-    private JPanel addSaveButton() {
-        JPanel confirmationDataPanel = new JPanel();
-        SaveButton.addActionListener(new ActionListener() {
+        UC32Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    menuWindow.setVisible(false);
+                    UC32UI uc32ui = new UC32UI(fc, user, menuWindow);
+                    uc32ui.setVisible(true);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+    }
+
+    private JPanel addImportExportAllDataButtons(JFrame menuWindow) {
+        JPanel confirmationDataPanel = new JPanel();
+        UC30Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+//                    menuWindow.setEnabled(false);
                     XMLExporter<?> exporter = new XMLExporter<>();
                     exporter.exportAllData(fc);
                     JOptionPane.showMessageDialog(menuWindow,
@@ -181,7 +215,16 @@ public class MainMenu implements MainMenuElements {
                 }
             }
         });
-        confirmationDataPanel.add(SaveButton);
+
+        UC31Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                menuWindow.setVisible(false);
+                UC31UI uc31ui = new UC31UI(menuWindow, fc);
+            }
+        });
+        confirmationDataPanel.add(UC30Button);
+        confirmationDataPanel.add(UC31Button);
         return confirmationDataPanel;
     }
 

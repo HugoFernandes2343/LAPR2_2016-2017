@@ -1,44 +1,63 @@
 package lapr.project.model;
 
-import lapr.project.utils.Exportable;
-import lapr.project.utils.Importable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Candidatura class.
  *
  * @author by Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.
  */
-public class Application implements Importable<Application>, Exportable {
+@XmlRootElement(name="application")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Application {
 
     private static final String ROOT_ELEMENT_NAME = "application";
     private static final String DESCRIPTION_ELEMENT_NAME = "description";
     private static final String KEYWORDS_ELEMENT_NAME = "keywords";
+    
+    @XmlElementWrapper(name="keywords")
+    @XmlElement(name="keyword")
     private ArrayList<String> keywordList = new ArrayList<>();
-    //private String description = "";
+    
+    @XmlElement
+    private String description;
+    
+    @XmlElement
     private Boolean accepted;
+    
+    @XmlElement
     private String tradeName;
+    
+    @XmlElement
     private String address;
+    
+    @XmlElement
     private int phone;
+    
+    @XmlElement
     private double boothArea;
+    
+    @XmlElement
     private String[] productsToBeDisplayed;
+    
+    @XmlElement(name="invitesQuantity")
     private int numberOfInvitations;
+//    @XmlElementWrapper(name="review")
+//    @XmlElement(name="review")
+//    private ArrayList<Review> reviews;
 
     /**
-     * Constructor for Application
-     *
-     * @param description CandidaturaDescription
-     * @param keywordList Keyword List
+     * 
+     * @param tradeName
+     * @param address
+     * @param phone
+     * @param boothArea
+     * @param productsToBeDisplayed
+     * @param numberOfInvitations
+     * @param keywords 
      */
     public Application(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         this.tradeName = tradeName;
@@ -48,7 +67,7 @@ public class Application implements Importable<Application>, Exportable {
         this.productsToBeDisplayed = productsToBeDisplayed;
         this.numberOfInvitations = numberOfInvitations;
         for (int i = 0; i < keywords.length; i++) {
-            String keyword = new String(keywords[i]);
+            String keyword = keywords[i];
             keywordList.add(keyword);
         }
     }
@@ -125,80 +144,6 @@ public class Application implements Importable<Application>, Exportable {
             }
         }
         return "Trade name - " + tradeName + "; Address - " + address + "; Phone - " + phone + "; Intended booth area - " + boothArea + "; Products to be displayed - " + string1 + "; Keywords - " + string2;
-    }
-
-    @Override
-    public Node exportContentToXMLNode() throws ParserConfigurationException {
-        Node rootNode = null;
-
-        DocumentBuilderFactory factory
-                = DocumentBuilderFactory.newInstance();
-        //Create document builder
-        DocumentBuilder builder = factory.newDocumentBuilder();
-
-        //Obtain a new document
-        Document document = builder.newDocument();
-
-        //Create root element
-        Element elementCandidatura = document.createElement(ROOT_ELEMENT_NAME);
-
-        //Create a sub-element
-        Element elementDescription = document.createElement(DESCRIPTION_ELEMENT_NAME);
-
-        //Set the sub-element value
-        // elementDescription.setTextContent(getDescription());
-        //Add sub-element to root element
-        elementCandidatura.appendChild(elementDescription);
-
-        //Create a sub-element
-        Element elementKeywords = document.createElement(KEYWORDS_ELEMENT_NAME);
-        elementCandidatura.appendChild(elementKeywords);
-
-        //iterate over keywords
-        for (String keyword : getKeywordList()) {
-            //      Node keywordNode = keyword.exportContentToXMLNode();
-            //      elementKeywords.appendChild(document.importNode(keywordNode, true));
-        }
-
-        //Add root element to document
-        document.appendChild(elementCandidatura);
-
-        //It exports only the element representation to XMÇ, ommiting the XML header
-        rootNode = elementCandidatura;
-
-        return rootNode;
-    }
-
-    @Override
-    public Application importContentFromXMLNode(Node node) throws ParserConfigurationException {
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-        //Create document builder
-        DocumentBuilder builder = factory.newDocumentBuilder();
-
-        //Obtain a new document
-        Document document = builder.newDocument();
-        document.appendChild(document.importNode(node, true));
-
-        NodeList elementsCandidatura = document.getElementsByTagName(ROOT_ELEMENT_NAME);
-
-        Node elementCandidatura = elementsCandidatura.item(0);
-
-        //Get description
-//        this.description = elementCandidatura.getFirstChild().getFirstChild().getNodeValue();
-        NodeList elementsKeywords = document.getElementsByTagName(KEYWORDS_ELEMENT_NAME);
-
-        NodeList keywords = elementsKeywords.item(0).getChildNodes();
-        for (int position = 0; position < keywords.getLength(); position++) {
-            Node keyword = keywords.item(position);
-            Keyword keywordExample = new Keyword();
-
-            keywordExample = keywordExample.importContentFromXMLNode(keyword);
-            //  addKeyword(keywordExample);
-        }
-
-        return this;
     }
 
     public boolean compareProducts(Application application) {

@@ -14,7 +14,7 @@ import javax.swing.JButton;
 public interface MainMenuElements {
 
     
-    
+    public JButton LogoutButton = new JButton("Logout");
     public JButton UC01Button = new JButton("Create Event");
     public JButton UC02Button = new JButton("Define FAE");
     public JButton UC03Button = new JButton("Assign Application");
@@ -29,8 +29,11 @@ public interface MainMenuElements {
     //20 - Create Stands its a reading UC
     public JButton UC21Button = new JButton("Assign Stand To Application");
     public JButton UC22Button = new JButton("List Applications");
-    //30 Export data
-    //31 Import data
+    //
+    public JButton UC30Button = new JButton("Save/Export Data");
+    public JButton UC31Button = new JButton("Import Data");
+    public JButton UC32Button = new JButton("Import Event Data");
+    //
     public JButton UC40Button = new JButton("Show Event Submission Keywords");
-    public JButton SaveButton = new JButton("Save Data");
+    
 }
