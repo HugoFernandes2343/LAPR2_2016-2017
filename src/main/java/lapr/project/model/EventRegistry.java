@@ -38,7 +38,7 @@ public class EventRegistry {
         return validEvents;
     }
 
-    public ArrayList<Event> getEventsNotFAEDefined(){
+    public ArrayList<Event> getEventsNotFAEDefined() {
         ArrayList<Event> allEvents = getAllEvents();
         ArrayList<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
@@ -48,7 +48,7 @@ public class EventRegistry {
         }
         return validEvents;
     }
-    
+
     public ArrayList<Event> getAllEvents() {
         ArrayList<Event> allEvents = new ArrayList<>();
         allEvents.addAll(congressList);
@@ -74,7 +74,7 @@ public class EventRegistry {
         }
         return true;
     }
-    
+
     public boolean validateEvent(Event event) {
         for (int i = 0; i < exhibitionList.size(); i++) {
             if (exhibitionList.get(i).equals(event)) {
@@ -89,6 +89,7 @@ public class EventRegistry {
         }
         return true;
     }
+
     public ArrayList<Event> getEventsReadyForSubmit() {
         ArrayList<Event> eventsReadyForSubmit = new ArrayList<>();
         for (int i = 0; i < congressList.size(); i++) {
@@ -115,5 +116,27 @@ public class EventRegistry {
 
     public boolean registerApplication(Event event, Application application) {
         return event.registerApplication(application);
+    }
+
+    public ArrayList<Event> getEventsByFAE(User u) {
+        ArrayList<Event> allEvents = getAllEvents();
+        ArrayList<Event> validEvents = new ArrayList<>();
+        for (Event e : allEvents) {
+            if (e.getFAEList_UserRef().contains(u)) {
+                validEvents.add(e);
+            }
+        }
+        return validEvents;
+    }
+
+    boolean registerApplicationChanges(Event event, Application application) {
+        for (int i = 0; i < exhibitionList.size(); i++) {
+            Event registeredEvent = (Event) exhibitionList.get(i);
+            if (registeredEvent.equals(event)) {
+                exhibitionList.get(i).saveApplicationChanges(application);
+            }
+
+        }
+        return false;
     }
 }

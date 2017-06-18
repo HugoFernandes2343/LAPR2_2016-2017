@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ApplicationList {
-    
-    @XmlElement(name="application")
+
+    @XmlElement(name = "application")
     private ArrayList<Application> applications;
 
     public ApplicationList() {
@@ -21,7 +21,7 @@ public class ApplicationList {
     }
 
     /**
-     * 
+     *
      * @param tradeName
      * @param address
      * @param phone
@@ -29,7 +29,7 @@ public class ApplicationList {
      * @param productsToBeDisplayed
      * @param numberOfInvitations
      * @param keywords
-     * @return 
+     * @return
      */
     public Application createApplication(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         Application application = new Application(tradeName, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
@@ -71,7 +71,49 @@ public class ApplicationList {
     }
 
     public void addApplication(Application application) {
-       applications.add(application);
+        applications.add(application);
+    }
+
+    public ArrayList<Application> getApplicationsReadyForFAEEvaluation() {
+        ArrayList<Application> applicationsReadyForFAEEvaluation = new ArrayList<>();
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getApplicationState() instanceof ApplicationAssignedState) {
+                applicationsReadyForFAEEvaluation.add(applications.get(i));
+            }
+        }
+        return applicationsReadyForFAEEvaluation;
+    }
+
+    public ArrayList<Application> getApplicationsReadyForOrganizerDecision() {
+        ArrayList<Application> applicationsReadyForOrganizerDecision = new ArrayList<>();
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getApplicationState() instanceof ApplicationEvaluatedState) {
+                applicationsReadyForOrganizerDecision.add(applications.get(i));
+            }
+        }
+        return applicationsReadyForOrganizerDecision;
+
+    }
+
+    public ArrayList<Application> getApplicationsReadyForParticipantsRepresentativeConfirmation() {
+        ArrayList<Application> applicationsReadyForParticipantsRepresentativeConfirmation = new ArrayList<>();
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getApplicationState() instanceof ApplicationGivenStandState) {
+                applicationsReadyForParticipantsRepresentativeConfirmation.add(applications.get(i));
+            }
+        }
+        return applicationsReadyForParticipantsRepresentativeConfirmation;
+    }
+
+    boolean saveApplicationChanges(Application application) {
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).equals(application)) {
+                applications.remove(i);
+                applications.add(application);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

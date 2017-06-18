@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
@@ -59,7 +60,7 @@ public class Event {
         this.applicationBegin = applicationBegin;
         this.applicationEnd = applicationEnd;
         this.applicationList = new ApplicationList();
-        this.stands=new ArrayList<>();
+        this.stands = new ArrayList<>();
         setState(new EventCreatedState(this));
     }
 
@@ -159,5 +160,63 @@ public class Event {
         this.FaeList = xmlEvent.getFAEList();
         this.applicationList = xmlEvent.getApplicationList();
         this.stands.addAll(xmlEvent.stands);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Event)) {
+            return false;
+        }
+
+        Event that = (Event) o;
+
+        if (!title.equals(that.title)) {
+            return false;
+        }
+        if (!description.equals(that.description)) {
+            return false;
+        }
+        if (!startDate.equals(that.startDate)) {
+            return false;
+        }
+        if (!endDate.equals(that.endDate)) {
+            return false;
+        }
+        if (!applicationBegin.equals(that.applicationBegin)) {
+            return false;
+        }
+        if (!applicationEnd.equals(that.applicationEnd)) {
+            return false;
+        }
+        if (!organizerList.equals(that.organizerList)) {
+            return false;
+        }
+        return FaeList.equals(that.FaeList);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.title);
+        hash = 23 * hash + Objects.hashCode(this.description);
+        hash = 23 * hash + Objects.hashCode(this.startDate);
+        hash = 23 * hash + Objects.hashCode(this.endDate);
+        hash = 23 * hash + Objects.hashCode(this.applicationBegin);
+        hash = 23 * hash + Objects.hashCode(this.applicationEnd);
+        hash = 23 * hash + Objects.hashCode(this.organizerList);
+        hash = 23 * hash + Objects.hashCode(this.FaeList);
+        return hash;
+    }
+
+    public boolean saveApplicationChanges(Application application) {
+        return applicationList.saveApplicationChanges(application);
+    }
+
+    public void registerStand(Stand stand) {
+        stands.add(stand);
     }
 }

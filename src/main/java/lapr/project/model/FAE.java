@@ -19,7 +19,7 @@ public class FAE {
     @XmlElement
     private FAEState state;
 
-    @XmlElement(name="user")
+    @XmlElement(name = "user")
     private User u;
 
     public FAE(User u) {
@@ -41,6 +41,26 @@ public class FAE {
 
     public FAEState getFAEState() {
         return state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FAE)) {
+            return false;
+        }
+
+        FAE fae = (FAE) o;
+
+        return u.equals(fae.u);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return u.hashCode();
     }
 
     public void valida() {

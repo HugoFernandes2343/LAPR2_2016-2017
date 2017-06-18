@@ -12,4 +12,9 @@ package lapr.project.utils;
 public interface ApplicationState {
     public abstract boolean validateState();
     public abstract void setNextState(); 
+    public boolean setApplicationCreatedState();
+    public boolean setApplicationAssignedState();
+    public boolean setApplicationEvaluatedState();
+    public boolean setApplicationGivenStandState();
+    public boolean setApplicationDecidedState();
 }

@@ -41,7 +41,7 @@ public class FairCenter {
     private EventManagerRegistry eventManagers;
 
     /**
-     * 
+     *
      */
     public FairCenter() {//Add Params , nome?, local?
         confirmedUsers = new UserRegistry();
@@ -51,8 +51,8 @@ public class FairCenter {
     }
 
     /**
-     * 
-     * @param newFC 
+     *
+     * @param newFC
      */
     public FairCenter(FairCenter newFC) {
         this.confirmedUsers = newFC.confirmedUsers;
@@ -107,7 +107,7 @@ public class FairCenter {
         this.confirmedUsers.decryptAll();
     }
 
-    public void updatedDataFromXML(Event selectedEvent,Event ev) {
+    public void updatedDataFromXML(Event selectedEvent, Event ev) {
 //        ArrayList<User> newImportedUserList=new ArrayList<>();
         this.confirmedUsers.getUsersList().addAll(ev.getFAEList_UserRef());
     }
@@ -116,4 +116,7 @@ public class FairCenter {
         return eventRegistry.registerApplication(event, application);
     }
 
+    public boolean registerApplicationChanges(Event event, Application application) {
+        return eventRegistry.registerApplicationChanges(event, application);
+    }
 }

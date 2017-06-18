@@ -4,60 +4,64 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.XmlAccessorType;
+import lapr.project.utils.ApplicationState;
 
 /**
  * Candidatura class.
  *
  * @author by Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.
  */
-@XmlRootElement(name="application")
+@XmlRootElement(name = "application")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
 
     private static final String ROOT_ELEMENT_NAME = "application";
     private static final String DESCRIPTION_ELEMENT_NAME = "description";
     private static final String KEYWORDS_ELEMENT_NAME = "keywords";
-    
-    @XmlElementWrapper(name="keywords")
-    @XmlElement(name="keyword")
+
+    @XmlElementWrapper(name = "keywords")
+    @XmlElement(name = "keyword")
     private ArrayList<String> keywordList = new ArrayList<>();
-    
+
     @XmlElement
     private String description;
-    
+
     @XmlElement
     private Boolean accepted;
-    
+
     @XmlElement
     private String tradeName;
-    
+
     @XmlElement
     private String address;
-    
+
     @XmlElement
     private int phone;
-    
+
     @XmlElement
     private double boothArea;
-    
+
     @XmlElement
     private String[] productsToBeDisplayed;
-    
-    @XmlElement(name="invitesQuantity")
+
+    private ArrayList<Review> reviews;
+    private ApplicationState state;
+
+    @XmlElement(name = "invitesQuantity")
     private int numberOfInvitations;
 //    @XmlElementWrapper(name="review")
 //    @XmlElement(name="review")
 //    private ArrayList<Review> reviews;
 
     /**
-     * 
+     *
      * @param tradeName
      * @param address
      * @param phone
      * @param boothArea
      * @param productsToBeDisplayed
      * @param numberOfInvitations
-     * @param keywords 
+     * @param keywords
      */
     public Application(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         this.tradeName = tradeName;
@@ -66,6 +70,7 @@ public class Application {
         this.boothArea = boothArea;
         this.productsToBeDisplayed = productsToBeDisplayed;
         this.numberOfInvitations = numberOfInvitations;
+        this.reviews = new ArrayList<>();
         for (int i = 0; i < keywords.length; i++) {
             String keyword = keywords[i];
             keywordList.add(keyword);
@@ -191,6 +196,35 @@ public class Application {
         hash = 47 * hash + Objects.hashCode(this.address);
         hash = 47 * hash + this.phone;
         return hash;
+    }
+
+    public ApplicationState getApplicationState() {
+        return state;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public boolean isFAEReviewing(FAE FAE) {
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).getAssignment().getFAE().equals(FAE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setFAEReview(FAE FAE, Integer faeTopicKnowledge, Integer eventAdequacy, Integer inviteAdequacy, Integer recomendation, String justification) {
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).getAssignment().getFAE().equals(FAE)) {
+                reviews.get(i).setFaeTopicKnowledge(faeTopicKnowledge);
+                reviews.get(i).setEventAdequacy(eventAdequacy);
+                reviews.get(i).setInviteAdequacy(inviteAdequacy);
+                reviews.get(i).setRecomendation(recomendation);
+                reviews.get(i).setJustification(justification);
+            }
+        }
     }
 
 }
