@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 import javax.xml.bind.annotation.*;
 

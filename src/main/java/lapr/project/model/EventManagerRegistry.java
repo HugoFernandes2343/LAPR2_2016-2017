@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -22,7 +23,7 @@ public class EventManagerRegistry {
      */
     @XmlElementWrapper
     @XmlElement(name="eventManager")
-    private ArrayList<EventManager> eventManagerList;
+    private List<EventManager> eventManagerList;
 
     /**
      *
@@ -35,12 +36,12 @@ public class EventManagerRegistry {
      *
      * @return
      */
-    public ArrayList<EventManager> getEventManagersList() {
+    public List<EventManager> getEventManagersList() {
         return eventManagerList;
     }
     
-    public ArrayList<User> getEventManagersList_byUserRef(){
-        ArrayList<User> eventManagerUserRef = new ArrayList<>();
+    public List<User> getEventManagersList_byUserRef(){
+        List<User> eventManagerUserRef = new ArrayList<>();
         for(EventManager ev : eventManagerList){
             eventManagerUserRef.add(ev.getUser());
         }

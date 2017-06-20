@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -17,8 +18,8 @@ import javax.xml.bind.annotation.*;
 public class FAEList {
 
     @XmlElement(name="fae")
-    private ArrayList<FAE> FaeList;
-    private ArrayList<FAE> tempList;
+    private List<FAE> FaeList;
+    private List<FAE> tempList;
     private FAE temp;
 
     public FAEList() {
@@ -26,7 +27,7 @@ public class FAEList {
         this.tempList = new ArrayList<>();
     }
 
-    public ArrayList<FAE> getList() {
+    public List<FAE> getList() {
         return this.FaeList;
     }
 
@@ -35,28 +36,15 @@ public class FAEList {
         this.addFAEs();
     }
 
-    public void validateFAE() {
-        temp.valida();
-    }
-
     public void addFAEs() {
         this.tempList.add(temp);
     }
 
-    public void discardFAE() {
-        this.temp = null;
+    public void discardFAEs() {
+        this.tempList = new ArrayList<>();
     }
 
     public void registerFAEs() {
         FaeList.addAll(tempList);
-    }
-
-    /**
-     * For test reasons only
-     *
-     * @param fae
-     */
-    public void addFAE(FAE fae) {
-        this.FaeList.add(fae);
     }
 }

@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class UC01ControllerTest {
         String description = "A place to buy rare Lego items";
         String place = "Exponor";
         String eventType = "Exposition";
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");
@@ -73,10 +74,10 @@ public class UC01ControllerTest {
         String keyword = "delta";
         User user = new User(username, email, password, name, language, timeZone, keyword);
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         ArrayList<User> expResult = new ArrayList<>();
         expResult.add(user);
-        ArrayList<User> result = instance.getUsers();
+        List<User> result = instance.getUsers();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -102,7 +103,7 @@ public class UC01ControllerTest {
         String place = "Exponor";
         String eventType = "Exposition";
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");
@@ -132,7 +133,7 @@ public class UC01ControllerTest {
         String keyword = "delta";
         User user = new User(username, email, password, name, language, timeZone, keyword);
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         int expResult = 0;
         int result = instance.getNumberOfOrganizers();
         assertEquals(expResult, result);
@@ -162,7 +163,7 @@ public class UC01ControllerTest {
         String place = "Exponor";
         String eventType = "Exposition";
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");
@@ -202,7 +203,7 @@ public class UC01ControllerTest {
         String place = "Exponor";
         String eventType = "Exposition";
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");
@@ -240,7 +241,7 @@ public class UC01ControllerTest {
         String place = "Exponor";
         String eventType = "Exposition";
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");
@@ -278,7 +279,7 @@ public class UC01ControllerTest {
         String place = "Exponor";
         String eventType = "Exposition";
         fc.registerUser(user);
-        UC01Controller instance = new UC01Controller(fc, user);
+        UC01Controller instance = new UC01Controller(fc);
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date startDate = format.parse("10/08/2017");

@@ -6,6 +6,7 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.Event;
 import lapr.project.model.EventRegistry;
 import lapr.project.model.FairCenter;
@@ -20,16 +21,16 @@ public class UC02Controller {
 
     private User user;
     private FairCenter fc;
-    public  Event selectedEvent;
+    protected  Event selectedEvent;
 
     public UC02Controller(FairCenter fc, User u) {
         this.user = u;
         this.fc = fc;
     }
 
-    public ArrayList<Event> getEventsByOrganizer() {
-        ArrayList<Event> listEventsNotFAEDefined;
-        ArrayList<Event> eventListByOrganizer = new ArrayList<>();
+    public List<Event> getEventsByOrganizer() {
+        List<Event> listEventsNotFAEDefined;
+        List<Event> eventListByOrganizer = new ArrayList<>();
         EventRegistry er = fc.getEventRegistry();
         listEventsNotFAEDefined = er.getEventsNotFAEDefined();
         for (Event e : listEventsNotFAEDefined) {
@@ -40,27 +41,34 @@ public class UC02Controller {
         return eventListByOrganizer;
     }
 
-    public ArrayList<User> getUsersList() {
+    public List<User> getUsersList() {
         UserRegistry ur = fc.getConfirmedUsers();
-        ArrayList<User> userList = ur.getUsersList();
-        return userList;
+        return ur.getUsersList();
     }
 
     public void defineFAE(User u) {
         selectedEvent.createFAE(u);
-        selectedEvent.getFAEList().validateFAE();
     }
 
     public void addFAE(boolean conf) {
-        if (conf == true) {
+        if (conf) {
             selectedEvent.getFAEList().addFAEs();
         } else {
-            selectedEvent.getFAEList().discardFAE();
+            selectedEvent.discardFAEs();
         }
     }
 
     public void registerFAEs() {
         selectedEvent.registerFAEs();
+        selectedEvent.state.setEventDefinedFAEState();
+    }
+    
+    public void setSelectedEvent(Event e){
+        this.selectedEvent=e;
+    }
+    
+    public Event getSelectedEvent(){
+        return this.selectedEvent;
     }
     
 }

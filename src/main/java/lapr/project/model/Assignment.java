@@ -12,9 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Hugo
  */
-@XmlRootElement
+@XmlRootElement(name="assignment")
 public class Assignment {
-	@XmlElement
+    
+	@XmlElement(name="fae")
 	private FAE FAE;
 
 	public Assignment(FAE FAE) {
@@ -22,6 +23,7 @@ public class Assignment {
 	}
 
 	private Assignment() {
+            //Avoid xml conflicts
 	}
 
 	@Override

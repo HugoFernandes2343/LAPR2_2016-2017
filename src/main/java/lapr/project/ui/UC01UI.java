@@ -19,36 +19,36 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.*;
 import lapr.project.controller.UC01Controller;
 import lapr.project.model.FairCenter;
-import lapr.project.model.Organizer;
 import lapr.project.model.User;
 
 /**
  *
  * @author PC
  */
-@SuppressWarnings("serial")
 public class UC01UI extends JDialog {
 
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 600;
+    private static final long serialVersionUID = 1L;
+    
+    private final int WINDOW_WIDTH = 1000;
+    private final int WINDOW_HEIGHT = 600;
     private String eventType;
 
     private UC01Controller controller;
 
     public UC01UI(FairCenter fc, User u, JFrame menuWindow) {
-        controller = new UC01Controller(fc, u);
+        controller = new UC01Controller(fc);
         this.setName("UC01 - Create Event");
         this.createFrame(menuWindow);
         this.pack();
     }
 
     private void createFrame(JFrame menuWindow) {
-        setSize(WIDTH, HEIGHT);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -82,7 +82,7 @@ public class UC01UI extends JDialog {
         add(allScreens, BorderLayout.CENTER);
     }
 
-    private void createEventScreen(JPanel screen, JPanel allScreens, JFrame menuWindow, JPanel FAESelectionScreen) {
+    private void createEventScreen(JPanel screen, JPanel allScreens, JFrame menuWindow, JPanel FaeSelectionScreen) {
         JPanel centralPanel = new JPanel(new GridBagLayout());
         centralPanel.setSize(200, 200);
         GridBagConstraints pos = new GridBagConstraints();
@@ -223,6 +223,7 @@ public class UC01UI extends JDialog {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String eventError="Event creation error";
                 String title = titleField.getText();
                 String description = descriptionField.getText();
                 String place = placeField.getText();
@@ -234,20 +235,19 @@ public class UC01UI extends JDialog {
                         Date applicationBegin = format.parse(applicationBeginField.getText());
                         Date applicationEnd = format.parse(applicationEndField.getText());
                         controller.createEvent(title, description, place, startDate, endDate, applicationBegin, applicationEnd, eventType);
-                        createFAESelectionScreen(FAESelectionScreen, menuWindow);
+                        createFAESelectionScreen(FaeSelectionScreen, menuWindow);
                         CardLayout cl = (CardLayout) (allScreens.getLayout());
                         cl.show(allScreens, "2");//USE a string with a number and its solved 
                     } catch (ParseException ex) {
-                        System.out.println(ex.getMessage());
                         JOptionPane.showMessageDialog(UC01UI.this,
                                 "Error detected in the dates. Please check.",
-                                "Event creation error",
+                                eventError,
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     JOptionPane.showMessageDialog(UC01UI.this,
                             "Missing data. Please check.",
-                            "Event creation error",
+                            eventError,
                             JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -282,7 +282,7 @@ public class UC01UI extends JDialog {
         JPanel organizerSelectionBox = new JPanel(new BorderLayout());
         organizerSelectionBox.add(new JLabel("Select the desired organizerss (allows several):"), BorderLayout.PAGE_START);
 
-        ArrayList<User> allUsers = controller.getUsers();
+        List<User> allUsers = controller.getUsers();
         String[] listPresentableOrganizers = new String[allUsers.size()];
         for (int i = 0; i < allUsers.size(); i++) {
             listPresentableOrganizers[i] = allUsers.get(i).toInfoString();

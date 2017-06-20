@@ -5,14 +5,13 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationList;
 import lapr.project.model.Event;
 import lapr.project.model.EventRegistry;
 import lapr.project.model.FAE;
 import lapr.project.model.FairCenter;
-import lapr.project.model.Review;
 import lapr.project.model.User;
 
 /**
@@ -21,13 +20,13 @@ import lapr.project.model.User;
  */
 public class UC04Controller {
 
-    public Event selectedEvent;
+    protected Event selectedEvent;
     private FairCenter fc;
     private User user;
     private EventRegistry eventRegistry;
-    private ArrayList<Event> eventList;
-    private ArrayList<Application> FAEApplicationList;
-    public Application selectedApplication;
+    private List<Event> eventList;
+    private List<Application> faeApplicationList;
+    protected Application selectedApplication;
 
     public UC04Controller(FairCenter fc, User u) {
         this.fc = fc;
@@ -36,24 +35,24 @@ public class UC04Controller {
 
     }
 
-    public ArrayList<Event> getEventsByFAE() {
+    public List<Event> getEventsByFAE() {
         eventList = eventRegistry.getEventsByFAE(user);
         return eventList;
     }
 
     public boolean validateEvent() {
         ApplicationList applicationList = selectedEvent.getApplicationList();
-        ArrayList<Application> applications = applicationList.getApplicationsReadyForFAEEvaluation();
+        List<Application> applications = applicationList.getApplicationsReadyForFAEEvaluation();
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).isFAEReviewing(new FAE(user))) {
-                FAEApplicationList.add(applications.get(i));
+                faeApplicationList.add(applications.get(i));
             }
         }
-        return FAEApplicationList.size() > 0;
+        return faeApplicationList.isEmpty();
     }
 
-    public ArrayList<Application> getFAEApplications() {
-        return FAEApplicationList;
+    public List<Application> getFAEApplications() {
+        return faeApplicationList;
     }
 
     public void evaluateApplication(Integer faeTopicKnowledge, Integer eventAdequacy, Integer inviteAdequacy, Integer recomendation, String justification) {
@@ -64,4 +63,17 @@ public class UC04Controller {
         return fc.registerApplicationChanges(selectedEvent, selectedApplication);
     }
 
+    public void setSelectedEvent(Event e){
+        this.selectedEvent=e;
+    }
+    
+    public void setSelectedApplication(Application app){
+        this.selectedApplication=app;
+    }
+    
+    public Application getSelectedApplication(){
+        return this.selectedApplication;
+    }
+    
+    
 }

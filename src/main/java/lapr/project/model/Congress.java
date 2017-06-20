@@ -33,7 +33,7 @@ public class Congress extends Event {
 
     @Override
     public String toString() {
-        return String.format("Event type: %s%n", eventType) + super.toString();
+        return String.format("Event type:  %s%n", eventType) + super.toString();
     }
 
 }

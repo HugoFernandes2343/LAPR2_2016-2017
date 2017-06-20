@@ -11,4 +11,10 @@ package lapr.project.model;
  */
 public class Representative {
     
+    private User u;
+    
+    public Representative(User u){
+        this.u=u;
+    }
+    
 }

@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,30 +28,27 @@ import lapr.project.model.User;
  *
  * @author Hugo
  */
-@SuppressWarnings("serial")
 public class UC06UI extends JFrame {
 
-    private FairCenter fc;
-    private User user;
+    private static final long serialVersionUID = 1L;
+    
     private String language;
     private String timeZone;
     private JFrame menuWindow;
     private final JButton createButton = new JButton("Create");
     private final JButton cancelButton = new JButton("Cancel");
-    private final String[] languageList = {"CHOOSE", "English", "Portuguese", "Spanish", "Chinese", "Italian", "Russian"};
-    private final String[] timezoneList = {"GMT-05", "GMT-04", "GMT-03", "GMT-02", "GMT-01", "CHOOSE", "GMT+00", "GMT+01", "GMT+02", "GMT+03", "GMT+04", "GMT+05"};
+    private static final String[] languageList = {"CHOOSE", "English", "Portuguese", "Spanish", "Chinese", "Italian", "Russian"};
+    private static final String[] timezoneList = {"GMT-05", "GMT-04", "GMT-03", "GMT-02", "GMT-01", "CHOOSE", "GMT+00", "GMT+01", "GMT+02", "GMT+03", "GMT+04", "GMT+05"};
     private static final char[] UPPER_CASES = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     private static final char[] LOWER_CASES = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private static final char[] NUMBER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     private static final char[] PUNCTUATION_MARK = {',', '.', ';', ':', '-'};
-    private static final int HEIGHT = 500;
-    private static final int WIDTH = 500;
+    private static final int WINDOW_HEIGHT = 500;
+    private static final int WINDOW_WIDTH = 500;
 
     private UC06Controller controller;
 
     public UC06UI(FairCenter fc, User user, JFrame menuWindow) {
-        this.fc = fc;
-        this.user = user;
         this.menuWindow = menuWindow;
         controller = new UC06Controller(fc);
         this.setName(language);
@@ -61,7 +57,7 @@ public class UC06UI extends JFrame {
     }
 
     private void createFrame() {
-        setSize(HEIGHT, WIDTH);
+        setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,7 +185,7 @@ public class UC06UI extends JFrame {
                 String password = new String(passwordField.getPassword());
                 String confirmPassword = new String(confirmPasswordField.getPassword());
                 String keyword = keywordField.getText();
-                if (name.equals("") || username.equals("") || email.equals("") || password.length() <= 0 || confirmPassword.length() <= 0 || keyword.equals("")) {
+                if ("".equals(name) || "".equals(username) || "".equals(email) || password.length() <= 0 || confirmPassword.length() <= 0 || "".equals(keyword)) {
                     JOptionPane.showMessageDialog(UC06UI.this,
                             "Missing data. Please check.",
                             "Missing data error",
@@ -261,13 +257,10 @@ public class UC06UI extends JFrame {
         if (!password.equals(passwordCheck)) {
             return false;
         }
-        if (checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), UPPER_CASES)
+        return checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), UPPER_CASES)
                 && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), LOWER_CASES)
                 && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), NUMBER)
-                && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), PUNCTUATION_MARK)) {
-            return true;
-        }
-        return false;
+                && checkIfPasswordContaisOneOfTheCharacters(password.toCharArray(), PUNCTUATION_MARK);
     }
 
     private boolean checkIfPasswordContaisOneOfTheCharacters(char[] password, char[] characterList) {

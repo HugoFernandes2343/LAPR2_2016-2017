@@ -13,19 +13,19 @@ import lapr.project.utils.EventState;
  * @author PC
  */
 @XmlRootElement
-public class EventDefinedFAEState implements EventState{
-    
+public class EventDefinedFAEState implements EventState {
+
     @XmlTransient
-    public Event e;
-    
-    public EventDefinedFAEState(Event e){
-        this.e=e;
+    protected Event e;
+
+    public EventDefinedFAEState(Event e) {
+        this.e = e;
     }
-    
-    public EventDefinedFAEState(){
+
+    public EventDefinedFAEState() {
         //Avoiding xml conflicts
     }
-    
+
     @Override
     public boolean setEventCreatedState() {
         return false;
@@ -38,8 +38,7 @@ public class EventDefinedFAEState implements EventState{
 
     @Override
     public boolean validate() {
-        //Specific
-        return false;
+        return e.getFAEList().getList().isEmpty() == false;
     }
 
     @Override
@@ -51,9 +50,4 @@ public class EventDefinedFAEState implements EventState{
             return false;
         }
     }
-    /* @Override
-    public boolean setEventApplicationsEvaluatingState() {
-       return false;
-    }*/
-    
 }

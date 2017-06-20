@@ -5,7 +5,7 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 import lapr.project.model.UserRegistry;
@@ -19,7 +19,7 @@ public class UC06Controller {
     private FairCenter fc;
     private User user;
     private UserRegistry userRegistry;
-    private ArrayList<User> userList;
+    private List<User> userList;
 
     public UC06Controller(FairCenter fc) {
         this.fc = fc;

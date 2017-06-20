@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -33,11 +33,12 @@ import lapr.project.model.User;
  *
  * @author Hugo
  */
-@SuppressWarnings("serial")
 public class UC04UI extends JDialog {
 
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 600;
+    private static final long serialVersionUID = 1L;
+    
+    private final int WINDOW_WIDTH = 1000;
+    private final int WINDOW_HEIGHT = 600;
 
     private UC04Controller uc04Controller;
     private User user;
@@ -53,7 +54,7 @@ public class UC04UI extends JDialog {
     }
 
     private void createFrame(JFrame menuWindow) {
-        setSize(WIDTH, HEIGHT);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -95,7 +96,7 @@ public class UC04UI extends JDialog {
         JLabel selectEvent = new JLabel("Select one event:");
         eventSelectionBox.add(selectEvent, BorderLayout.PAGE_START);
 
-        ArrayList<Event> allEventsList = uc04Controller.getEventsByFAE();
+        List<Event> allEventsList = uc04Controller.getEventsByFAE();
         String[] listPresentableEvents = new String[allEventsList.size()];
         for (int i = 0; i < allEventsList.size(); i++) {
             listPresentableEvents[i] = allEventsList.get(i).toString();
@@ -108,7 +109,7 @@ public class UC04UI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = eventList.getSelectedIndex();
-                uc04Controller.selectedEvent = uc04Controller.getEventsByFAE().get(i);
+                uc04Controller.setSelectedEvent(uc04Controller.getEventsByFAE().get(i));
                 if (uc04Controller.validateEvent()) {
                     eventAlowed = true;
                 } else {
@@ -129,7 +130,7 @@ public class UC04UI extends JDialog {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (eventAlowed == true) {
+                if (eventAlowed) {
                     applicationSelectionScreen(allScreens, applicationSelectionScreen, evaluationScreen, menuWindow);
                     CardLayout cl = (CardLayout) (allScreens.getLayout());
                     cl.show(allScreens, "2");//USE a string with a number and its solved (TAG)                 
@@ -162,7 +163,7 @@ public class UC04UI extends JDialog {
         JLabel selectApplication = new JLabel("Select one application:");
         applicationSelectionBox.add(selectApplication, BorderLayout.PAGE_START);
 
-        ArrayList<Application> allApplicationsList = uc04Controller.getFAEApplications();
+        List<Application> allApplicationsList = uc04Controller.getFAEApplications();
         String[] listPresentableApplications = new String[allApplicationsList.size()];
         for (int i = 0; i < allApplicationsList.size(); i++) {
             listPresentableApplications[i] = allApplicationsList.get(i).toString();
@@ -175,7 +176,7 @@ public class UC04UI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = applicationList.getSelectedIndex();
-                uc04Controller.selectedApplication = uc04Controller.getFAEApplications().get(i);
+                uc04Controller.setSelectedApplication(uc04Controller.getFAEApplications().get(i));
             }
         });
         applicationSelectionBox.add(applicationList, BorderLayout.CENTER);
@@ -186,9 +187,10 @@ public class UC04UI extends JDialog {
         JButton cancelButton = new JButton("Cancel");
 
         confirmButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                if (uc04Controller.selectedApplication != null) {
-                    applicationEvaluationScreen(allScreens, evaluationScreen, menuWindow);
+                if (uc04Controller.getSelectedApplication() != null) {
+                    applicationEvaluationScreen(evaluationScreen, menuWindow);
                     CardLayout cl = (CardLayout) (allScreens.getLayout());
                     cl.show(allScreens, "3");//USE a string with a number and its solved (TAG)             
                 } else {
@@ -215,7 +217,7 @@ public class UC04UI extends JDialog {
         applicationSelectionScreen.add(applicationSelectionBox, BorderLayout.PAGE_START);
     }
 
-    private void applicationEvaluationScreen(JPanel allScreens, JPanel evaluationScreen, JFrame menuWindow) {
+    private void applicationEvaluationScreen(JPanel evaluationScreen, JFrame menuWindow) {
 
         JPanel evaluationBox = new JPanel(new GridBagLayout());
         GridBagConstraints pos = new GridBagConstraints();
@@ -284,11 +286,12 @@ public class UC04UI extends JDialog {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String appEvaluation = "Application Evaluation";
                 if (faeTopicKnowledgeList.getSelectedIndex() != -1
                         && eventAdequacyList.getSelectedIndex() != -1
                         && inviteAdequacyList.getSelectedIndex() != -1
                         && recomendationList.getSelectedIndex() != -1
-                        && !justificationField.getText().equals("")) {
+                        && !"".equals(justificationField.getText())) {
                     Integer faeTopicKnowledge = Integer.getInteger(opcionalValues[faeTopicKnowledgeList.getSelectedIndex()]);
                     Integer eventAdequacy = Integer.getInteger(opcionalValues[eventAdequacyList.getSelectedIndex()]);
                     Integer inviteAdequacy = Integer.getInteger(opcionalValues[inviteAdequacyList.getSelectedIndex()]);
@@ -303,7 +306,7 @@ public class UC04UI extends JDialog {
                         if (uc04Controller.registerEvaluation()) {
                             JOptionPane.showMessageDialog(UC04UI.this,
                                     "Application evaluation sucessfull.",
-                                    "Application Evaluation",
+                                    appEvaluation,
                                     JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                             setVisible(false);
@@ -311,7 +314,7 @@ public class UC04UI extends JDialog {
                         } else {
                             JOptionPane.showMessageDialog(UC04UI.this,
                                     "Application evaluation was not registered. Please try again later.",
-                                    "Application Evaluation",
+                                    appEvaluation,
                                     JOptionPane.ERROR_MESSAGE);
                             dispose();
                             setVisible(false);
@@ -325,7 +328,7 @@ public class UC04UI extends JDialog {
                 } else {
                     JOptionPane.showMessageDialog(UC04UI.this,
                             "Please evaluate all requested fields.",
-                            "Application Evaluation",
+                            appEvaluation,
                             JOptionPane.ERROR_MESSAGE);
                 }
 

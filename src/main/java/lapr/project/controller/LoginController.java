@@ -5,10 +5,9 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
-import lapr.project.utils.Encryption;
 
 /**
  *
@@ -16,15 +15,6 @@ import lapr.project.utils.Encryption;
  */
 public class LoginController {
 
-    /**
-     *
-     */
-    private String ID;
-
-    /**
-     *
-     */
-    private String password;
 
     /**
      *
@@ -42,31 +32,15 @@ public class LoginController {
 
     /**
      *
-     * @param ID
-     */
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    /**
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     *
-     * @param ID
+     * @param id
      * @param password
      * @return
      */
-    public boolean authenticate(String ID,String password) {
-        ArrayList<User> usersList;
+    public boolean authenticate(String id,String password) {
+        List<User> usersList;
         usersList = fairCenter.getConfirmedUsers().getUsersList();//Still dont know how to implement encryption without hash
         for (User u : usersList) {
-            if (checkID(u, ID) == true && checkPassword(u, password) == true) {
+            if (checkID(u, id) && checkPassword(u, password)) {
                 user = u;
                 return true;
             }
@@ -77,15 +51,11 @@ public class LoginController {
     /**
      *
      * @param u
-     * @param ID
+     * @param id
      * @return
      */
-    private boolean checkID(User u, String ID) {
-        if (u.getEmail().equals(ID) || u.getUsername().equals(ID)) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean checkID(User u, String id) {
+        return u.getEmail().equals(id) || u.getUsername().equals(id);
     }
 
     /**

@@ -14,24 +14,20 @@ import lapr.project.model.FairCenter;
  *
  * @author PC
  */
-@SuppressWarnings("serial")
 public class UserInterface extends JFrame {
 
+    private static final long serialVersionUID = 1L;
+    
     public UserInterface(FairCenter fc){
         //SetLookAndFeel
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(UserInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
         //CreateUI
         LoginUI loginUI = new LoginUI(fc);
+        loginUI.setVisible(true);
     }
 }

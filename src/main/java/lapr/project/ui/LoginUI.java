@@ -18,36 +18,35 @@ import lapr.project.model.FairCenter;
  *
  * @author PC
  */
-@SuppressWarnings("serial")
 public class LoginUI extends JFrame {
+    
+    private static final long serialVersionUID = 1L;
     
     private final JButton loginButton = new JButton("Login");
     private final JButton cancelButton = new JButton("Cancel");
-    private final int WIDTH = 250;
-    private final int HEIGHT = 400;
+    private final int WINDOW_WIDTH = 250;
+    private final int WINDOW_HEIGHT = 400;
     
-    private JFrame window = new JFrame("Login Window");
 
     protected LoginController loginController;
     protected FairCenter fc;
 
     public LoginUI(FairCenter fc) {
         this.fc=fc;
+        this.setName("Login Window");
         loginController = new LoginController(fc);
-//        JFrame window = new JFrame("Login Window");
-        createFrame(window);
+        createFrame();
     }
 
-    private JFrame createFrame(JFrame window) {
-        window.setSize(HEIGHT, WIDTH);
+    private JFrame createFrame() {
+        this.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
         BorderLayout layout = new BorderLayout();
-        window.setLayout(layout);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        createElements(window);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-        return window;
+        this.setLayout(layout);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createElements(this);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        return this;
     }
 
     private void createElements(JFrame loginFrame) {
@@ -80,10 +79,10 @@ public class LoginUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String userIDTemp = userIdentification.getText();
                 String userPasswordTemp = new String(userPasswordField.getPassword());
-                if (loginController.authenticate(userIDTemp, userPasswordTemp) == true) {
+                if (loginController.authenticate(userIDTemp, userPasswordTemp)) {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();
-                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser(),window);
+                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser(),LoginUI.this);
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this,
                             "Invalid username or password",

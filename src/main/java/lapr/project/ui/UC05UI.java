@@ -12,12 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
-import lapr.project.controller.LoginController;
 import lapr.project.controller.UC05Controller;
 import lapr.project.model.Event;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 import java.awt.event.*;
+import java.util.List;
 
 /**
  *
@@ -28,25 +28,22 @@ public class UC05UI extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private UC05Controller uc05Controller;
-    private ArrayList<Event> eventsList = new ArrayList<>();
+    private List<Event> eventsList = new ArrayList<>();
     private String[] eventsTitlesList;
     private String eventTitle;
     private String description;
     private Event event;
+
     private final JButton createButton = new JButton("Create");
     private final JButton selectButton = new JButton("Select");
     private final JButton cancelButton = new JButton("Cancel");
-
-    private final int WIDTH = 525;
-    private final int HEIGHT = 250;
+    private final int WINDOW_WIDTH = 525;
+    private final int WINDOW_HEIGHT = 250;
+    private final String confirmationDialog = "Are You Sure You Want To Exit?";
+    private final String confirmationTitle = "Exit Confirmation";
 
     public UC05UI(FairCenter fc, User u, JFrame menuWindow) {
-        this.uc05Controller = new UC05Controller(fc, u);
-        // JFrame ownerframe = new JFrame();
-        // JFrame window = new JFrame(ownerframe);
-        // JFrame window = new JFrame("UC05");
-        //JFrame window2 = new JFrame("UC05 - Input Application");
-        //JFrame window3 = new JFrame("UC05 - Confirmation window");
+        this.uc05Controller = new UC05Controller(fc);
         this.setName("UC05");
         this.eventsList = uc05Controller.getEventsReadyForSubmit();
         this.eventsTitlesList = uc05Controller.getTitlesForSubmit(eventsList);
@@ -54,19 +51,17 @@ public class UC05UI extends JFrame {
     }
 
     private JFrame createChooseEventFrame(JFrame menuWindow) {
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         WindowListener exitListener = new WindowAdapter() {
-
             @Override
-
             public void windowClosing(WindowEvent e) {
 
                 int confirm = JOptionPane.showOptionDialog(
-                        null, "Are You Sure You Want To Exit?",
-                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        null, confirmationDialog,
+                        confirmationTitle, JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                 if (confirm == 0) {
@@ -151,7 +146,7 @@ public class UC05UI extends JFrame {
 
     private JFrame createFrame(JFrame menuWindow) {
         JFrame window2 = new JFrame("UC05");
-        window2.setSize(WIDTH, HEIGHT);
+        window2.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         BorderLayout layout = new BorderLayout();
         window2.setLayout(layout);
         window2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -163,8 +158,8 @@ public class UC05UI extends JFrame {
             public void windowClosing(WindowEvent e) {
 
                 int confirm = JOptionPane.showOptionDialog(
-                        null, "Are You Sure You Want To Exit?",
-                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        null, confirmationDialog,
+                        confirmationTitle, JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                 if (confirm == 0) {
@@ -265,7 +260,7 @@ public class UC05UI extends JFrame {
 
         createButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) throws NumberFormatException {
+            public void actionPerformed(ActionEvent e) {
                 String tradeName = tradeNameField.getText();
                 String address = addressField.getText();
                 String[] keywords = keywordsField.getText().split(";");
@@ -322,7 +317,7 @@ public class UC05UI extends JFrame {
 
     private JFrame createFinalConfirmationGUI(JFrame menuWindow) {
         JFrame window3 = new JFrame("UC05");
-        window3.setSize(WIDTH, HEIGHT);
+        window3.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         BorderLayout layout = new BorderLayout();
         window3.setLayout(layout);
         window3.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -333,8 +328,8 @@ public class UC05UI extends JFrame {
             public void windowClosing(WindowEvent e) {
 
                 int confirm = JOptionPane.showOptionDialog(
-                        null, "Are You Sure You Want To Exit?",
-                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        null, confirmationDialog,
+                        confirmationTitle, JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                 if (confirm == 0) {

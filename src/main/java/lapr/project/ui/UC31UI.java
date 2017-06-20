@@ -20,8 +20,6 @@ import lapr.project.utils.XMLImporter;
  */
 public class UC31UI {
 
-    private UC31Controller uc31Controller;
-
     public UC31UI(JFrame menuWindow,FairCenter fc) {
         FairCenter newFC = new FairCenter();
         JOptionPane.showMessageDialog(menuWindow,
@@ -37,9 +35,8 @@ public class UC31UI {
                     JOptionPane.INFORMATION_MESSAGE);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
         }
-        uc31Controller = new UC31Controller(fc,newFC);
+        UC31Controller uc31Controller = new UC31Controller(fc,newFC);
     }
 
 }

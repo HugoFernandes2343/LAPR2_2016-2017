@@ -108,7 +108,6 @@ public class FairCenter {
     }
 
     public void updatedDataFromXML(Event selectedEvent, Event ev) {
-//        ArrayList<User> newImportedUserList=new ArrayList<>();
         this.confirmedUsers.getUsersList().addAll(ev.getFAEList_UserRef());
     }
 

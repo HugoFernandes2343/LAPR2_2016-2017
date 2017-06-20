@@ -15,48 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Review {
 
-    /**
-     * @param justification the text to set
-     */
-    public void setJustification(String justification) {
-        this.justification = justification;
-    }
-
-    /**
-     * @param faeTopicKnowledge the faeTopicKnowledge to set
-     */
-    public void setFaeTopicKnowledge(Integer faeTopicKnowledge) {
-        this.faeTopicKnowledge = faeTopicKnowledge;
-    }
-
-    /**
-     * @param eventAdequacy the eventAdequacy to set
-     */
-    public void setEventAdequacy(Integer eventAdequacy) {
-        this.eventAdequacy = eventAdequacy;
-    }
-
-    /**
-     * @param inviteAdequacy the inviteAdequacy to set
-     */
-    public void setInviteAdequacy(Integer inviteAdequacy) {
-        this.inviteAdequacy = inviteAdequacy;
-    }
-
-    /**
-     * @return the recomendation
-     */
-    public Integer getRecomendation() {
-        return recomendation;
-    }
-
-    /**
-     * @param recomendation the recommendation to set
-     */
-    public void setRecomendation(Integer recomendation) {
-        this.recomendation = recomendation;
-    }
-
     @XmlElement
     private String justification;
 
@@ -76,6 +34,7 @@ public class Review {
     private Assignment assignment;
 
     private Review() {
+        //Avoid xml conflicts
     }
 
     public Review(FAE FAE) {
@@ -125,5 +84,48 @@ public class Review {
 
     public Assignment getAssignment() {
         return assignment;
+    }
+    
+    
+    /**
+     * @param justification the text to set
+     */
+    public void setJustification(String justification) {
+        this.justification = justification;
+    }
+
+    /**
+     * @param faeTopicKnowledge the faeTopicKnowledge to set
+     */
+    public void setFaeTopicKnowledge(Integer faeTopicKnowledge) {
+        this.faeTopicKnowledge = faeTopicKnowledge;
+    }
+
+    /**
+     * @param eventAdequacy the eventAdequacy to set
+     */
+    public void setEventAdequacy(Integer eventAdequacy) {
+        this.eventAdequacy = eventAdequacy;
+    }
+
+    /**
+     * @param inviteAdequacy the inviteAdequacy to set
+     */
+    public void setInviteAdequacy(Integer inviteAdequacy) {
+        this.inviteAdequacy = inviteAdequacy;
+    }
+
+    /**
+     * @return the recomendation
+     */
+    public Integer getRecomendationValue() {
+        return recomendation;
+    }
+
+    /**
+     * @param recomendation the recommendation to set
+     */
+    public void setRecomendation(Integer recomendation) {
+        this.recomendation = recomendation;
     }
 }

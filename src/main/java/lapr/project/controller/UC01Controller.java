@@ -7,11 +7,11 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lapr.project.model.Event;
 import lapr.project.model.EventRegistry;
 import lapr.project.model.FairCenter;
 import lapr.project.model.Organizer;
-import lapr.project.model.OrganizerList;
 import lapr.project.model.User;
 import lapr.project.model.UserRegistry;
 
@@ -23,9 +23,9 @@ public class UC01Controller {
 
     private Event event;
     private FairCenter fc;
-    private ArrayList<Organizer> organizerList;
+    private List<Organizer> organizerList;
 
-    public UC01Controller(FairCenter fc, User user) {
+    public UC01Controller(FairCenter fc) {
         organizerList = new ArrayList<>();
         this.fc = fc;
     }
@@ -35,10 +35,9 @@ public class UC01Controller {
         event = eventList.createEvent(title, description, place, startDate, endDate, applicationBegin, applicationEnd, eventType);
     }
 
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         UserRegistry userList = fc.getConfirmedUsers();
-        ArrayList<User> users = userList.getUsersList();
-        return users;
+        return userList.getUsersList();
     }
 
     public void newOrganizer(User user) {

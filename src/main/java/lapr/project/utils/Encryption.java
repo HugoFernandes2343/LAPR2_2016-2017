@@ -39,21 +39,18 @@ public class Encryption {
 
     public String encrypt(String word) {
         String substitutionResult = encryptSubstitution(word);
-        String transpositionResult = encryptTransposition(substitutionResult);
-        return transpositionResult;
+        return encryptTransposition(substitutionResult);
     }
 
     public String decrypt(String word) {
         String decryptTranspositionResult = decryptTransposition(word);
-        String decryptSubstitutionResult = decryptSubstitution(decryptTranspositionResult);
-        return decryptSubstitutionResult;
+        return decryptSubstitution(decryptTranspositionResult);
     }
 
     private String encryptSubstitution(String word) {
         char[] wordByChar = word.toCharArray();
         char[] cC = replaceValueEncryption(wordByChar);
-        String wordEncrypted = String.valueOf(cC);
-        return wordEncrypted;
+        return String.valueOf(cC);
     }
 
     private char[] replaceValueEncryption(char[] c) {
@@ -65,7 +62,7 @@ public class Encryption {
     }
 
     private char tradeValueEncryption(char c) {
-        String s1 = "" + c;
+        String s1 = Character.toString(c);
         int shiftTemp = shift;
         char replacer = 0;
         for (int i = 0; i < characterKey.length; i++) {
@@ -88,8 +85,7 @@ public class Encryption {
     private String decryptSubstitution(String word) {
         char[] wordByChar = word.toCharArray();
         char[] cC = replaceValueDecryption(wordByChar);
-        String wordEncrypted = String.valueOf(cC);
-        return wordEncrypted;
+        return String.valueOf(cC);
     }
 
     private char[] replaceValueDecryption(char[] c) {
@@ -134,10 +130,8 @@ public class Encryption {
                 }
             }
         }
-        //printMatrix(cT);
         char[][] encrypted = encryptBasedOnKeyword(cT, order);
-        String wordEncrypted = passMatrixToString(encrypted);
-        return wordEncrypted;
+        return passMatrixToString(encrypted);
     }
 
     private char[][] encryptBasedOnKeyword(char[][] cT, char[] order) {
@@ -167,10 +161,8 @@ public class Encryption {
                 }
             }
         }
-        //printMatrix(cT);
         char[][] decrypted = decryptBasedOnDecryptKey(cT);
-        String wordDecrypted = passMatrixToString(decrypted);
-        return wordDecrypted;
+        return passMatrixToString(decrypted);
     }
 
     private char[][] decryptBasedOnDecryptKey(char[][] cT) {
@@ -197,7 +189,6 @@ public class Encryption {
 
     private char[][] transposeMatrix(char[][] cT) {
         char[][] transposeMatrix = new char[cT[0].length][cT.length];
-        char x;
         for (int i = 0; i < cT.length; i++) {
             for (int a = 0; a < cT[i].length; a++) {
                 transposeMatrix[a][i] = cT[i][a];
@@ -217,29 +208,28 @@ public class Encryption {
     private char[] createDecryptKeyword() {
         int decryptKeyPosition = 0;
         char[] keywordByChar = keyword.toCharArray();
-        char[] DecryptKey = new char[keywordByChar.length];
-        for (int i = 0; i < DecryptKey.length; i++) {
+        char[] decryptKey = new char[keywordByChar.length];
+        for (int i = 0; i < decryptKey.length; i++) {
             String n = Integer.toString(decryptKeyPosition);
-            DecryptKey[i] = n.charAt(0);
+            decryptKey[i] = n.charAt(0);
             decryptKeyPosition++;
         }
         for (int j = 0; j < keywordByChar.length; j++) {
             for (int a = j + 1; a < keywordByChar.length; a++) {
                 if (keywordByChar[j] > keywordByChar[a]) {
-                    char trade1 = DecryptKey[a];
-                    DecryptKey[a] = DecryptKey[j];
-                    DecryptKey[j] = trade1;
+                    char trade1 = decryptKey[a];
+                    decryptKey[a] = decryptKey[j];
+                    decryptKey[j] = trade1;
                 }
             }
         }
-        return DecryptKey;
+        return decryptKey;
     }
 
     private char[] getAscii() {
         char[] ascii = new char[127 - 32];
         for (int i = 32; i < 127; i++) {
             ascii[i - 32] = (char) i;
-            System.out.println((char) i);
         }
         return ascii;
     }

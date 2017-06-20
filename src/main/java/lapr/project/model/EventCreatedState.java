@@ -16,7 +16,7 @@ import lapr.project.utils.EventState;
 public class EventCreatedState implements EventState {
 
     @XmlTransient
-    public Event e;
+    protected Event e;
 
     public EventCreatedState(Event e) {
         this.e = e;
@@ -33,7 +33,7 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean setEventDefinedFAEState() {
-        if (validate()) {
+        if (validate() == true) {
             e.setState(new EventDefinedFAEState(e));
             return true;
         } else {
@@ -43,10 +43,10 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean validate() {
-        //Specific
-        return false;
+        return e.getOrganizerList().getList().isEmpty() == false;
     }
-     @Override
+
+    @Override
     public boolean setEventApplicationsOpenState() {
         return false;
     }
@@ -55,6 +55,4 @@ public class EventCreatedState implements EventState {
     public boolean setEventApplicationsEvaluatingState() {
         return false;
     }*/
-
-
 }

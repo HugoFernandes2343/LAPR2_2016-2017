@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -18,18 +19,18 @@ import javax.xml.bind.annotation.*;
 public class EventRegistry {
 
     @XmlElement
-    private ArrayList<Congress> congressList;
+    private List<Congress> congressList;
     @XmlElement
-    private ArrayList<Exhibition> exhibitionList;
+    private List<Exhibition> exhibitionList;
 
     public EventRegistry() {
         this.congressList = new ArrayList<>();
         this.exhibitionList = new ArrayList<>();
     }
 
-    public ArrayList<Event> getEventsByOrganizer(User u) {
-        ArrayList<Event> allEvents = getAllEvents();
-        ArrayList<Event> validEvents = new ArrayList<>();
+    public List<Event> getEventsByOrganizer(User u) {
+        List<Event> allEvents = getAllEvents();
+        List<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
             if (e.getOrganizersList_UserRef().contains(u)) {
                 validEvents.add(e);
@@ -38,9 +39,9 @@ public class EventRegistry {
         return validEvents;
     }
 
-    public ArrayList<Event> getEventsNotFAEDefined() {
-        ArrayList<Event> allEvents = getAllEvents();
-        ArrayList<Event> validEvents = new ArrayList<>();
+    public List<Event> getEventsNotFAEDefined() {
+        List<Event> allEvents = getAllEvents();
+        List<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
             if (e.validateEventStateCreated() == true) {
                 validEvents.add(e);
@@ -49,8 +50,8 @@ public class EventRegistry {
         return validEvents;
     }
 
-    public ArrayList<Event> getAllEvents() {
-        ArrayList<Event> allEvents = new ArrayList<>();
+    public List<Event> getAllEvents() {
+        List<Event> allEvents = new ArrayList<>();
         allEvents.addAll(congressList);
         allEvents.addAll(exhibitionList);
         return allEvents;
@@ -90,8 +91,8 @@ public class EventRegistry {
         return true;
     }
 
-    public ArrayList<Event> getEventsReadyForSubmit() {
-        ArrayList<Event> eventsReadyForSubmit = new ArrayList<>();
+    public List<Event> getEventsReadyForSubmit() {
+        List<Event> eventsReadyForSubmit = new ArrayList<>();
         for (int i = 0; i < congressList.size(); i++) {
             if (congressList.get(i).validateEventStateApplicationsOpen()) {
                 eventsReadyForSubmit.add(congressList.get(i));
@@ -105,7 +106,7 @@ public class EventRegistry {
         return eventsReadyForSubmit;
     }
 
-    public String[] getTitlesForSubmit(ArrayList<Event> eventsReadyForSubmit) {
+    public String[] getTitlesForSubmit(List<Event> eventsReadyForSubmit) {
         String[] titles = new String[eventsReadyForSubmit.size() + 1];
         titles[0] = "";
         for (int i = 0; i < eventsReadyForSubmit.size(); i++) {
@@ -118,8 +119,8 @@ public class EventRegistry {
         return event.registerApplication(application);
     }
 
-    public ArrayList<Event> getEventsByFAE(User u) {
-        ArrayList<Event> allEvents = getAllEvents();
+    public List<Event> getEventsByFAE(User u) {
+        List<Event> allEvents = getAllEvents();
         ArrayList<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
             if (e.getFAEList_UserRef().contains(u)) {
@@ -129,7 +130,7 @@ public class EventRegistry {
         return validEvents;
     }
 
-    boolean registerApplicationChanges(Event event, Application application) {
+    public boolean registerApplicationChanges(Event event, Application application) {
         for (int i = 0; i < exhibitionList.size(); i++) {
             Event registeredEvent = (Event) exhibitionList.get(i);
             if (registeredEvent.equals(event)) {

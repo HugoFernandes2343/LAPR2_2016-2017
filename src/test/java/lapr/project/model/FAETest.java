@@ -41,16 +41,5 @@ public class FAETest {
 //        FAE instance = null;
 //        instance.setState(state);
 //    }
-
-    /**
-     * Test of valida method, of class FAE.
-     */
-    @Test
-    public void testValida() {
-        System.out.println("valida");
-        FAE instance = new FAE(u);
-        instance.valida();
-        assertNotNull(instance.getFAEState());
-    }
     
 }

@@ -5,21 +5,19 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.*;
 
 public class UC05Controller {
 
     private static final long serialVersionUID = 1L;
 
-    private final User user;
     private final FairCenter fc;
     private Event event;
     private ApplicationList applicationList;
     private Application application = new Application();
 
-    public UC05Controller(FairCenter fc, User u) {
-        this.user = u;
+    public UC05Controller(FairCenter fc) {
         this.fc = fc;
     }
 
@@ -27,7 +25,7 @@ public class UC05Controller {
      *
      * @return
      */
-    public ArrayList<Event> getEventsReadyForSubmit() {
+    public List<Event> getEventsReadyForSubmit() {
         return fc.getEventRegistry().getEventsReadyForSubmit();
     }
 
@@ -36,7 +34,7 @@ public class UC05Controller {
      * @param events
      * @return
      */
-    public String[] getTitlesForSubmit(ArrayList<Event> events) {
+    public String[] getTitlesForSubmit(List<Event> events) {
         return fc.getEventRegistry().getTitlesForSubmit(events);
     }
 
@@ -75,7 +73,7 @@ public class UC05Controller {
     /**
      * show's all events ready to get applications
      */
-    public ArrayList<Event> showReadyEventList() {
+    public List<Event> showReadyEventList() {
         // TODO - implement UC05Contoller.showReadyEventList
         throw new UnsupportedOperationException();
     }

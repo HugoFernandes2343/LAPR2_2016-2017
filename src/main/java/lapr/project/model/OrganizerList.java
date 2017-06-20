@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.*;
 public class OrganizerList {
 
     @XmlElement
-    private ArrayList<Organizer> organizerList;
+    private List<Organizer> organizerList;
 
     public OrganizerList() {
         organizerList = new ArrayList<>();
@@ -28,7 +29,7 @@ public class OrganizerList {
         this.organizerList.add(new Organizer(user));
     }
 
-    public ArrayList<Organizer> getList() {
+    public List<Organizer> getList() {
         return organizerList;
     }
 

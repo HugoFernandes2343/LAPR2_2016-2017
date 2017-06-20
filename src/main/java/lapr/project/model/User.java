@@ -97,13 +97,6 @@ public class User {
         return this.encryption;
     }
 
-    /**
-     *
-     * @param username
-     */
-    private void setUsername(String username) {
-        this.username = username;
-    }
 
     /**
      *
@@ -113,13 +106,6 @@ public class User {
         return this.username;
     }
 
-    /**
-     *
-     * @param email
-     */
-    private void setEmail(String email) {
-        this.email = email;
-    }
 
     /**
      *
@@ -127,14 +113,6 @@ public class User {
      */
     public String getEmail() {
         return this.email;
-    }
-
-    /**
-     *
-     * @param pwd
-     */
-    private void setPassword(String pwd) {
-        this.password = pwd;
     }
 
     /**

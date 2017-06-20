@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
@@ -21,7 +22,7 @@ import lapr.project.utils.EventState;
 public class Event {
 
     @XmlElement
-    private EventState state;
+    public EventState state;
     @XmlElement
     private String title;
     @XmlElement
@@ -47,7 +48,7 @@ public class Event {
 
     @XmlElementWrapper(name = "stands")
     @XmlElement(name = "stand")
-    private ArrayList<Stand> stands;
+    private List<Stand> stands;
 
     public Event(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
         this.FaeList = new FAEList();
@@ -73,8 +74,8 @@ public class Event {
      *
      * @return
      */
-    public ArrayList<User> getOrganizersList_UserRef() {
-        ArrayList<User> orgList = new ArrayList<>();
+    public List<User> getOrganizersList_UserRef() {
+        List<User> orgList = new ArrayList<>();
         for (Organizer org : organizerList.getList()) {
             orgList.add(org.getUser());
         }
@@ -86,8 +87,8 @@ public class Event {
      *
      * @return
      */
-    public ArrayList<User> getFAEList_UserRef() {
-        ArrayList<User> FAEList = new ArrayList<>();
+    public List<User> getFAEList_UserRef() {
+        List<User> FAEList = new ArrayList<>();
         for (FAE fae : FaeList.getList()) {
             FAEList.add(fae.getUser());
         }
@@ -133,7 +134,7 @@ public class Event {
     }
 
     public void discardFAEs() {
-        this.FaeList.discardFAE();
+        this.FaeList.discardFAEs();
     }
 
     boolean validateEventStateApplicationsOpen() {

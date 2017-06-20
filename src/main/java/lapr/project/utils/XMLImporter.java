@@ -15,9 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import lapr.project.model.Congress;
 import lapr.project.model.Event;
-import lapr.project.model.Exhibition;
 import lapr.project.model.FairCenter;
 import lapr.project.ui.UserInterface;
 

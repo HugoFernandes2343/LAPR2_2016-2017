@@ -1,6 +1,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,7 +22,7 @@ public class Application {
 
     @XmlElementWrapper(name = "keywords")
     @XmlElement(name = "keyword")
-    private ArrayList<String> keywordList = new ArrayList<>();
+    private List<String> keywordList = new ArrayList<>();
 
     @XmlElement
     private String description;
@@ -44,14 +45,15 @@ public class Application {
     @XmlElement
     private String[] productsToBeDisplayed;
 
-    private ArrayList<Review> reviews;
+//    private ArrayList<Review> reviews;
     private ApplicationState state;
 
     @XmlElement(name = "invitesQuantity")
     private int numberOfInvitations;
-//    @XmlElementWrapper(name="review")
-//    @XmlElement(name="review")
-//    private ArrayList<Review> reviews;
+    
+    @XmlElementWrapper(name="review")
+    @XmlElement(name="review")
+    private List<Review> reviews;
 
     /**
      *
@@ -125,7 +127,7 @@ public class Application {
      *
      * @return A list of existing keywords.
      */
-    public ArrayList<String> getKeywordList() {
+    public List<String> getKeywordList() {
         return keywordList;
 
     }
@@ -162,7 +164,7 @@ public class Application {
     }
 
     public boolean compareKeywordList(Application application) {
-        ArrayList<String> toCompare = application.getKeywordList();
+        List<String> toCompare = application.getKeywordList();
         for (int i = 0; i < keywordList.size(); i++) {
             if (!keywordList.get(i).equals(toCompare.get(i))) {
                 return false;
@@ -202,7 +204,7 @@ public class Application {
         return state;
     }
 
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return this.reviews;
     }
 

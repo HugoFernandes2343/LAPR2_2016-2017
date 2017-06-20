@@ -6,7 +6,6 @@
 package lapr.project.model;
 
 import javax.xml.bind.annotation.*;
-import lapr.project.utils.FAEState;
 
 /**
  *
@@ -16,14 +15,10 @@ import lapr.project.utils.FAEState;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FAE {
 
-    @XmlElement
-    private FAEState state;
-
     @XmlElement(name = "user")
     private User u;
 
     public FAE(User u) {
-        setState(new FAECreatedState(this));
         this.u = u;
     }
 
@@ -33,14 +28,6 @@ public class FAE {
 
     public User getUser() {
         return this.u;
-    }
-
-    public void setState(FAEState state) {
-        this.state = state;
-    }
-
-    public FAEState getFAEState() {
-        return state;
     }
 
     @Override
@@ -61,9 +48,5 @@ public class FAE {
     @Override
     public int hashCode() {
         return u.hashCode();
-    }
-
-    public void valida() {
-        state.setFAEDefinedState();
     }
 }

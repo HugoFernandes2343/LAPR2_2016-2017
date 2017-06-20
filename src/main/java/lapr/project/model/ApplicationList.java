@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import lapr.project.utils.ApplicationState;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.*;
 public class ApplicationList {
 
     @XmlElement(name = "application")
-    private ArrayList<Application> applications;
+    private List<Application> applications;
 
     public ApplicationList() {
         this.applications = new ArrayList<>();
@@ -50,6 +51,7 @@ public class ApplicationList {
      * checks the validity of the application
      *
      * @param application
+     * @return 
      */
     public boolean verifyApplication(Application application) {
         // TODO - implement ApplicationList.verifyApplication
@@ -59,8 +61,9 @@ public class ApplicationList {
     /**
      *
      * @param state
+     * @return 
      */
-    public ArrayList<Application> getApplicationsByState(ApplicationState state) {
+    public List<Application> getApplicationsByState(ApplicationState state) {
         // TODO - implement ApplicationList.getApplicationsByState
         throw new UnsupportedOperationException();
     }
@@ -74,8 +77,8 @@ public class ApplicationList {
         applications.add(application);
     }
 
-    public ArrayList<Application> getApplicationsReadyForFAEEvaluation() {
-        ArrayList<Application> applicationsReadyForFAEEvaluation = new ArrayList<>();
+    public List<Application> getApplicationsReadyForFAEEvaluation() {
+        List<Application> applicationsReadyForFAEEvaluation = new ArrayList<>();
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).getApplicationState() instanceof ApplicationAssignedState) {
                 applicationsReadyForFAEEvaluation.add(applications.get(i));
@@ -84,8 +87,8 @@ public class ApplicationList {
         return applicationsReadyForFAEEvaluation;
     }
 
-    public ArrayList<Application> getApplicationsReadyForOrganizerDecision() {
-        ArrayList<Application> applicationsReadyForOrganizerDecision = new ArrayList<>();
+    public List<Application> getApplicationsReadyForOrganizerDecision() {
+        List<Application> applicationsReadyForOrganizerDecision = new ArrayList<>();
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).getApplicationState() instanceof ApplicationEvaluatedState) {
                 applicationsReadyForOrganizerDecision.add(applications.get(i));
@@ -95,8 +98,8 @@ public class ApplicationList {
 
     }
 
-    public ArrayList<Application> getApplicationsReadyForParticipantsRepresentativeConfirmation() {
-        ArrayList<Application> applicationsReadyForParticipantsRepresentativeConfirmation = new ArrayList<>();
+    public List<Application> getApplicationsReadyForParticipantsRepresentativeConfirmation() {
+        List<Application> applicationsReadyForParticipantsRepresentativeConfirmation = new ArrayList<>();
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).getApplicationState() instanceof ApplicationGivenStandState) {
                 applicationsReadyForParticipantsRepresentativeConfirmation.add(applications.get(i));

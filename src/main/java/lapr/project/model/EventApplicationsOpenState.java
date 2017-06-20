@@ -5,41 +5,31 @@
  */
 package lapr.project.model;
 
-
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
-
 
 /**
  *
  * @author hugod
  */
 @XmlRootElement
-public class EventApplicationsOpenState implements EventState{
-     @XmlTransient
-    public Event e;
-    
-    public EventApplicationsOpenState(Event e){
-        this.e=e;
+public class EventApplicationsOpenState implements EventState {
+
+    @XmlTransient
+    protected Event e;
+
+    public EventApplicationsOpenState(Event e) {
+        this.e = e;
     }
-    
-    public EventApplicationsOpenState(){
+
+    public EventApplicationsOpenState() {
         //Avoiding xml conflicts
     }
-    
+
     @Override
     public boolean setEventDefinedFAEState() {
         return false;
     }
-
-  /*  public boolean setEventApplicationsEvaluatingState() {
-         if (validate()) {
-            e.setState(new EventApplicationsEvaluatingState(e));
-            return true;
-        } else {
-            return false;
-        }
-    }*/
 
     @Override
     public boolean validate() {

@@ -6,6 +6,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -21,7 +22,7 @@ public class UserRegistry {
      */
     @XmlElementWrapper
     @XmlElement(name = "user")
-    private ArrayList<User> usersList;
+    private List<User> usersList;
 
     /**
      *
@@ -34,7 +35,7 @@ public class UserRegistry {
      *
      * @return
      */
-    public ArrayList<User> getUsersList() {
+    public List<User> getUsersList() {
         return usersList;
     }
 
