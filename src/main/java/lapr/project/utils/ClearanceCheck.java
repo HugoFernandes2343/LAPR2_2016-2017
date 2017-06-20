@@ -5,7 +5,6 @@
  */
 package lapr.project.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.*;
 
@@ -23,7 +22,7 @@ public class ClearanceCheck {
         this.fc = fc;
     }
 
-    public boolean isFAE(Event ev) {
+    public boolean isFAE() {
         List<Event> eventList = fc.getEventRegistry().getAllEvents();
         for (Event event : eventList) {
         List<User> FAEList_UserRef = event.getFAEList_UserRef();    

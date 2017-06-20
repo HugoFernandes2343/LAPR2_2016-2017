@@ -17,4 +17,8 @@ public class Representative {
         this.u=u;
     }
     
+    public User getUser(){
+        return this.u;
+    }
+    
 }

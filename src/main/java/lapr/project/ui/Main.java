@@ -1,12 +1,11 @@
 package lapr.project.ui;
 
-import java.io.FileNotFoundException;
 import lapr.project.model.EventManager;
 import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 
 /**
- * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
+ * @author PC
  */
 class Main {
 
@@ -22,17 +21,13 @@ class Main {
      */
     public static void main(String[] args){
         FairCenter fc = new FairCenter();
-//        //Import All Data From File
-//        XMLImporter importer = new XMLImporter();
-//        fc = importer.importAllData();
-//        if (fc == null) {
-//            throw new FileNotFoundException();
-//        }
-        User eventManagerDefault = new User("default","default","default","default","English","GMT+00","delta");
+
+        User eventManagerDefault = new User("default","default","default","default","","GMT+00","delta");
         fc.registerUser(eventManagerDefault);
         fc.getEventManagerRegistry().addEventManager(new EventManager(eventManagerDefault));
         
-        User guestUser = new User("guest","guest","-","guest");
+        String guestInfo = "guest";
+        User guestUser = new User(guestInfo,guestInfo,guestInfo,guestInfo,"","GMT+00",guestInfo);
         fc.registerUser(guestUser);
         //Program
         UserInterface UI = new UserInterface(fc);

@@ -46,6 +46,7 @@ public class XMLExporter<T> {
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setIgnoreComments(true);
         XMLUnit.setIgnoreWhitespace(true);
+        fc.decryptUsers();
     }
 
     public void exportData(T t) throws JAXBException {

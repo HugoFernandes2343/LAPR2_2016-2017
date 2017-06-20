@@ -24,7 +24,6 @@ public class UC04Controller {
     private final FairCenter fc;
     private final User user;
     private final EventRegistry eventRegistry;
-    private List<Event> eventList;
     private List<Application> faeApplicationList;
     protected Application selectedApplication;
 
@@ -36,8 +35,7 @@ public class UC04Controller {
     }
 
     public List<Event> getEventsByFAE() {
-        eventList = eventRegistry.getEventsByFAE(user);
-        return eventList;
+        return eventRegistry.getEventsByFAE(user);
     }
 
     public boolean validateEvent() {

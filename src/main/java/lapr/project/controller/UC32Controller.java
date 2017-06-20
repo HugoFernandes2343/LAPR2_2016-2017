@@ -7,9 +7,9 @@ package lapr.project.controller;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import javax.swing.JFrame;
 import lapr.project.model.Event;
 import lapr.project.model.FairCenter;
-import lapr.project.model.User;
 import lapr.project.utils.XMLImporter;
 
 /**
@@ -21,14 +21,14 @@ public class UC32Controller {
     private FairCenter fc;
     protected Event selectedEvent;
 
-    public UC32Controller(FairCenter fc, User u) {
+    public UC32Controller(FairCenter fc) {
         this.fc = fc;
     }
 
-    public void importEventData() throws FileNotFoundException {
+    public void importEventData(JFrame window,JFrame menuWindow) throws FileNotFoundException {
         Event ev;
         XMLImporter importData = new XMLImporter();
-        ev = importData.importEventData();
+        ev = importData.importEventData(window,menuWindow);
         selectedEvent.recieveXMLData(ev);//Requer Revisao
         fc.updatedDataFromXML(selectedEvent,ev);//Implementar
     }

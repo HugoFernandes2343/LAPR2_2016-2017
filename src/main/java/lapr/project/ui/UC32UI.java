@@ -33,17 +33,17 @@ public class UC32UI extends JFrame {
     private static final long serialVersionUID = 1L;
     
     private UC32Controller uc32Controller;
-    private static int WINDOW_HEIGHT = 250;
-    private static int WINDOW_WIDTH = 350;
+    private static int windowHeight = 250;
+    private static int windowWidth = 350;
 
-    public UC32UI(FairCenter fc, User u, JFrame menuWindow) throws FileNotFoundException {
-        uc32Controller = new UC32Controller(fc, u);
+    public UC32UI(FairCenter fc, JFrame menuWindow) throws FileNotFoundException {
+        uc32Controller = new UC32Controller(fc);
         this.setName("UC32 - Import Event Data");
         this.createFrame(menuWindow);
     }
 
     private void createFrame(JFrame menuWindow) {
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -76,9 +76,6 @@ public class UC32UI extends JFrame {
 
         JPanel selectionPanel = new JPanel(new BorderLayout());
         JButton continueButton = new JButton("Continue to file selection");
-//        JRadioButton congressSelect = new JRadioButton("Congress");
-//        JRadioButton exhibitionSelect = new JRadioButton("Exhibition");
-//        ButtonGroup group = new ButtonGroup();
 
         List<Event> allEventsList = uc32Controller.getAllEvents();
         String[] listPresentableEvents = new String[allEventsList.size()];
@@ -95,7 +92,7 @@ public class UC32UI extends JFrame {
                 try {
                     int i = eventList.getSelectedIndex();
                     uc32Controller.setSelectedEvent(uc32Controller.getAllEvents().get(i));
-                    uc32Controller.importEventData();
+                    uc32Controller.importEventData(UC32UI.this,menuWindow);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(UC32UI.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -24,8 +24,8 @@ public class LoginUI extends JFrame {
     
     private final JButton loginButton = new JButton("Login");
     private final JButton cancelButton = new JButton("Cancel");
-    private final int WINDOW_WIDTH = 250;
-    private final int WINDOW_HEIGHT = 400;
+    private final int windowWidth = 250;
+    private final int windowHeight = 400;
     
 
     protected LoginController loginController;
@@ -39,7 +39,7 @@ public class LoginUI extends JFrame {
     }
 
     private JFrame createFrame() {
-        this.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
+        this.setSize(windowHeight, windowWidth);
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,6 +83,7 @@ public class LoginUI extends JFrame {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();
                     MainMenu mainMenu = new MainMenu(fc,loginController.getUser(),LoginUI.this);
+                    mainMenu.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this,
                             "Invalid username or password",

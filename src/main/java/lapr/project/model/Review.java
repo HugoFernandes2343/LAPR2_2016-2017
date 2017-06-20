@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Hugo
  */
-@XmlRootElement
+@XmlRootElement(name="review")
 public class Review {
 
-    @XmlElement
+    @XmlElement(name="text")
     private String justification;
 
     @XmlElement

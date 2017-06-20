@@ -18,17 +18,17 @@ import javax.xml.bind.annotation.*;
 public class FAEList {
 
     @XmlElement(name="fae")
-    private List<FAE> FaeList;
+    private List<FAE> faeList;
     private List<FAE> tempList;
     private FAE temp;
 
     public FAEList() {
-        this.FaeList = new ArrayList<>();
+        this.faeList = new ArrayList<>();
         this.tempList = new ArrayList<>();
     }
 
     public List<FAE> getList() {
-        return this.FaeList;
+        return this.faeList;
     }
 
     public void createFAE(User u) {
@@ -45,6 +45,6 @@ public class FAEList {
     }
 
     public void registerFAEs() {
-        FaeList.addAll(tempList);
+        faeList.addAll(tempList);
     }
 }

@@ -20,25 +20,25 @@ public class FairCenter {
      *
      */
     @XmlElement
-    private final EventRegistry eventRegistry;
+    private EventRegistry eventRegistry;
 
     /**
      *
      */
     @XmlElement
-    private final UserRegistry confirmedUsers;
+    private UserRegistry confirmedUsers;
 
     /**
      *
      */
     @XmlElement
-    private final UserRegistry unconfirmedUsers;
+    private UserRegistry unconfirmedUsers;
 
     /**
      *
      */
     @XmlElement
-    private final EventManagerRegistry eventManagers;
+    private EventManagerRegistry eventManagers;
 
     /**
      *

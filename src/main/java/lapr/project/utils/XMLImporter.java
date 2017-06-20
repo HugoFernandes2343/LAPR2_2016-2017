@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.xml.bind.JAXBContext;
@@ -48,7 +49,6 @@ public class XMLImporter {
             JAXBContext jaxbContext = JAXBContext.newInstance(FairCenter.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             fc = (FairCenter) jaxbUnmarshaller.unmarshal(fileLocation);
-//            System.out.println(jaxbUnmarshaller.);
         } catch (JAXBException ex) {
             Logger.getLogger(XMLImporter.class.getName()).log(Level.SEVERE, null, ex);
             fc = new FairCenter();
@@ -60,14 +60,18 @@ public class XMLImporter {
 
     /**
      *
+     * @param window
+     * @param menuWindow
      * @return @throws FileNotFoundException
      */
-    public Event importEventData() throws FileNotFoundException {
+    public Event importEventData(JFrame window,JFrame menuWindow) throws FileNotFoundException {
         setLookAndFeel();
         JFileChooser fileChooser = new JFileChooser();
         int input = fileChooser.showOpenDialog(fileChooser);
         if (checkOption(input) == true) {
-            System.exit(0);
+            window.setVisible(false);
+            window.dispose();
+            menuWindow.setVisible(true);
         }
         File file = fileChooser.getSelectedFile();
         this.fileLocation = file;
@@ -83,50 +87,6 @@ public class XMLImporter {
         }
         return event;
     }
-
-//    public Congress importCongressData() throws FileNotFoundException {
-//        setLookAndFeel();
-//        JFileChooser fileChooser = new JFileChooser();
-//        int input = fileChooser.showOpenDialog(fileChooser);
-//        if (checkOption(input) == true) {
-//            System.exit(0);
-//        }
-//        File file = fileChooser.getSelectedFile();
-//        this.fileLocation = file;
-//        Congress event;
-//        try {
-//            JAXBContext jaxbContext = JAXBContext.newInstance(Congress.class);
-//            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-//            event = (Congress) jaxbUnmarshaller.unmarshal(fileLocation);
-//        } catch (JAXBException ex) {
-//            Logger.getLogger(XMLImporter.class.getName()).log(Level.SEVERE, null, ex);
-//            event = null;
-//            System.out.println(ex.getMessage());
-//        }
-//        return event;
-//    }
-//    
-//        public Exhibition importExhibitionData() throws FileNotFoundException {
-//        setLookAndFeel();
-//        JFileChooser fileChooser = new JFileChooser();
-//        int input = fileChooser.showOpenDialog(fileChooser);
-//        if (checkOption(input) == true) {
-//            System.exit(0);        
-//        }
-//        File file = fileChooser.getSelectedFile();
-//        this.fileLocation = file;
-//        Exhibition event;
-//        try {
-//            JAXBContext jaxbContext = JAXBContext.newInstance(Event.class);
-//            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-//            event = (Exhibition) jaxbUnmarshaller.unmarshal(fileLocation);
-//        } catch (JAXBException ex) {
-//            Logger.getLogger(XMLImporter.class.getName()).log(Level.SEVERE, null, ex);
-//            event = null;
-//            System.out.println(ex.getMessage());
-//        }
-//        return event;
-//    }
 
     private void setLookAndFeel() {
         //SetLookAndFeel

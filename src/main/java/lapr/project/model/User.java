@@ -25,9 +25,9 @@ public class User {
     @XmlElement
     private String name;
     @XmlElement
-    private String language;
+    private String language = "";
     @XmlElement
-    private String timeZone;
+    private String timeZone = "";
     @XmlElement
     private Encryption encryption;
     @XmlElement
@@ -36,6 +36,7 @@ public class User {
     private static String USERNAME_BY_OMISSION = "-";
     private static String EMAIL_BY_OMISSION = "-";
     private static String NAME_BY_OMISSION = "-";
+    private static String KEYWORD_BY_OMISSION ="-";
 
     /**
      *
@@ -78,6 +79,7 @@ public class User {
     }
 
     public User() {
+        this.encryption= new Encryption(KEYWORD_BY_OMISSION);
         //to avoid xml conflicts
     }
 
@@ -97,7 +99,6 @@ public class User {
         return this.encryption;
     }
 
-
     /**
      *
      * @return
@@ -105,7 +106,6 @@ public class User {
     public String getUsername() {
         return this.username;
     }
-
 
     /**
      *
@@ -189,7 +189,7 @@ public class User {
         return result;
     }
 
-    void encryptData() {
+    public void encryptData() {
         this.email = this.encryption.encrypt(email).trim();
         this.username = this.encryption.encrypt(username).trim();
         this.name = this.encryption.encrypt(name).trim();
@@ -198,7 +198,7 @@ public class User {
         this.language = this.encryption.encrypt(language).trim();
     }
 
-    void decryptData() {
+    public void decryptData() {
         this.email = this.encryption.decrypt(email).trim();
         this.username = this.encryption.decrypt(username).trim();
         this.name = this.encryption.decrypt(name).trim();

@@ -34,13 +34,13 @@ public class UC01UI extends JDialog {
 
     private static final long serialVersionUID = 1L;
     
-    private final int WINDOW_WIDTH = 1000;
-    private final int WINDOW_HEIGHT = 600;
+    private final int windowWidth = 1000;
+    private final int windowHeight = 600;
     private String eventType;
 
     private UC01Controller controller;
 
-    public UC01UI(FairCenter fc, User u, JFrame menuWindow) {
+    public UC01UI(FairCenter fc, JFrame menuWindow) {
         controller = new UC01Controller(fc);
         this.setName("UC01 - Create Event");
         this.createFrame(menuWindow);
@@ -48,7 +48,7 @@ public class UC01UI extends JDialog {
     }
 
     private void createFrame(JFrame menuWindow) {
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -215,7 +215,7 @@ public class UC01UI extends JDialog {
         expositionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eventType = "Exposition";
+                eventType = "Exhibition";
             }
 
         });

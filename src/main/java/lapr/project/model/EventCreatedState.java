@@ -33,7 +33,7 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean setEventDefinedFAEState() {
-        if (validate() == true) {
+        if (validate()) {
             e.setState(new EventDefinedFAEState(e));
             return true;
         } else {
@@ -43,16 +43,11 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean validate() {
-        return e.getOrganizerList().getList().isEmpty() == false;
+        return !e.getOrganizerList().getList().isEmpty();
     }
 
     @Override
     public boolean setEventApplicationsOpenState() {
         return false;
     }
-
-    /*@Override
-    public boolean setEventApplicationsEvaluatingState() {
-        return false;
-    }*/
 }

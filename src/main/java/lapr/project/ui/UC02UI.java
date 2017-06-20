@@ -143,9 +143,10 @@ public class UC02UI extends JDialog {
             listPresentableFAE[i] = allUsers.get(i).toInfoString();
         }
         JList<String> FaeList = new JList<>(listPresentableFAE);
-        FaeList.setSize(new Dimension(100, 150));
+        int width = 100,height = 150;
+        FaeList.setSize(new Dimension(width, height));
         JScrollPane listScroller = new JScrollPane(FaeList);
-        listScroller.setPreferredSize(new Dimension(100, 150));
+        listScroller.setPreferredSize(new Dimension(width, height));
 
         JPanel FaeSelectionButtonPanel = new JPanel();
         JButton selectFAEButton = new JButton("Add Selection(s)");

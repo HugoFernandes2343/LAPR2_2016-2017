@@ -54,7 +54,7 @@ public class LoginController {
      * @param id
      * @return
      */
-    private boolean checkID(User u, String id) {
+    private static boolean checkID(User u, String id) {
         return u.getEmail().equals(id) || u.getUsername().equals(id);
     }
 
@@ -64,7 +64,7 @@ public class LoginController {
      * @param password
      * @return
      */
-    private boolean checkPassword(User u, String password) {
+    private static boolean checkPassword(User u, String password) {
         return u.getPassword().equals(password);
     }
 

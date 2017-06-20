@@ -38,7 +38,7 @@ public class EventDefinedFAEState implements EventState {
 
     @Override
     public boolean validate() {
-        return e.getFAEList().getList().isEmpty() == false;
+        return !e.getFAEList().getList().isEmpty();
     }
 
     @Override

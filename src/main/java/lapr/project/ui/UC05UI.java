@@ -37,10 +37,10 @@ public class UC05UI extends JFrame {
     private final JButton createButton = new JButton("Create");
     private final JButton selectButton = new JButton("Select");
     private final JButton cancelButton = new JButton("Cancel");
-    private final int WINDOW_WIDTH = 525;
-    private final int WINDOW_HEIGHT = 250;
-    private final String confirmationDialog = "Are You Sure You Want To Exit?";
-    private final String confirmationTitle = "Exit Confirmation";
+    private final int windowWidth = 525;
+    private final int windowHeight = 250;
+    private static final String confirmationDialog = "Are You Sure You Want To Exit?";
+    private static final String confirmationTitle = "Exit Confirmation";
 
     public UC05UI(FairCenter fc, User u, JFrame menuWindow) {
         this.uc05Controller = new UC05Controller(fc);
@@ -51,7 +51,7 @@ public class UC05UI extends JFrame {
     }
 
     private JFrame createChooseEventFrame(JFrame menuWindow) {
-        this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        this.setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -87,7 +87,8 @@ public class UC05UI extends JFrame {
 
     private void createChooseEventElements(JFrame window, JFrame menuWindow) {
         JPanel centralPanel = new JPanel(new GridBagLayout());
-        centralPanel.setSize(200, 200);
+        int sideSize = 200;
+        centralPanel.setSize(sideSize, sideSize);
         GridBagConstraints pos = new GridBagConstraints();
 
         JLabel eventLabel = new JLabel("Event:");
@@ -151,7 +152,7 @@ public class UC05UI extends JFrame {
 
     private JFrame createFrame(JFrame menuWindow) {
         JFrame window2 = new JFrame("UC05");
-        window2.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        window2.setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         window2.setLayout(layout);
         window2.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -189,8 +190,9 @@ public class UC05UI extends JFrame {
     }
 
     private void createElements(JFrame window, JFrame menuWindow) {
+        int sideSize = 200, textSize = 20;
         JPanel centralPanel = new JPanel(new GridBagLayout());
-        centralPanel.setSize(200, 200);
+        centralPanel.setSize(sideSize, sideSize);
         GridBagConstraints pos = new GridBagConstraints();
 
         JLabel tradeNameLabel = new JLabel("Trade name");
@@ -198,7 +200,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 0;
         centralPanel.add(tradeNameLabel, pos);
 
-        JTextField tradeNameField = new JTextField(20);
+        JTextField tradeNameField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 0;
         centralPanel.add(tradeNameField, pos);
@@ -208,7 +210,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 1;
         centralPanel.add(addressLabel, pos);
 
-        JTextField addressField = new JTextField(20);
+        JTextField addressField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 1;
         centralPanel.add(addressField, pos);
@@ -218,7 +220,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 2;
         centralPanel.add(phoneNumberLabel, pos);
 
-        JTextField phoneNumberField = new JTextField(20);
+        JTextField phoneNumberField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 2;
         centralPanel.add(phoneNumberField, pos);
@@ -228,7 +230,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 3;
         centralPanel.add(intendedBoothAreaLabel, pos);
 
-        JTextField intendedBoothAreaField = new JTextField(20);
+        JTextField intendedBoothAreaField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 3;
         centralPanel.add(intendedBoothAreaField, pos);
@@ -238,7 +240,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 4;
         centralPanel.add(productsToBeDisplayedLabel, pos);
 
-        JTextField productsToBeDisplayedField = new JTextField(20);
+        JTextField productsToBeDisplayedField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 4;
         centralPanel.add(productsToBeDisplayedField, pos);
@@ -248,7 +250,7 @@ public class UC05UI extends JFrame {
         pos.gridy = 5;
         centralPanel.add(numberOfInvitationsToPurchaseLabel, pos);
 
-        JTextField numberOfInvitationsToPurchaseField = new JTextField(20);
+        JTextField numberOfInvitationsToPurchaseField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 5;
         centralPanel.add(numberOfInvitationsToPurchaseField, pos);
@@ -258,39 +260,39 @@ public class UC05UI extends JFrame {
         pos.gridy = 6;
         centralPanel.add(keywordsLabel, pos);
 
-        JTextField keywordsField = new JTextField(20);
+        JTextField keywordsField = new JTextField(textSize);
         pos.gridx = 1;
         pos.gridy = 6;
         centralPanel.add(keywordsField, pos);
 
-       createButton.addActionListener((ActionEvent e) -> {
-           String tradeName = tradeNameField.getText();
-           String address = addressField.getText();
-           String[] keywords = keywordsField.getText().split(";");
-           String[] productsToBeDisplayed = productsToBeDisplayedField.getText().split(";");
-           try {
-               String phoneNumber = phoneNumberField.getText();
-               String intendedBoothArea = intendedBoothAreaField.getText();
-               String numberOfInvitationsToPurchase = numberOfInvitationsToPurchaseField.getText();
-               if (tradeName != null && address != null && phoneNumber != null && intendedBoothArea != null && productsToBeDisplayed != null && numberOfInvitationsToPurchase != null && keywords.length <= 5 && keywords.length >= 2) {
-                   long phone = Long.parseLong(phoneNumber);
-                   double boothArea = Double.parseDouble(intendedBoothArea);
-                   int invitations = Integer.parseInt(numberOfInvitationsToPurchase);
-                   uc05Controller.createApplication(tradeName, address, phone, boothArea, productsToBeDisplayed, invitations, keywords);
-                   window.dispose();
-                   createFinalConfirmationGUI(menuWindow);
-               } else {
-                   JOptionPane.showMessageDialog(UC05UI.this,
-                           "Missing data. Please check.",
-                           "Event creation error",
-                           JOptionPane.ERROR_MESSAGE);
-               }
-           } catch (NumberFormatException nfe) {
-               JOptionPane.showMessageDialog(UC05UI.this,
-                       "Data format not supported (Number Data formats wrong)",
-                       "Event creation error",
-                       JOptionPane.ERROR_MESSAGE);
-           }
+        createButton.addActionListener((ActionEvent e) -> {
+            String tradeName = tradeNameField.getText();
+            String address = addressField.getText();
+            String[] keywords = keywordsField.getText().split(";");
+            String[] productsToBeDisplayed = productsToBeDisplayedField.getText().split(";");
+            try {
+                String phoneNumber = phoneNumberField.getText();
+                String intendedBoothArea = intendedBoothAreaField.getText();
+                String numberOfInvitationsToPurchase = numberOfInvitationsToPurchaseField.getText();
+                if (tradeName != null && address != null && phoneNumber != null && intendedBoothArea != null && productsToBeDisplayed != null && numberOfInvitationsToPurchase != null && keywords.length <= 5 && keywords.length >= 2) {
+                    long phone = Long.parseLong(phoneNumber);
+                    double boothArea = Double.parseDouble(intendedBoothArea);
+                    int invitations = Integer.parseInt(numberOfInvitationsToPurchase);
+                    uc05Controller.createApplication(tradeName, address, phone, boothArea, productsToBeDisplayed, invitations, keywords);
+                    window.dispose();
+                    createFinalConfirmationGUI(menuWindow);
+                } else {
+                    JOptionPane.showMessageDialog(UC05UI.this,
+                            "Missing data. Please check.",
+                            "Event creation error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(UC05UI.this,
+                        "Data format not supported (Number Data formats wrong)",
+                        "Event creation error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         });
         pos.gridx = 0;
         pos.gridy = 7;
@@ -316,33 +318,23 @@ public class UC05UI extends JFrame {
 
     private JFrame createFinalConfirmationGUI(JFrame menuWindow) {
         JFrame window3 = new JFrame("UC05");
-        window3.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        window3.setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         window3.setLayout(layout);
         window3.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         WindowListener exitListener = new WindowAdapter() {
-
             @Override
-
             public void windowClosing(WindowEvent e) {
-
                 int confirm = JOptionPane.showOptionDialog(
                         null, confirmationDialog,
                         confirmationTitle, JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
-
                 if (confirm == 0) {
-
                     dispose();
-
                     setVisible(false);
-
                     menuWindow.setVisible(true);
-
                 }
-
             }
-
         };
         window3.addWindowListener(exitListener);
         createFinalConfirmationComponents(window3, menuWindow);
@@ -353,9 +345,9 @@ public class UC05UI extends JFrame {
     }
 
     private JPanel createFinalConfirmationComponents(JFrame window, JFrame menuWindow) {
-
+        int sideSize = 200;
         JPanel centralPanel = new JPanel(new GridBagLayout());
-        centralPanel.setSize(200, 200);
+        centralPanel.setSize(sideSize, sideSize);
         GridBagConstraints pos = new GridBagConstraints();
 
         String[] labels = uc05Controller.getApplicationInfo().split(";");
@@ -424,5 +416,4 @@ public class UC05UI extends JFrame {
         window.add(centralPanel);
         return centralPanel;
     }
-
 }
