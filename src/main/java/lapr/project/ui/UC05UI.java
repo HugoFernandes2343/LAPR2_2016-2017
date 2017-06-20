@@ -102,14 +102,19 @@ public class UC05UI extends JFrame {
         centralPanel.add(descriptionLabel, pos);
 
         JComboBox<String> eventList = new JComboBox<>(eventsTitlesList);// lembrar de por a posicao 0 vazia ""
-        eventList.setSelectedIndex(0);
+        eventList.setSelectedIndex(-1);
         eventList.addActionListener((ActionEvent ae) -> {
-            eventTitle = (String) eventList.getSelectedItem();
-            for (int i = 0; i < eventsList.size(); i++) {
-                if (eventsList.get(i).getTitle().equalsIgnoreCase(eventTitle)) {
-                    this.description = eventsList.get(i).getDescription();
-                    descriptionLabel.setText(description);
-                    this.event = eventsList.get(i);
+            if (eventList.getSelectedIndex() == -1 && eventsTitlesList.length == 0) {
+                JOptionPane.showMessageDialog(UC05UI.this,
+                        "No event has been chosen please choose an event");
+            } else {
+                eventTitle = (String) eventList.getSelectedItem();
+                for (int i = 0; i < eventsList.size(); i++) {
+                    if (eventsList.get(i).getTitle().equalsIgnoreCase(eventTitle)) {
+                        this.description = eventsList.get(i).getDescription();
+                        descriptionLabel.setText(description);
+                        this.event = eventsList.get(i);
+                    }
                 }
             }
         });
@@ -258,41 +263,35 @@ public class UC05UI extends JFrame {
         pos.gridy = 6;
         centralPanel.add(keywordsField, pos);
 
-        createButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String tradeName = tradeNameField.getText();
-                String address = addressField.getText();
-                String[] keywords = keywordsField.getText().split(";");
-                String[] productsToBeDisplayed = productsToBeDisplayedField.getText().split(";");
-                try {
-                    String phoneNumber = phoneNumberField.getText();
-                    String intendedBoothArea = intendedBoothAreaField.getText();
-                    String numberOfInvitationsToPurchase = numberOfInvitationsToPurchaseField.getText();
-                    if (tradeName != null && address != null && phoneNumber != null && intendedBoothArea != null && productsToBeDisplayed != null && numberOfInvitationsToPurchase != null && keywords.length <= 5 && keywords.length >= 2) {
-                        int phone = Integer.parseInt(phoneNumber);
-                        double boothArea = Double.parseDouble(intendedBoothArea);
-                        int invitations = Integer.parseInt(numberOfInvitationsToPurchase);
-                        uc05Controller.createApplication(tradeName, address, phone, boothArea, productsToBeDisplayed, invitations, keywords);
-                        window.dispose();
-                        createFinalConfirmationGUI(menuWindow);
-                    } else {
-                        JOptionPane.showMessageDialog(UC05UI.this,
-                                "Missing data. Please check.",
-                                "Event creation error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException nfe) {
-                    JOptionPane.showMessageDialog(UC05UI.this,
-                            "Data format not supported (Number Data formats wrong)",
-                            "Event creation error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-
-        }
-        );
+       createButton.addActionListener((ActionEvent e) -> {
+           String tradeName = tradeNameField.getText();
+           String address = addressField.getText();
+           String[] keywords = keywordsField.getText().split(";");
+           String[] productsToBeDisplayed = productsToBeDisplayedField.getText().split(";");
+           try {
+               String phoneNumber = phoneNumberField.getText();
+               String intendedBoothArea = intendedBoothAreaField.getText();
+               String numberOfInvitationsToPurchase = numberOfInvitationsToPurchaseField.getText();
+               if (tradeName != null && address != null && phoneNumber != null && intendedBoothArea != null && productsToBeDisplayed != null && numberOfInvitationsToPurchase != null && keywords.length <= 5 && keywords.length >= 2) {
+                   long phone = Long.parseLong(phoneNumber);
+                   double boothArea = Double.parseDouble(intendedBoothArea);
+                   int invitations = Integer.parseInt(numberOfInvitationsToPurchase);
+                   uc05Controller.createApplication(tradeName, address, phone, boothArea, productsToBeDisplayed, invitations, keywords);
+                   window.dispose();
+                   createFinalConfirmationGUI(menuWindow);
+               } else {
+                   JOptionPane.showMessageDialog(UC05UI.this,
+                           "Missing data. Please check.",
+                           "Event creation error",
+                           JOptionPane.ERROR_MESSAGE);
+               }
+           } catch (NumberFormatException nfe) {
+               JOptionPane.showMessageDialog(UC05UI.this,
+                       "Data format not supported (Number Data formats wrong)",
+                       "Event creation error",
+                       JOptionPane.ERROR_MESSAGE);
+           }
+        });
         pos.gridx = 0;
         pos.gridy = 7;
 

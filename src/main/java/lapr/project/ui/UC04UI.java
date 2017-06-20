@@ -40,8 +40,8 @@ public class UC04UI extends JDialog {
     private final int WINDOW_WIDTH = 1000;
     private final int WINDOW_HEIGHT = 600;
 
-    private UC04Controller uc04Controller;
-    private User user;
+    private final UC04Controller uc04Controller;
+    private final User user;
     private boolean eventAlowed;
     private final String[] opcionalValues = {"0", "1", "2", "3", "4", "5"};
 

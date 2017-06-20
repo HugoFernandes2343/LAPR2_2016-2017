@@ -22,7 +22,7 @@ public class Application {
 
     @XmlElementWrapper(name = "keywords")
     @XmlElement(name = "keyword")
-    private List<String> keywordList = new ArrayList<>();
+    private List<String> keywordList;
 
     @XmlElement
     private String description;
@@ -37,7 +37,7 @@ public class Application {
     private String address;
 
     @XmlElement
-    private int phone;
+    private long phone;
 
     @XmlElement
     private double boothArea;
@@ -65,7 +65,8 @@ public class Application {
      * @param numberOfInvitations
      * @param keywords
      */
-    public Application(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+    public Application(String tradeName, String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+        this.keywordList = new ArrayList<>();
         this.tradeName = tradeName;
         this.address = address;
         this.phone = phone;
@@ -83,6 +84,7 @@ public class Application {
      * Default public constructor.
      */
     public Application() {
+        this.keywordList = new ArrayList<>();
 
     }
 
@@ -94,7 +96,7 @@ public class Application {
         return address;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
@@ -173,6 +175,11 @@ public class Application {
         return true;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -194,11 +201,13 @@ public class Application {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.tradeName);
-        hash = 47 * hash + Objects.hashCode(this.address);
-        hash = 47 * hash + this.phone;
+        hash = 31 * hash + Objects.hashCode(this.tradeName);
+        hash = 31 * hash + Objects.hashCode(this.address);
+        hash = 31 * hash + (int) (this.phone ^ (this.phone >>> 32));
         return hash;
     }
+
+ 
 
     public ApplicationState getApplicationState() {
         return state;
@@ -228,5 +237,7 @@ public class Application {
             }
         }
     }
-
+    public void setState(ApplicationState state) {
+        this.state = state;
+    }
 }

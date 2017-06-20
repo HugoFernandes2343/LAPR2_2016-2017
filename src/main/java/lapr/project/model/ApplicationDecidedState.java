@@ -11,28 +11,26 @@ import lapr.project.utils.ApplicationState;
 
 /**
  *
- * @author Hugo
+ * @author hugod
  */
 @XmlRootElement
-public class ApplicationEvaluatedState implements ApplicationState{
-    
+public class ApplicationDecidedState implements ApplicationState {
     @XmlTransient
     public Application a;
 
-    public ApplicationEvaluatedState(Application a) {
+    public ApplicationDecidedState(Application a) {
         this.a = a;
     }
     
-    public ApplicationEvaluatedState(){
+    public ApplicationDecidedState(){
         //Avoiding xml conflicts
     }
     
     @Override
     public boolean validateState() {
-       //Specific
+        //Specific
         return false;
     }
-
 
     @Override
     public boolean setApplicationCreatedState() {
@@ -51,17 +49,12 @@ public class ApplicationEvaluatedState implements ApplicationState{
 
     @Override
     public boolean setApplicationGivenStandState() {
-       if (validateState()) {
-            a.setState(new ApplicationGivenStandState(a));
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
     public boolean setApplicationDecidedState() {
         return false;
     }
-    
+
 }

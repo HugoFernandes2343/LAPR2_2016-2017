@@ -21,9 +21,9 @@ import lapr.project.model.User;
 public class UC04Controller {
 
     protected Event selectedEvent;
-    private FairCenter fc;
-    private User user;
-    private EventRegistry eventRegistry;
+    private final FairCenter fc;
+    private final User user;
+    private final EventRegistry eventRegistry;
     private List<Event> eventList;
     private List<Application> faeApplicationList;
     protected Application selectedApplication;

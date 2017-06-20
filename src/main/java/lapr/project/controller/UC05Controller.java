@@ -10,8 +10,7 @@ import lapr.project.model.*;
 
 public class UC05Controller {
 
-    private static final long serialVersionUID = 1L;
-
+   
     private final FairCenter fc;
     private Event event;
     private ApplicationList applicationList;
@@ -57,7 +56,7 @@ public class UC05Controller {
      * @param numberOfInvitations
      * @param keywords
      */
-    public void createApplication(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+    public void createApplication(String tradeName, String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         this.applicationList = event.getApplicationList();
         this.application = new Application(tradeName, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
         applicationList.addApplication(application);
@@ -65,6 +64,7 @@ public class UC05Controller {
 
     /**
      * saves the application as part of the event
+     * @return 
      */
     public boolean registerApplication() {
         return fc.registerApplication(event, application);
@@ -72,6 +72,7 @@ public class UC05Controller {
 
     /**
      * show's all events ready to get applications
+     * @return 
      */
     public List<Event> showReadyEventList() {
         // TODO - implement UC05Contoller.showReadyEventList

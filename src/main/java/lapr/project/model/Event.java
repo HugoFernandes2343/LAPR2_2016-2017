@@ -220,4 +220,8 @@ public class Event {
     public void registerStand(Stand stand) {
         stands.add(stand);
     }
+    public boolean addStand(Stand stand) {
+        stands.add(stand);
+        return true;
+    }
 }

@@ -31,7 +31,7 @@ public class UC02UI extends JDialog {
     private final int WINDOW_WIDTH = 1000;
     private final int WINDOW_HEIGHT = 600;
 
-    private UC02Controller uc02Controller;
+    private final UC02Controller uc02Controller;
 
     public UC02UI(FairCenter fc, User u, JFrame menuWindow) {
         uc02Controller = new UC02Controller(fc, u);

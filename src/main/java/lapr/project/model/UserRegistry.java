@@ -22,7 +22,7 @@ public class UserRegistry {
      */
     @XmlElementWrapper
     @XmlElement(name = "user")
-    private List<User> usersList;
+    private final List<User> usersList;
 
     /**
      *

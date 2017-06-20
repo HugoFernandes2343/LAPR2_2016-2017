@@ -5,7 +5,7 @@
  */
 package lapr.project.model;
 
-import java.util.ArrayList;
+
 import javax.xml.bind.annotation.*;
 
 /**
@@ -20,25 +20,25 @@ public class FairCenter {
      *
      */
     @XmlElement
-    private EventRegistry eventRegistry;
+    private final EventRegistry eventRegistry;
 
     /**
      *
      */
     @XmlElement
-    private UserRegistry confirmedUsers;
+    private final UserRegistry confirmedUsers;
 
     /**
      *
      */
     @XmlElement
-    private UserRegistry unconfirmedUsers;
+    private final UserRegistry unconfirmedUsers;
 
     /**
      *
      */
     @XmlElement
-    private EventManagerRegistry eventManagers;
+    private final EventManagerRegistry eventManagers;
 
     /**
      *

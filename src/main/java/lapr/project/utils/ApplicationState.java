@@ -18,7 +18,6 @@ import lapr.project.model.ApplicationGivenStandState;
 @XmlSeeAlso({ApplicationAssignedState.class,ApplicationEvaluatedState.class,ApplicationGivenStandState.class})
 public interface ApplicationState {
     public abstract boolean validateState();
-    public abstract void setNextState(); 
     public boolean setApplicationCreatedState();
     public boolean setApplicationAssignedState();
     public boolean setApplicationEvaluatedState();

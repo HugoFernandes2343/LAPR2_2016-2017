@@ -11,10 +11,10 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Stand {
 
-    private int area;
+    private double area;
     private String description;
 
-    public Stand(int area, String description) {
+    public Stand(double area, String description) {
         this.area = area;
         this.description = description;
     }
@@ -27,5 +27,8 @@ public class Stand {
         // TODO - implement Stand.verifyAvailability
         throw new UnsupportedOperationException();
     }
-
+    @Override
+    public String toString() {
+        return "Area:" + area + "Description:" + description; 
+    }
 }
