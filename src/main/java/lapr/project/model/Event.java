@@ -89,7 +89,7 @@ public class Event {
      */
     public List<User> getFAEList_UserRef() {
         List<User> FAEList = new ArrayList<>();
-        for (FAE fae : FaeList.getList()) {
+        for (FAE fae : FaeList.getFaeList()) {
             FAEList.add(fae.getUser());
         }
         return FAEList;
@@ -106,13 +106,17 @@ public class Event {
     public void setState(EventState state) {
         this.state = state;
     }
-
+    
+    public boolean validateEventStateCreated() {
+        return state instanceof EventCreatedState;//Needs testing
+    }
+    
     public boolean validateEventStateFAEDefined() {
         return state instanceof EventDefinedFAEState;//Needs testing
     }
 
-    public boolean validateEventStateCreated() {
-        return state instanceof EventCreatedState;//Needs testing
+    public boolean validateEventStateApplicationsOpen(){
+        return state instanceof EventApplicationsOpenState;//Needs testing
     }
 
     public void addOrganizer(User user) {
@@ -137,10 +141,6 @@ public class Event {
         this.FaeList.discardFAEs();
     }
 
-    boolean validateEventStateApplicationsOpen() {
-        return true;
-    }
-
     public ApplicationList getApplicationList() {
         return applicationList;
     }
@@ -158,6 +158,7 @@ public class Event {
     }
 
     public void recieveXMLData(Event xmlEvent) {
+        this.title=xmlEvent.title;
         this.FaeList = xmlEvent.getFAEList();
         this.applicationList = xmlEvent.getApplicationList();
         this.stands.addAll(xmlEvent.stands);
@@ -220,8 +221,17 @@ public class Event {
     public void registerStand(Stand stand) {
         stands.add(stand);
     }
+    
     public boolean addStand(Stand stand) {
         stands.add(stand);
         return true;
+    }
+    
+    public Date getApplicationEndDate(){
+        return this.applicationEnd;
+    }
+    
+    public Date getApplicationBeginDate(){
+        return this.applicationBegin;
     }
 }

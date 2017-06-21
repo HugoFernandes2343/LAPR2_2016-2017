@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.Date;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
@@ -38,7 +39,8 @@ public class EventDefinedFAEState implements EventState {
 
     @Override
     public boolean validate() {
-        return !e.getFAEList().getList().isEmpty();
+        Date now = new Date();
+        return now.after(e.getApplicationBeginDate()) && !e.getApplicationList().getList().isEmpty();
     }
 
     @Override
@@ -49,5 +51,20 @@ public class EventDefinedFAEState implements EventState {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean setEventApplicationsEvaluatedState() {
+        return false;
+    }
+
+    @Override
+    public boolean setEventFinalState() {
+        return false;
+    }
+
+    @Override
+    public boolean setEventEndedState() {
+        return false;
     }
 }

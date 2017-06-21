@@ -5,25 +5,23 @@
  */
 package lapr.project.model;
 
-import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
 /**
  *
  * @author PC
  */
-@XmlRootElement
-public class EventCreatedState implements EventState {
+public class EventApplicationEvaluatedState implements EventState{
 
-    @XmlTransient
-    protected Event e;
+    private Event e;
 
-    public EventCreatedState(Event e) {
-        this.e = e;
+    public EventApplicationEvaluatedState(Event e) {
+        this.e=e;
     }
 
-    public EventCreatedState() {
-        //Avoiding xml conflicts
+    @Override
+    public boolean validate() {
+        return !e.getApplicationList().getDefinitiveApplications().isEmpty();
     }
 
     @Override
@@ -33,17 +31,7 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean setEventDefinedFAEState() {
-        if (validate()) {
-            e.setState(new EventDefinedFAEState(e));
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean validate() {
-        return !e.getFAEList().getFaeList().isEmpty();
+        return false;
     }
 
     @Override
@@ -58,7 +46,7 @@ public class EventCreatedState implements EventState {
 
     @Override
     public boolean setEventFinalState() {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Application {
     @XmlElement(name = "invitesQuantity")
     private int numberOfInvitations;
     
-    @XmlElementWrapper(name="review")
+    @XmlElementWrapper(name="reviews")
     @XmlElement(name="review")
     private List<Review> reviews;
 

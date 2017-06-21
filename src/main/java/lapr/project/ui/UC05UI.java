@@ -42,7 +42,7 @@ public class UC05UI extends JFrame {
     private static final String confirmationDialog = "Are You Sure You Want To Exit?";
     private static final String confirmationTitle = "Exit Confirmation";
 
-    public UC05UI(FairCenter fc, User u, JFrame menuWindow) {
+    public UC05UI(FairCenter fc, JFrame menuWindow) {
         this.uc05Controller = new UC05Controller(fc);
         this.setName("UC05");
         this.eventsList = uc05Controller.getEventsReadyForSubmit();

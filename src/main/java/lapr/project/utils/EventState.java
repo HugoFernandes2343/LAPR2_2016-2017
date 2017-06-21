@@ -14,14 +14,16 @@ import lapr.project.model.*;
  * @author PC
  */
 @XmlTransient
-@XmlSeeAlso({EventCreatedState.class,EventDefinedFAEState.class})//Add the rest
+@XmlSeeAlso({EventCreatedState.class,EventDefinedFAEState.class,EventApplicationsOpenState.class})//Add the rest
 public interface EventState {
     
     public boolean validate();
     public boolean setEventCreatedState();
     public boolean setEventDefinedFAEState();
     public boolean setEventApplicationsOpenState();
-   // public boolean setEventApplicationsEvaluatingState();  THIS IS TO BE CHANGED TO IMPLEMENT UC04 
+    public boolean setEventApplicationsEvaluatedState();
+    public boolean setEventFinalState();
+    public boolean setEventEndedState();
     //Rest as needed
 }
 

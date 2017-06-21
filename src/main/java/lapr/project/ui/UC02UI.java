@@ -28,8 +28,8 @@ public class UC02UI extends JDialog {
 
     private static final long serialVersionUID = 1L;
     
-    private final int WINDOW_WIDTH = 1000;
-    private final int WINDOW_HEIGHT = 600;
+    private final int windowWidth = 1000;
+    private final int windowHeight = 600;
 
     private final UC02Controller uc02Controller;
 
@@ -40,7 +40,7 @@ public class UC02UI extends JDialog {
     }
 
     private void createFrame(JFrame menuWindow) {
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);

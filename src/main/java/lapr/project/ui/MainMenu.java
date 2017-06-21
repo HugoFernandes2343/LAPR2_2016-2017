@@ -103,6 +103,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
             public void actionPerformed(ActionEvent ae) {
                 setActiveUser(null);
                 MainMenu.this.setVisible(false);
+                MainMenu.this.dispose();
                 window.setVisible(true);
             }
         });
@@ -177,7 +178,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
             ) {
                 if (check.isRepresentative()) {
                     MainMenu.this.setVisible(false);
-                    UC05UI uc05ui = new UC05UI(fc, user, MainMenu.this);
+                    UC05UI uc05ui = new UC05UI(fc, MainMenu.this);
                     uc05ui.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(MainMenu.this,
@@ -201,7 +202,6 @@ public class MainMenu extends JFrame implements MainMenuElements {
         }
         );
 
-        //Add
         UC07Button.addActionListener(
                 new ActionListener() {
             @Override

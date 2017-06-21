@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import lapr.project.utils.ApplicationState;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.*;
@@ -44,27 +43,6 @@ public class ApplicationList {
      */
     public void registerNewApplication(Application application) {
         // TODO - implement ApplicationList.registerNewApplication
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * checks the validity of the application
-     *
-     * @param application
-     * @return 
-     */
-    public boolean verifyApplication(Application application) {
-        // TODO - implement ApplicationList.verifyApplication
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param state
-     * @return 
-     */
-    public List<Application> getApplicationsByState(ApplicationState state) {
-        // TODO - implement ApplicationList.getApplicationsByState
         throw new UnsupportedOperationException();
     }
 
@@ -108,7 +86,17 @@ public class ApplicationList {
         return applicationsReadyForParticipantsRepresentativeConfirmation;
     }
 
-    boolean saveApplicationChanges(Application application) {
+    public List<Application> getDefinitiveApplications() {
+        List<Application> definitiveApplications = new ArrayList<>();
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getApplicationState() instanceof ApplicationDecidedState) {
+                definitiveApplications.add(applications.get(i));
+            }
+        }
+        return definitiveApplications;
+    }
+
+    protected boolean saveApplicationChanges(Application application) {
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).equals(application)) {
                 applications.remove(i);
@@ -117,6 +105,10 @@ public class ApplicationList {
             }
         }
         return false;
+    }
+
+    public List<Application> getList() {
+        return this.applications;
     }
 
 }

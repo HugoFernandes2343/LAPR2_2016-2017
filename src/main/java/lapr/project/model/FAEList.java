@@ -27,7 +27,7 @@ public class FAEList {
         this.tempList = new ArrayList<>();
     }
 
-    public List<FAE> getList() {
+    public List<FAE> getFaeList() {
         return this.faeList;
     }
 

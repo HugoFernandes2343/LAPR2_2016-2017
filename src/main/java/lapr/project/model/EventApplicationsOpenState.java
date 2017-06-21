@@ -5,12 +5,13 @@
  */
 package lapr.project.model;
 
+import java.util.Date;
 import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
 /**
  *
- * @author hugod
+ * @author PC
  */
 @XmlRootElement
 public class EventApplicationsOpenState implements EventState {
@@ -33,8 +34,8 @@ public class EventApplicationsOpenState implements EventState {
 
     @Override
     public boolean validate() {
-        //Specific
-        return false;
+        Date now = new Date();
+        return now.after(e.getApplicationBeginDate());
     }
 
     @Override
@@ -44,6 +45,26 @@ public class EventApplicationsOpenState implements EventState {
 
     @Override
     public boolean setEventApplicationsOpenState() {
+        return false;
+    }
+
+    @Override
+    public boolean setEventApplicationsEvaluatedState() {
+        if (validate()) {
+            e.setState(new EventApplicationEvaluatedState(e));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean setEventFinalState() {
+        return false;
+    }
+
+    @Override
+    public boolean setEventEndedState() {
         return false;
     }
 }
