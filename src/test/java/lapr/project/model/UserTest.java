@@ -5,18 +5,8 @@
  */
 package lapr.project.model;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import static junit.framework.TestCase.assertEquals;
-import lapr.project.utils.XMLParser;
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.w3c.dom.Node;
 
 /**
  *
@@ -24,7 +14,7 @@ import org.w3c.dom.Node;
  */
 public class UserTest {
 
-    private User u = new User("testUserName","test@Email","testPassword","testName","portuguese","GMT+1","key");
+    private final User u = new User("testUserName","test@Email","testPassword","testName","portuguese","GMT+1","key");
     /**
      * Test of getName method, of class User.
      */

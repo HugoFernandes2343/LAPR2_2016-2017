@@ -165,4 +165,56 @@ public class CalculationsTest {
         // TODO review the generated test code and remove the default call to fail.
     }
 
+    /**
+     * Test of getFaeMeanStandardDeviationRate method, of class Calculations.
+     */
+    @Test
+    public void testGetFaeMeanStandardDeviationRate() {
+        System.out.println("getFaeMeanStandardDeviationRate");
+        double globalSubmissionMeanRate = 3.0;
+        Review review1 = new Review(new FAE(new User("testUserName", "test@Email", "testPassword", "testName", "portuguese", "GMT+1", "keyword")));
+        review1.setEventAdequacy(5);
+        review1.setFaeTopicKnowledge(5);
+        review1.setInviteAdequacy(5);
+        review1.setRecommendation(5);
+        Review review2 = new Review(new FAE(new User("testUserName", "test@Email", "testPassword", "testName", "portuguese", "GMT+1", "keyword")));
+        review2.setEventAdequacy(0);
+        review2.setFaeTopicKnowledge(0);
+        review2.setInviteAdequacy(0);
+        review2.setRecommendation(0);
+        List<Review> faeReviews = new ArrayList<>();
+        faeReviews.add(review1);
+        faeReviews.add(review2);
+        double expResult = 2.5;
+        double result = Calculations.getFaeMeanStandardDeviationRate(globalSubmissionMeanRate, faeReviews);
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+    }
+
+    /**
+     * Test of getFaeMeanStandardDeviation method, of class Calculations.
+     */
+    @Test
+    public void testGetFaeMeanStandardDeviation() {
+        System.out.println("getFaeMeanStandardDeviation");
+        double globalSubmissionMeanRate = 3.0;
+        Review review1 = new Review(new FAE(new User("testUserName", "test@Email", "testPassword", "testName", "portuguese", "GMT+1", "keyword")));
+        review1.setEventAdequacy(5);
+        review1.setFaeTopicKnowledge(5);
+        review1.setInviteAdequacy(5);
+        review1.setRecommendation(5);
+        Review review2 = new Review(new FAE(new User("testUserName", "test@Email", "testPassword", "testName", "portuguese", "GMT+1", "keyword")));
+        review2.setEventAdequacy(0);
+        review2.setFaeTopicKnowledge(0);
+        review2.setInviteAdequacy(0);
+        review2.setRecommendation(0);
+        List<Review> faeReviews = new ArrayList<>();
+        faeReviews.add(review1);
+        faeReviews.add(review2);
+        double expResult = 0.5;
+        double result = Calculations.getFaeMeanStandardDeviation(globalSubmissionMeanRate, faeReviews);
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+    }
+
 }

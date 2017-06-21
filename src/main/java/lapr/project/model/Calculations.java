@@ -136,4 +136,32 @@ public class Calculations {
         return getMeanRate(reviewsMean);
     }
 
+    public static double getFaeMeanStandardDeviationRate(double globalSubmissionMeanRate, List<Review> faeReviews) {
+        double[] standardReviewsMean = new double[faeReviews.size()];
+        for (int i = 0; i < faeReviews.size(); i++) {
+            double[] meanOfAllReviewParameters = new double[4];
+            meanOfAllReviewParameters[0] = faeReviews.get(i).getEventAdequacyValue();
+            meanOfAllReviewParameters[1] = faeReviews.get(i).getFaeTopicKnowledgeValue();
+            meanOfAllReviewParameters[2] = faeReviews.get(i).getInviteAdequacyValue();
+            meanOfAllReviewParameters[3] = faeReviews.get(i).getRecomendationValue();
+            standardReviewsMean[i] = Math.abs(getMeanRate(meanOfAllReviewParameters) - globalSubmissionMeanRate);
+        }
+        return getMeanRate(standardReviewsMean);
+    }
+
+    public static double getFaeMeanStandardDeviation(double globalSubmissionMeanRate, List<Review> faeReviews) {
+        double[] standardReviewsMean = new double[faeReviews.size()];
+        for (int i = 0; i < faeReviews.size(); i++) {
+            double[] meanOfAllReviewParameters = new double[4];
+            meanOfAllReviewParameters[0] = faeReviews.get(i).getEventAdequacyValue();
+            meanOfAllReviewParameters[1] = faeReviews.get(i).getFaeTopicKnowledgeValue();
+            meanOfAllReviewParameters[2] = faeReviews.get(i).getInviteAdequacyValue();
+            meanOfAllReviewParameters[3] = faeReviews.get(i).getRecomendationValue();
+            standardReviewsMean[i] = Math.abs(getMeanRate(meanOfAllReviewParameters) - globalSubmissionMeanRate);
+        }
+        double meanRate = getMeanRate(standardReviewsMean);
+        double variance = getVariance(standardReviewsMean, meanRate);
+        return Math.round(Math.sqrt(variance) * 100.00) / 100.00;
+    }
+
 }
