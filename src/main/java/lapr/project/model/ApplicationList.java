@@ -111,4 +111,17 @@ public class ApplicationList {
         return this.applications;
     }
 
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public List<Application> getApplicationsEvaluatedByFae(User faeUserReference) {
+        List<Application> faeApplications = new ArrayList<>();
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).isFAEReviewing(new FAE(faeUserReference))) {
+                faeApplications.add(applications.get(i));
+            }
+        }
+        return faeApplications;
+    }
 }

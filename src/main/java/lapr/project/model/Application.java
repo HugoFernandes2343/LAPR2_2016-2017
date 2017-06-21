@@ -50,9 +50,9 @@ public class Application {
 
     @XmlElement(name = "invitesQuantity")
     private int numberOfInvitations;
-    
-    @XmlElementWrapper(name="reviews")
-    @XmlElement(name="review")
+
+    @XmlElementWrapper(name = "reviews")
+    @XmlElement(name = "review")
     private List<Review> reviews;
 
     /**
@@ -207,8 +207,6 @@ public class Application {
         return hash;
     }
 
- 
-
     public ApplicationState getApplicationState() {
         return state;
     }
@@ -232,12 +230,17 @@ public class Application {
                 reviews.get(i).setFaeTopicKnowledge(faeTopicKnowledge);
                 reviews.get(i).setEventAdequacy(eventAdequacy);
                 reviews.get(i).setInviteAdequacy(inviteAdequacy);
-                reviews.get(i).setRecomendation(recomendation);
+                reviews.get(i).setRecommendation(recomendation);
                 reviews.get(i).setJustification(justification);
             }
         }
     }
+
     public void setState(ApplicationState state) {
         this.state = state;
+    }
+
+    public boolean getAcceptance() {
+        return accepted;
     }
 }

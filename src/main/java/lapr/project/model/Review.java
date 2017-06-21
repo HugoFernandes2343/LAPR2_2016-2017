@@ -5,6 +5,8 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,10 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Hugo
  */
-@XmlRootElement(name="review")
+@XmlRootElement(name = "review")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Review {
 
-    @XmlElement(name="text")
+    @XmlElement(name = "text")
     private String justification;
 
     @XmlElement
@@ -28,7 +31,7 @@ public class Review {
     private Integer inviteAdequacy;
 
     @XmlElement
-    private Integer recomendation;
+    private Integer recommendation;
 
     @XmlElement
     private Assignment assignment;
@@ -64,7 +67,7 @@ public class Review {
         if (!inviteAdequacy.equals(review.inviteAdequacy)) {
             return false;
         }
-        if (!recomendation.equals(review.recomendation)) {
+        if (!recommendation.equals(review.recommendation)) {
             return false;
         }
         return assignment.equals(review.assignment);
@@ -77,7 +80,7 @@ public class Review {
         result = 31 * result + faeTopicKnowledge.hashCode();
         result = 31 * result + eventAdequacy.hashCode();
         result = 31 * result + inviteAdequacy.hashCode();
-        result = 31 * result + recomendation.hashCode();
+        result = 31 * result + recommendation.hashCode();
         result = 31 * result + assignment.hashCode();
         return result;
     }
@@ -85,8 +88,7 @@ public class Review {
     public Assignment getAssignment() {
         return assignment;
     }
-    
-    
+
     /**
      * @param justification the text to set
      */
@@ -116,16 +118,41 @@ public class Review {
     }
 
     /**
-     * @return the recomendation
+     * @return the recommendation
      */
     public Integer getRecomendationValue() {
-        return recomendation;
+        return recommendation;
     }
 
     /**
-     * @param recomendation the recommendation to set
+     * @param recommendation the recommendation to set
      */
-    public void setRecomendation(Integer recomendation) {
-        this.recomendation = recomendation;
+    public void setRecommendation(Integer recommendation) {
+        this.recommendation = recommendation;
+    }
+
+    public boolean hasFaeEvaluated() {
+        return getFaeTopicKnowledgeValue() != null;
+    }
+
+    /**
+     * @return the faeTopicKnowledge
+     */
+    public Integer getFaeTopicKnowledgeValue() {
+        return faeTopicKnowledge;
+    }
+
+    /**
+     * @return the eventAdequacy
+     */
+    public Integer getEventAdequacyValue() {
+        return eventAdequacy;
+    }
+
+    /**
+     * @return the inviteAdequacy
+     */
+    public Integer getInviteAdequacyValue() {
+        return inviteAdequacy;
     }
 }

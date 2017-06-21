@@ -106,16 +106,16 @@ public class Event {
     public void setState(EventState state) {
         this.state = state;
     }
-    
+
     public boolean validateEventStateCreated() {
         return state instanceof EventCreatedState;//Needs testing
     }
-    
+
     public boolean validateEventStateFAEDefined() {
         return state instanceof EventDefinedFAEState;//Needs testing
     }
 
-    public boolean validateEventStateApplicationsOpen(){
+    public boolean validateEventStateApplicationsOpen() {
         return state instanceof EventApplicationsOpenState;//Needs testing
     }
 
@@ -158,7 +158,7 @@ public class Event {
     }
 
     public void recieveXMLData(Event xmlEvent) {
-        this.title=xmlEvent.title;
+        this.title = xmlEvent.title;
         this.FaeList = xmlEvent.getFAEList();
         this.applicationList = xmlEvent.getApplicationList();
         this.stands.addAll(xmlEvent.stands);
@@ -221,17 +221,21 @@ public class Event {
     public void registerStand(Stand stand) {
         stands.add(stand);
     }
-    
+
     public boolean addStand(Stand stand) {
         stands.add(stand);
         return true;
     }
-    
-    public Date getApplicationEndDate(){
+
+    public Date getApplicationEndDate() {
         return this.applicationEnd;
     }
-    
-    public Date getApplicationBeginDate(){
+
+    public Date getApplicationBeginDate() {
         return this.applicationBegin;
+    }
+
+    public List<Stand> getStands() {
+        return stands;
     }
 }

@@ -140,4 +140,27 @@ public class EventRegistry {
         }
         return false;
     }
+
+    public List<User> getAllFaeUserReference() {
+        List<Event> eventList = getAllEvents();
+        List<User> allFaeUserReference = new ArrayList<>();
+        for (int i = 0; i < eventList.size(); i++) {
+            List<User> eventFaeUserReference = eventList.get(i).getFAEList_UserRef();
+            for (int j = 0; j < eventFaeUserReference.size(); j++) {
+                if (validateFaeUserReferenceNotAdded(eventFaeUserReference.get(j), allFaeUserReference)) {
+                    allFaeUserReference.add(eventFaeUserReference.get(j));
+                }
+            }
+        }
+        return allFaeUserReference;
+    }
+
+    private boolean validateFaeUserReferenceNotAdded(User faeUserReference, List<User> allFaeUserReference) {
+        for (int i = 0; i < allFaeUserReference.size(); i++) {
+            if (allFaeUserReference.get(i).equals(faeUserReference)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

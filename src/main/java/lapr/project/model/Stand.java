@@ -20,15 +20,20 @@ public class Stand {
     }
 
     public Stand() {
-        
+
     }
 
     public boolean verifyAvailability() {
         // TODO - implement Stand.verifyAvailability
         throw new UnsupportedOperationException();
     }
+
     @Override
     public String toString() {
-        return "Area:" + area + "Description:" + description; 
+        return "Area:" + area + "Description:" + description;
+    }
+
+    public double getArea() {
+        return area;
     }
 }
