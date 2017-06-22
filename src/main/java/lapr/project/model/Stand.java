@@ -5,6 +5,7 @@
  */
 package lapr.project.model;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "stand")
@@ -23,17 +24,42 @@ public class Stand {
 
     }
 
-    public boolean verifyAvailability() {
-        // TODO - implement Stand.verifyAvailability
-        throw new UnsupportedOperationException();
-    }
-
     @Override
     public String toString() {
         return "Area:" + area + "Description:" + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public double getArea() {
         return area;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Stand)) {
+            return false;
+        }
+
+        Stand that = (Stand) o;
+
+        if (!Double.toString(area).equals((Double.toString(that.area)))) {
+            return false;
+        }
+
+        return this.description.equals(that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.area) ^ (Double.doubleToLongBits(this.area) >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.description);
+        return hash;
     }
 }

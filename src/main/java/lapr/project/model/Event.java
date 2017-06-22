@@ -238,4 +238,21 @@ public class Event {
     public List<Stand> getStands() {
         return stands;
     }
+    public List<Stand> getAvailableStands() {
+        List<Stand> availableStands = null;
+        for (int i = 0; i < stands.size(); i++) {
+            if (!applicationList.checkStandAssigned(stands.get(i)) == true) {
+                availableStands.add(stands.get(i));
+            }
+        }
+        return availableStands;
+    }
+
+    public boolean checkForRepresentativeApplication(User user) {
+        return applicationList.CheckForApplicationFromUser(user);
+    }
+
+    public Application getApplicationOfRepresentative(User user) {
+        return applicationList.getApplicationOfRepresentative(user);
+    }
 }

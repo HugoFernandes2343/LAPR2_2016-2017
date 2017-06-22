@@ -29,7 +29,9 @@ public class ApplicationEvaluatedState implements ApplicationState{
     
     @Override
     public boolean validateState() {
-       //Specific
+       if (a.getStand() == null) {
+            return true;
+        }
         return false;
     }
 

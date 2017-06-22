@@ -107,10 +107,9 @@ public class EventRegistry {
     }
 
     public String[] getTitlesForSubmit(List<Event> eventsReadyForSubmit) {
-        String[] titles = new String[eventsReadyForSubmit.size() + 1];
-        titles[0] = "";
+        String[] titles = new String[eventsReadyForSubmit.size()];
         for (int i = 0; i < eventsReadyForSubmit.size(); i++) {
-            titles[i + 1] = eventsReadyForSubmit.get(i).getTitle();
+            titles[i] = eventsReadyForSubmit.get(i).getTitle();
         }
         return titles;
     }
@@ -162,5 +161,35 @@ public class EventRegistry {
             }
         }
         return true;
+    }
+
+    public boolean checkForRepresentativeApplications(User user) {
+        boolean applications = false;
+        for (int i = 0; i < congressList.size(); i++) {
+            if (congressList.get(i).checkForRepresentativeApplication(user)) {
+                applications = true;
+            }
+        }
+        for (int i = 0; i < exhibitionList.size(); i++) {
+            if (exhibitionList.get(i).checkForRepresentativeApplication(user)) {
+                applications = true;
+            }
+        }
+        return applications;
+    }
+
+    public List<Event> getEventsWithApplicationFromUser(User user) {
+        List<Event> eventsWithUserApplications = null;
+        for (int i = 0; i < congressList.size(); i++) {
+            if (congressList.get(i).checkForRepresentativeApplication(user)) {
+                eventsWithUserApplications.add(congressList.get(i));
+            }
+        }
+        for (int i = 0; i < exhibitionList.size(); i++) {
+            if (exhibitionList.get(i).checkForRepresentativeApplication(user)) {
+                eventsWithUserApplications.add(exhibitionList.get(i));
+            }
+        }
+        return eventsWithUserApplications;
     }
 }

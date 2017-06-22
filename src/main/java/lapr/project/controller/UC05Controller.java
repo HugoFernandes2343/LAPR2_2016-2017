@@ -15,9 +15,11 @@ public class UC05Controller {
     private Event event;
     private ApplicationList applicationList;
     private Application application = new Application();
+    private User user;
 
-    public UC05Controller(FairCenter fc) {
+    public UC05Controller(FairCenter fc,User u) {
         this.fc = fc;
+        this.user=u;
     }
 
     /**
@@ -49,6 +51,7 @@ public class UC05Controller {
      * creates an empty object Application
      *
      * @param tradeName
+     * @param description
      * @param address
      * @param phone
      * @param boothArea
@@ -56,10 +59,10 @@ public class UC05Controller {
      * @param numberOfInvitations
      * @param keywords
      */
-    public void createApplication(String tradeName, String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+     public void createApplication(String tradeName,String description ,String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         this.applicationList = event.getApplicationList();
-        this.application = new Application(tradeName, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
-        applicationList.addApplication(application);
+        this.application = new Application(tradeName, description ,address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
+        
     }
 
     /**
@@ -67,24 +70,12 @@ public class UC05Controller {
      * @return 
      */
     public boolean registerApplication() {
+        application.setRepresentative(new Representative(user));
         return fc.registerApplication(event, application);
-    }
-
-    /**
-     * show's all events ready to get applications
-     * @return 
-     */
-    public List<Event> showReadyEventList() {
-        // TODO - implement UC05Contoller.showReadyEventList
-        throw new UnsupportedOperationException();
     }
 
     public String getApplicationInfo() {
         return application.toString();
-    }
-
-    public String getEventByTitle(String eventTitle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

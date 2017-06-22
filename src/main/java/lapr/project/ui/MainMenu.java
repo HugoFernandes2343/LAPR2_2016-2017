@@ -178,7 +178,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
             ) {
                 if (check.isRepresentative()) {
                     MainMenu.this.setVisible(false);
-                    UC05UI uc05ui = new UC05UI(fc, MainMenu.this);
+                    UC05UI uc05ui = new UC05UI(fc,user, MainMenu.this);
                     uc05ui.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(MainMenu.this,

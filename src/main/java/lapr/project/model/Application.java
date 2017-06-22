@@ -16,10 +16,6 @@ import lapr.project.utils.ApplicationState;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
 
-    private static final String ROOT_ELEMENT_NAME = "application";
-    private static final String DESCRIPTION_ELEMENT_NAME = "description";
-    private static final String KEYWORDS_ELEMENT_NAME = "keywords";
-
     @XmlElementWrapper(name = "keywords")
     @XmlElement(name = "keyword")
     private List<String> keywordList;
@@ -45,7 +41,7 @@ public class Application {
     @XmlElement
     private String[] productsToBeDisplayed;
 
-//    private ArrayList<Review> reviews;
+    @XmlElement
     private ApplicationState state;
 
     @XmlElement(name = "invitesQuantity")
@@ -55,9 +51,16 @@ public class Application {
     @XmlElement(name = "review")
     private List<Review> reviews;
 
+    @XmlElement
+    private Stand stand;
+
+    @XmlElement
+    private Representative representative;
+
     /**
      *
      * @param tradeName
+     * @param description
      * @param address
      * @param phone
      * @param boothArea
@@ -65,9 +68,10 @@ public class Application {
      * @param numberOfInvitations
      * @param keywords
      */
-    public Application(String tradeName, String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+    public Application(String tradeName, String description, String address, long phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
         this.keywordList = new ArrayList<>();
         this.tradeName = tradeName;
+        this.description = description;
         this.address = address;
         this.phone = phone;
         this.boothArea = boothArea;
@@ -88,33 +92,62 @@ public class Application {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTradeName() {
         return tradeName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getPhone() {
         return phone;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getBoothArea() {
         return boothArea;
     }
 
+    /**
+     *
+     * @return
+     */
     public String[] getProductsToBeDisplayed() {
         return productsToBeDisplayed;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfInvitations() {
         return numberOfInvitations;
     }
 
-    /* private String getDescrition() {
+    public String getDescrition() {
         return description;
-    }*/
+    }
+
+    public Stand getStand() {
+        return stand;
+    }
+
     /**
      * Add a keyword to Candidatura.
      *
@@ -132,6 +165,10 @@ public class Application {
     public List<String> getKeywordList() {
         return keywordList;
 
+    }
+
+    public Representative getRepresentative() {
+        return representative;
     }
 
     @Override
@@ -152,7 +189,7 @@ public class Application {
                 string2 = string2 + "," + keywordList.get(i);
             }
         }
-        return "Trade name - " + tradeName + "; Address - " + address + "; Phone - " + phone + "; Intended booth area - " + boothArea + "; Products to be displayed - " + string1 + "; Keywords - " + string2;
+        return "Trade name - " + tradeName + "; Description - " + description + "; Address - " + address + "; Phone - " + phone + "; Intended booth area - " + boothArea + "; Products to be displayed - " + string1 + "; Keywords - " + string2;
     }
 
     public boolean compareProducts(Application application) {
@@ -191,19 +228,13 @@ public class Application {
 
         Application that = (Application) o;
 
-        if (getTradeName().equals(that.getTradeName()) && getAddress().equals(that.getAddress()) && String.valueOf(getPhone()).equals(String.valueOf(that.getPhone()))) {
-            return true;
-        }
-        return getKeywordList().equals(that.getKeywordList());
-
+        return (getRepresentative().getUser().equals(that.getRepresentative().getUser()));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.tradeName);
-        hash = 31 * hash + Objects.hashCode(this.address);
-        hash = 31 * hash + (int) (this.phone ^ (this.phone >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.representative);
         return hash;
     }
 
@@ -242,5 +273,17 @@ public class Application {
 
     public boolean getAcceptance() {
         return accepted;
+    }
+
+    public ApplicationState getState() {
+        return state;
+    }
+
+    public void setStand(Stand stand) {
+        this.stand = stand;
+    }
+
+    public void setRepresentative(Representative representative) {
+       this.representative=representative;
     }
 }

@@ -23,6 +23,7 @@ public class ApplicationList {
     /**
      *
      * @param tradeName
+     * @param description
      * @param address
      * @param phone
      * @param boothArea
@@ -31,20 +32,11 @@ public class ApplicationList {
      * @param keywords
      * @return
      */
-    public Application createApplication(String tradeName, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
-        Application application = new Application(tradeName, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
+    public Application createApplication(String tradeName, String description, String address, int phone, double boothArea, String[] productsToBeDisplayed, int numberOfInvitations, String[] keywords) {
+        Application application = new Application(tradeName, description, address, phone, boothArea, productsToBeDisplayed, numberOfInvitations, keywords);
         return application;
     }
 
-    /**
-     * saves the application as part of the event
-     *
-     * @param application
-     */
-    public void registerNewApplication(Application application) {
-        // TODO - implement ApplicationList.registerNewApplication
-        throw new UnsupportedOperationException();
-    }
 
     public boolean registerApplication(Application application) {
         applications.add(application);
@@ -96,6 +88,11 @@ public class ApplicationList {
         return definitiveApplications;
     }
 
+    /**
+     *
+     * @param application
+     * @return
+     */
     protected boolean saveApplicationChanges(Application application) {
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).equals(application)) {
@@ -123,5 +120,42 @@ public class ApplicationList {
             }
         }
         return faeApplications;
+    }
+     public List<Application> getApplicationsEvaluatedState() {
+        List<Application> evaluatedApplications = null;
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getState() instanceof ApplicationEvaluatedState) {
+                evaluatedApplications.set(i, applications.get(i));
+            }
+        }
+        return evaluatedApplications;
+    }
+
+    public boolean CheckForApplicationFromUser(User user) {
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getRepresentative().getUser().equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Application getApplicationOfRepresentative(User user) {
+        Application application = null;
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getRepresentative().getUser().equals(user)) {
+                 application = applications.get(i);
+            }
+        }
+        return application;
+    }
+
+    public boolean checkStandAssigned(Stand stand) {
+        for(int i =0 ; i<applications.size();i++){
+            if(applications.get(i).getStand().equals(stand)){
+                return true;
+            }
+        }
+        return false;
     }
 }
