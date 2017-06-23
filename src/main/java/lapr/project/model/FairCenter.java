@@ -43,11 +43,12 @@ public class FairCenter {
     /**
      *
      */
-    public FairCenter() {//Add Params , nome?, local?
+    public FairCenter() {
         confirmedUsers = new UserRegistry();
         eventRegistry = new EventRegistry();
         unconfirmedUsers = new UserRegistry();
         eventManagers = new EventManagerRegistry();
+        createDefaultUser();
     }
 
     /**
@@ -108,7 +109,7 @@ public class FairCenter {
     }
 
     public void updatedDataFromXML(Event selectedEvent, Event ev) {
-        this.confirmedUsers.getUsersList().addAll(ev.getFAEList_UserRef());
+        this.confirmedUsers.getUsersList().addAll(ev.getFAEListUserRef());
     }
 
     public boolean registerApplication(Event event, Application application) {
@@ -117,5 +118,15 @@ public class FairCenter {
 
     public boolean registerApplicationChanges(Event event, Application application) {
         return eventRegistry.registerApplicationChanges(event, application);
+    }
+
+    private void createDefaultUser() {
+        User eventManagerDefault = new User("default","default","default","default","","GMT+00","delta");
+        this.registerUser(eventManagerDefault);
+        this.getEventManagerRegistry().addEventManager(new EventManager(eventManagerDefault));
+        
+        String guestInfo = "guest";
+        User guestUser = new User(guestInfo,guestInfo,guestInfo,guestInfo,"","GMT+00",guestInfo);
+        this.registerUser(guestUser);
     }
 }

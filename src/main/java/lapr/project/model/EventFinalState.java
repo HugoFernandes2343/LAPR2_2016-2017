@@ -5,47 +5,67 @@
  */
 package lapr.project.model;
 
+import java.util.Date;
+import javax.xml.bind.annotation.*;
 import lapr.project.utils.EventState;
 
 /**
  *
  * @author PC
  */
-public class EventFinalState implements EventState{
+@XmlRootElement
+public class EventFinalState implements EventState {
+
+    @XmlTransient
+    private Event e;
+
+    public EventFinalState(Event e) {
+        this.e = e;
+    }
+
+    public EventFinalState() {
+        //Avoiding xml conflicts
+    }
 
     @Override
     public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Date now = new Date();
+        return now.after(e.getApplicationEndDate());
     }
 
     @Override
     public boolean setEventCreatedState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventDefinedFAEState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventApplicationsOpenState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventApplicationsEvaluatedState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventFinalState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventEndedState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (validate()) {
+            e.setState(new EventEndedState(e));
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
 }

@@ -32,7 +32,7 @@ public class EventRegistry {
         List<Event> allEvents = getAllEvents();
         List<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
-            if (e.getOrganizersList_UserRef().contains(u)) {
+            if (e.getOrganizersListUserRef().contains(u)) {
                 validEvents.add(e);
             }
         }
@@ -43,7 +43,7 @@ public class EventRegistry {
         List<Event> allEvents = getAllEvents();
         List<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
-            if (e.validateEventStateCreated() == true) {
+            if (e.validateEventStateCreated()) {
                 validEvents.add(e);
             }
         }
@@ -58,10 +58,10 @@ public class EventRegistry {
     }
 
     public Event createEvent(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd, String eventType) {
-        Event event;
-        if (eventType.equals("Exhibition")) {
+        Event event=null;
+        if ("Exhibition".equals(eventType)) {
             event = new Exhibition(title, description, place, startDate, endDate, applicationBegin, applicationEnd);
-        } else {
+        } else if("Congress".equals(eventType)){
             event = new Congress(title, description, place, startDate, endDate, applicationBegin, applicationEnd);
         }
         return event;
@@ -106,7 +106,7 @@ public class EventRegistry {
         return eventsReadyForSubmit;
     }
 
-    public String[] getTitlesForSubmit(List<Event> eventsReadyForSubmit) {
+    public String[] getEventTitles(List<Event> eventsReadyForSubmit) {
         String[] titles = new String[eventsReadyForSubmit.size()];
         for (int i = 0; i < eventsReadyForSubmit.size(); i++) {
             titles[i] = eventsReadyForSubmit.get(i).getTitle();
@@ -122,7 +122,7 @@ public class EventRegistry {
         List<Event> allEvents = getAllEvents();
         ArrayList<Event> validEvents = new ArrayList<>();
         for (Event e : allEvents) {
-            if (e.getFAEList_UserRef().contains(u)) {
+            if (e.getFAEListUserRef().contains(u)) {
                 validEvents.add(e);
             }
         }
@@ -131,7 +131,7 @@ public class EventRegistry {
 
     public boolean registerApplicationChanges(Event event, Application application) {
         for (int i = 0; i < exhibitionList.size(); i++) {
-            Event registeredEvent = (Event) exhibitionList.get(i);
+            Event registeredEvent = exhibitionList.get(i);
             if (registeredEvent.equals(event)) {
                 exhibitionList.get(i).saveApplicationChanges(application);
             }
@@ -144,7 +144,7 @@ public class EventRegistry {
         List<Event> eventList = getAllEvents();
         List<User> allFaeUserReference = new ArrayList<>();
         for (int i = 0; i < eventList.size(); i++) {
-            List<User> eventFaeUserReference = eventList.get(i).getFAEList_UserRef();
+            List<User> eventFaeUserReference = eventList.get(i).getFAEListUserRef();
             for (int j = 0; j < eventFaeUserReference.size(); j++) {
                 if (validateFaeUserReferenceNotAdded(eventFaeUserReference.get(j), allFaeUserReference)) {
                     allFaeUserReference.add(eventFaeUserReference.get(j));
@@ -154,7 +154,7 @@ public class EventRegistry {
         return allFaeUserReference;
     }
 
-    private boolean validateFaeUserReferenceNotAdded(User faeUserReference, List<User> allFaeUserReference) {
+    private static boolean validateFaeUserReferenceNotAdded(User faeUserReference, List<User> allFaeUserReference) {
         for (int i = 0; i < allFaeUserReference.size(); i++) {
             if (allFaeUserReference.get(i).equals(faeUserReference)) {
                 return false;
@@ -179,7 +179,7 @@ public class EventRegistry {
     }
 
     public List<Event> getEventsWithApplicationFromUser(User user) {
-        List<Event> eventsWithUserApplications = null;
+        List<Event> eventsWithUserApplications = new ArrayList<>();
         for (int i = 0; i < congressList.size(); i++) {
             if (congressList.get(i).checkForRepresentativeApplication(user)) {
                 eventsWithUserApplications.add(congressList.get(i));

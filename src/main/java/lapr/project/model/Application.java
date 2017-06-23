@@ -84,6 +84,12 @@ public class Application {
         }
     }
 
+    public Application(String tradeName, String description, long phone) {
+        this.description = description;
+        this.tradeName = tradeName;
+        this.phone = phone;
+    }
+
     /**
      * Default public constructor.
      */
@@ -284,6 +290,6 @@ public class Application {
     }
 
     public void setRepresentative(Representative representative) {
-       this.representative=representative;
+        this.representative = representative;
     }
 }

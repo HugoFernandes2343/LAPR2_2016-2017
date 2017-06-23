@@ -41,7 +41,7 @@ public class Event {
     private OrganizerList organizerList;
 
     @XmlElement(name = "FAESet")
-    private FAEList FaeList;
+    private FAEList faeList;
 
     @XmlElement(name = "applicationSet")
     private ApplicationList applicationList;
@@ -51,7 +51,7 @@ public class Event {
     private List<Stand> stands;
 
     public Event(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
-        this.FaeList = new FAEList();
+        this.faeList = new FAEList();
         this.organizerList = new OrganizerList();
         this.title = title;
         this.description = description;
@@ -74,7 +74,7 @@ public class Event {
      *
      * @return
      */
-    public List<User> getOrganizersList_UserRef() {
+    public List<User> getOrganizersListUserRef() {
         List<User> orgList = new ArrayList<>();
         for (Organizer org : organizerList.getList()) {
             orgList.add(org.getUser());
@@ -87,16 +87,16 @@ public class Event {
      *
      * @return
      */
-    public List<User> getFAEList_UserRef() {
+    public List<User> getFAEListUserRef() {
         List<User> FAEList = new ArrayList<>();
-        for (FAE fae : FaeList.getFaeList()) {
+        for (FAE fae : faeList.getFaeList()) {
             FAEList.add(fae.getUser());
         }
         return FAEList;
     }
 
     public FAEList getFAEList() {
-        return this.FaeList;
+        return this.faeList;
     }
 
     public OrganizerList getOrganizerList() {
@@ -119,6 +119,18 @@ public class Event {
         return state instanceof EventApplicationsOpenState;//Needs testing
     }
 
+    public boolean validateEventStateApplicationsEvaluated() {
+        return state instanceof EventApplicationEvaluatedState;//Needs testing
+    }
+
+    public boolean validateEventStateFinalState() {
+        return state instanceof EventFinalState;//Needs testing
+    }
+
+    public boolean validateEventEnded() {
+        return state instanceof EventEndedState;//Needs testing
+    }
+
     public void addOrganizer(User user) {
         organizerList.addOrganizer(user);
     }
@@ -130,15 +142,15 @@ public class Event {
     }
 
     public void createFAE(User u) {
-        FaeList.createFAE(u);
+        faeList.createFAE(u);
     }
 
     public void registerFAEs() {
-        this.FaeList.registerFAEs();
+        this.faeList.registerFAEs();
     }
 
     public void discardFAEs() {
-        this.FaeList.discardFAEs();
+        this.faeList.discardFAEs();
     }
 
     public ApplicationList getApplicationList() {
@@ -159,7 +171,7 @@ public class Event {
 
     public void recieveXMLData(Event xmlEvent) {
         this.title = xmlEvent.title;
-        this.FaeList = xmlEvent.getFAEList();
+        this.faeList = xmlEvent.getFAEList();
         this.applicationList = xmlEvent.getApplicationList();
         this.stands.addAll(xmlEvent.stands);
     }
@@ -196,7 +208,7 @@ public class Event {
         if (!organizerList.equals(that.organizerList)) {
             return false;
         }
-        return FaeList.equals(that.FaeList);
+        return faeList.equals(that.faeList);
 
     }
 
@@ -210,7 +222,7 @@ public class Event {
         hash = 23 * hash + Objects.hashCode(this.applicationBegin);
         hash = 23 * hash + Objects.hashCode(this.applicationEnd);
         hash = 23 * hash + Objects.hashCode(this.organizerList);
-        hash = 23 * hash + Objects.hashCode(this.FaeList);
+        hash = 23 * hash + Objects.hashCode(this.faeList);
         return hash;
     }
 
@@ -238,8 +250,9 @@ public class Event {
     public List<Stand> getStands() {
         return stands;
     }
+
     public List<Stand> getAvailableStands() {
-        List<Stand> availableStands = null;
+        List<Stand> availableStands = new ArrayList<>();
         for (int i = 0; i < stands.size(); i++) {
             if (!applicationList.checkStandAssigned(stands.get(i)) == true) {
                 availableStands.add(stands.get(i));

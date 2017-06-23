@@ -14,7 +14,7 @@ import lapr.project.model.*;
  * @author PC
  */
 @XmlTransient
-@XmlSeeAlso({EventCreatedState.class,EventDefinedFAEState.class,EventApplicationsOpenState.class})//Add the rest
+@XmlSeeAlso({EventCreatedState.class,EventDefinedFAEState.class,EventApplicationsOpenState.class,EventApplicationEvaluatedState.class,EventFinalState.class,EventEndedState.class})//Add the rest
 public interface EventState {
     
     public boolean validate();

@@ -16,18 +16,18 @@ import javax.xml.bind.annotation.*;
 @XmlSeeAlso(Event.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Congress extends Event {
-    
+
     @XmlElement
     private String eventType;
-    
+
     private static final String EVENT_TYPE = "Congress";
 
     public Congress(String title, String description, String place, Date startDate, Date endDate, Date applicationBegin, Date applicationEnd) {
         super(title, description, place, startDate, endDate, applicationBegin, applicationEnd);
         this.eventType = EVENT_TYPE;
     }
-    
-    public Congress(){
+
+    public Congress() {
         //to avoid xml conflicts
     }
 

@@ -37,7 +37,6 @@ public class ApplicationList {
         return application;
     }
 
-
     public boolean registerApplication(Application application) {
         applications.add(application);
         return true;
@@ -121,8 +120,9 @@ public class ApplicationList {
         }
         return faeApplications;
     }
-     public List<Application> getApplicationsEvaluatedState() {
-        List<Application> evaluatedApplications = null;
+
+    public List<Application> getApplicationsEvaluatedState() {
+        List<Application> evaluatedApplications = new ArrayList<>();
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).getState() instanceof ApplicationEvaluatedState) {
                 evaluatedApplications.set(i, applications.get(i));
@@ -144,15 +144,15 @@ public class ApplicationList {
         Application application = null;
         for (int i = 0; i < applications.size(); i++) {
             if (applications.get(i).getRepresentative().getUser().equals(user)) {
-                 application = applications.get(i);
+                application = applications.get(i);
             }
         }
         return application;
     }
 
     public boolean checkStandAssigned(Stand stand) {
-        for(int i =0 ; i<applications.size();i++){
-            if(applications.get(i).getStand().equals(stand)){
+        for (int i = 0; i < applications.size(); i++) {
+            if (applications.get(i).getStand().equals(stand)) {
                 return true;
             }
         }

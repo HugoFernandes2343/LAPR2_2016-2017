@@ -13,22 +13,22 @@ import lapr.project.utils.EventState;
  * @author PC
  */
 @XmlRootElement
-public class EventApplicationEvaluatedState implements EventState {
+public class EventEndedState implements EventState {
 
-    @XmlTransient
+    @XmlElement
     private Event e;
 
-    public EventApplicationEvaluatedState(Event e) {
+    public EventEndedState(Event e) {
         this.e = e;
     }
-
-    public EventApplicationEvaluatedState() {
-        //Avoiding xml conflicts
+    
+    public EventEndedState(){
+        //Avoid xml conflicts
     }
 
     @Override
     public boolean validate() {
-        return !e.getApplicationList().getDefinitiveApplications().isEmpty();
+        return e != null;
     }
 
     @Override
@@ -53,11 +53,12 @@ public class EventApplicationEvaluatedState implements EventState {
 
     @Override
     public boolean setEventFinalState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public boolean setEventEndedState() {
         return false;
     }
+
 }

@@ -36,7 +36,7 @@ public class UC05Controller {
      * @return
      */
     public String[] getTitlesForSubmit(List<Event> events) {
-        return fc.getEventRegistry().getTitlesForSubmit(events);
+        return fc.getEventRegistry().getEventTitles(events);
     }
 
     /**

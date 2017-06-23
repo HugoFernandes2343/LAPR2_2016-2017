@@ -33,14 +33,14 @@ import lapr.project.model.User;
 public class UC01UI extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    
+
     private final int windowWidth = 1000;
     private final int windowHeight = 600;
     private String eventType;
-
+    private User u;
     private UC01Controller controller;
 
-    public UC01UI(FairCenter fc, JFrame menuWindow) {
+    public UC01UI(FairCenter fc, User u, JFrame menuWindow) {
         controller = new UC01Controller(fc);
         this.setName("UC01 - Create Event");
         this.createFrame(menuWindow);
@@ -223,7 +223,7 @@ public class UC01UI extends JDialog {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String eventError="Event creation error";
+                String eventError = "Event creation error";
                 String title = titleField.getText();
                 String description = descriptionField.getText();
                 String place = placeField.getText();
@@ -250,9 +250,7 @@ public class UC01UI extends JDialog {
                             eventError,
                             JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
         }
         );
         pos.gridx = 1;
@@ -283,6 +281,7 @@ public class UC01UI extends JDialog {
         organizerSelectionBox.add(new JLabel("Select the desired organizerss (allows several):"), BorderLayout.PAGE_START);
 
         List<User> allUsers = controller.getUsers();
+        allUsers.remove(u);
         String[] listPresentableOrganizers = new String[allUsers.size()];
         for (int i = 0; i < allUsers.size(); i++) {
             listPresentableOrganizers[i] = allUsers.get(i).toInfoString();
@@ -306,16 +305,16 @@ public class UC01UI extends JDialog {
                             "Selection Confirmation", JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if (confirm == 0) {
-                         if(controller.registerEvent()){
-                        JOptionPane.showMessageDialog(UC01UI.this,
-                            "Event created.",
-                            "Event creation sucessfull",
-                            JOptionPane.INFORMATION_MESSAGE);
-                        } else{
-                        JOptionPane.showMessageDialog(UC01UI.this,
-                            "Event already exists.",
-                            "Event creation error",
-                            JOptionPane.ERROR_MESSAGE);
+                        if (controller.registerEvent()) {
+                            JOptionPane.showMessageDialog(UC01UI.this,
+                                    "Event created.",
+                                    "Event creation sucessfull",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(UC01UI.this,
+                                    "Event already exists.",
+                                    "Event creation error",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                         dispose();
                         setVisible(false);

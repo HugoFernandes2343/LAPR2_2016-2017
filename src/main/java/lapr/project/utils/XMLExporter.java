@@ -30,7 +30,10 @@ public class XMLExporter<T> {
     public XMLExporter() {
         setLookAndFeel();
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.showSaveDialog(fileChooser);
+        int i = fileChooser.showSaveDialog(fileChooser);
+//        if(i==1){
+//            fileChooser.setVisible(false);
+//        }
         File file = fileChooser.getSelectedFile();
         this.fileLocation = file;
     }

@@ -39,7 +39,7 @@ public class UC11Controller {
     }
     
     public String[] getTitlesOfEvents(List<Event> eventsList) {
-        return fc.getEventRegistry().getTitlesForSubmit(eventsList);
+        return fc.getEventRegistry().getEventTitles(eventsList);
     }
 
     public void setEvent(Event event) {

@@ -29,8 +29,9 @@ public class UC32Controller {
         Event ev;
         XMLImporter importData = new XMLImporter();
         ev = importData.importEventData(window,menuWindow);
-        selectedEvent.recieveXMLData(ev);//Requer Revisao
-        fc.updatedDataFromXML(selectedEvent,ev);//Implementar
+        
+        selectedEvent.recieveXMLData(ev);
+        fc.updatedDataFromXML(selectedEvent,ev);
     }
 
     public List<Event> getAllEvents() {

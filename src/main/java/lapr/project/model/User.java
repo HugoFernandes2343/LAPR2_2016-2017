@@ -148,12 +148,12 @@ public class User {
     }
 
     public String toInfoString() {
-        return String.format("Name: %s%nEmail: %s%n", name, email);
+        return String.format("Name: %s%n Email: %s%n", name, email);
     }
 
     @Override
     public String toString() {
-        return String.format("Name: %s%nEmail: %s%n Password: %s%n", name, email, String.valueOf(password));
+        return String.format("Name: %s%n Email: %s%n Password: %s%n", name, email, String.valueOf(password));
     }
 
     @Override

@@ -12,39 +12,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Hugo
  */
-@XmlRootElement(name="assignment")
+@XmlRootElement(name = "assignment")
 public class Assignment {
-    
-	@XmlElement(name="fae")
-	private FAE FAE;
 
-	public Assignment(FAE FAE) {
-		this.FAE = FAE;
-	}
+    @XmlElement(name = "fae")
+    private FAE FAE;
 
-	private Assignment() {
-            //Avoid xml conflicts
-	}
+    public Assignment(FAE FAE) {
+        this.FAE = FAE;
+    }
 
-	@Override
-	public int hashCode() {
-		return FAE.hashCode();
-	}
+    private Assignment() {
+        //Avoid xml conflicts
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Assignment)) {
-			return false;
-		}
+    @Override
+    public int hashCode() {
+        return FAE.hashCode();
+    }
 
-		Assignment that = (Assignment) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Assignment)) {
+            return false;
+        }
 
-		return FAE.equals(that.FAE);
+        Assignment that = (Assignment) o;
 
-	}
+        return FAE.equals(that.FAE);
+
+    }
 
     public FAE getFAE() {
         return FAE;

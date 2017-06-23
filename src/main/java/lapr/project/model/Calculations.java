@@ -27,7 +27,7 @@ public class Calculations {
         double areaMin = areas[0];
         double areaMax = areas[areas.length - 1];
         double range = areaMax - areaMin;
-        double nClass = 1 + Math.round(3.322 * Math.log10(areas.length));
+        double nClass = 1.0 + Math.round(3.322 * Math.log10(areas.length));
         double intervalAmplitude = Math.round((range / nClass) * 10.00) / 10.00;
         Object[][] frequencyTableData = new Object[(int) nClass][3];
         double areaLow = Math.round((areas[0]) * 100.00) / 100.00;

@@ -27,13 +27,15 @@ import lapr.project.model.Event;
 public class UC02UI extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    
+
     private final int windowWidth = 1000;
     private final int windowHeight = 600;
 
     private final UC02Controller uc02Controller;
+    private User u;
 
     public UC02UI(FairCenter fc, User u, JFrame menuWindow) {
+        this.u = u;
         uc02Controller = new UC02Controller(fc, u);
         this.setName("UC02 - Define FAE");
         this.createFrame(menuWindow);
@@ -138,12 +140,13 @@ public class UC02UI extends JDialog {
         FaeSelectionBox.add(new JLabel("Select the desired FAEs (allows several):"), BorderLayout.PAGE_START);
 
         List<User> allUsers = uc02Controller.getUsersList();
+        allUsers.remove(u);
         String[] listPresentableFAE = new String[allUsers.size()];
         for (int i = 0; i < allUsers.size(); i++) {
             listPresentableFAE[i] = allUsers.get(i).toInfoString();
         }
         JList<String> FaeList = new JList<>(listPresentableFAE);
-        int width = 100,height = 150;
+        int width = 100, height = 150;
         FaeList.setSize(new Dimension(width, height));
         JScrollPane listScroller = new JScrollPane(FaeList);
         listScroller.setPreferredSize(new Dimension(width, height));

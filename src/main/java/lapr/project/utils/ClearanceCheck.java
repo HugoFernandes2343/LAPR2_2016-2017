@@ -25,7 +25,7 @@ public class ClearanceCheck {
     public boolean isFAE() {
         List<Event> eventList = fc.getEventRegistry().getAllEvents();
         for (Event event : eventList) {
-        List<User> FAEList_UserRef = event.getFAEList_UserRef();    
+        List<User> FAEList_UserRef = event.getFAEListUserRef();    
             for (User user : FAEList_UserRef) {
                 if (u.equals(user)) {
                     return true;
@@ -38,7 +38,7 @@ public class ClearanceCheck {
     public boolean isOrg() {
         List<Event> eventList = fc.getEventRegistry().getAllEvents();
         for (Event event : eventList) {
-        List<User> OrgList_UserRef = event.getOrganizersList_UserRef();    
+        List<User> OrgList_UserRef = event.getOrganizersListUserRef();    
             for (User user : OrgList_UserRef) {
                 if (u.equals(user)) {
                     return true;

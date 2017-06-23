@@ -34,7 +34,7 @@ public class UC02Controller {
         EventRegistry er = fc.getEventRegistry();
         listEventsNotFAEDefined = er.getEventsNotFAEDefined();
         for (Event e : listEventsNotFAEDefined) {
-            if (e.getOrganizersList_UserRef().contains(user)) {
+            if (e.getOrganizersListUserRef().contains(user)) {
                 eventListByOrganizer.add(e);
             }
         }

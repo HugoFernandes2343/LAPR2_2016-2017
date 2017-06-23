@@ -20,8 +20,8 @@ import lapr.project.utils.XMLImporter;
  */
 public class UC31UI {
 
-    public UC31UI(JFrame menuWindow,FairCenter fc) {
-        FairCenter newFC = new FairCenter();
+    public UC31UI(JFrame menuWindow, FairCenter fc) {
+        FairCenter newFC;
         JOptionPane.showMessageDialog(menuWindow,
                 "All current data will be overwritten at end of operation",
                 "Import",
@@ -33,10 +33,10 @@ public class UC31UI {
                     "Imported. Logout to apply changes",
                     "Importing All Data",
                     JOptionPane.INFORMATION_MESSAGE);
+            UC31Controller uc31Controller = new UC31Controller(fc, newFC);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        UC31Controller uc31Controller = new UC31Controller(fc,newFC);
     }
 
 }
