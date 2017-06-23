@@ -5,16 +5,25 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.*;
+
 /**
  *
  * @author hugod
  */
+@XmlRootElement(name="representative")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Representative {
     
+    @XmlElement(name="user")
     private User u;
     
     public Representative(User u){
         this.u=u;
+    }
+    
+    public Representative(){
+        //Avoid xml conflicts
     }
     
     public User getUser(){

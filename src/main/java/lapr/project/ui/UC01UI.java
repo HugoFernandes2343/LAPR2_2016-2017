@@ -41,6 +41,7 @@ public class UC01UI extends JDialog {
     private UC01Controller controller;
 
     public UC01UI(FairCenter fc, User u, JFrame menuWindow) {
+        this.u = u;
         controller = new UC01Controller(fc);
         this.setName("UC01 - Create Event");
         this.createFrame(menuWindow);
@@ -197,7 +198,7 @@ public class UC01UI extends JDialog {
         pos.gridy = 3;
         congressButton.setMnemonic(KeyEvent.VK_R);
         centralPanel.add(congressButton, pos);
-        JRadioButton expositionButton = new JRadioButton("Exposition");
+        JRadioButton expositionButton = new JRadioButton("Exhibition");
         pos.gridx = 1;
         pos.gridy = 3;
         congressButton.setMnemonic(KeyEvent.VK_P);
@@ -264,7 +265,7 @@ public class UC01UI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e
             ) {
-                dispose();
+                UC01UI.this.dispose();
                 menuWindow.setVisible(true);
             }
         }
@@ -278,10 +279,12 @@ public class UC01UI extends JDialog {
 
     private void createFAESelectionScreen(JPanel organizerSelectionScreen, JFrame menuWindow) {//Format not good
         JPanel organizerSelectionBox = new JPanel(new BorderLayout());
-        organizerSelectionBox.add(new JLabel("Select the desired organizerss (allows several):"), BorderLayout.PAGE_START);
+        organizerSelectionBox.add(new JLabel("Select the desired organizers (allows several):"), BorderLayout.PAGE_START);
 
         List<User> allUsers = controller.getUsers();
-        allUsers.remove(u);
+        if (allUsers.contains(u)) {
+            allUsers.remove(u);
+        }
         String[] listPresentableOrganizers = new String[allUsers.size()];
         for (int i = 0; i < allUsers.size(); i++) {
             listPresentableOrganizers[i] = allUsers.get(i).toInfoString();

@@ -26,7 +26,6 @@ public interface MainMenuElements {
     public JButton UC09Button = new JButton("Define Event Manager");
     public JButton UC10Button = new JButton("Change Workshop");
     public JButton UC11Button = new JButton("Change/Remove Application");
-//    public JButton UC21Button = new JButton("Assign Stand To Application");
     public JButton UC22Button = new JButton("List Applications");
     public JButton UC30Button = new JButton("Save/Export Data");
     public JButton UC31Button = new JButton("Import Data");

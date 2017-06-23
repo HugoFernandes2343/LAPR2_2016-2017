@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -35,8 +38,6 @@ public class UC06UI extends JFrame {
     private String language;
     private String timeZone;
     private JFrame menuWindow;
-    private final JButton createButton = new JButton("Create");
-    private final JButton cancelButton = new JButton("Cancel");
     private static final String[] languageList = {"CHOOSE", "English", "Portuguese", "Spanish", "Chinese", "Italian", "Russian"};
     private static final String[] timezoneList = {"GMT-05", "GMT-04", "GMT-03", "GMT-02", "GMT-01", "CHOOSE", "GMT+00", "GMT+01", "GMT+02", "GMT+03", "GMT+04", "GMT+05"};
     private static final char[] UPPER_CASES = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -60,7 +61,22 @@ public class UC06UI extends JFrame {
         setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        WindowListener exitListener = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(
+                        null, "Are You Sure You Want To Exit?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    dispose();
+                    setVisible(false);
+                    menuWindow.setVisible(true);
+                }
+            }
+        };
+        addWindowListener(exitListener);
         createElements(menuWindow);
         setResizable(true);
         setLocationRelativeTo(null);
@@ -175,7 +191,7 @@ public class UC06UI extends JFrame {
             }
         });
         centralPanel.add(keywordField, pos);
-
+        JButton createButton = new JButton("Create");
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -237,11 +253,12 @@ public class UC06UI extends JFrame {
         pos.gridy = 8;
         centralPanel.add(createButton, pos);
 
+        JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);                
                 dispose();
-                setVisible(false);
                 menuWindow.setVisible(true);
             }
         }

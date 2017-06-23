@@ -19,20 +19,22 @@ import lapr.project.model.FairCenter;
  * @author PC
  */
 public class LoginUI extends JFrame {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private final JButton loginButton = new JButton("Login");
     private final JButton cancelButton = new JButton("Cancel");
     private final int windowWidth = 250;
     private final int windowHeight = 400;
-    
 
     protected LoginController loginController;
     protected FairCenter fc;
+    protected MainMenu mainMenu;
+    protected boolean mainMenuOpened;
 
     public LoginUI(FairCenter fc) {
-        this.fc=fc;
+        this.mainMenuOpened = false;
+        this.fc = fc;
         this.setName("Login Window");
         loginController = new LoginController(fc);
         createFrame();
@@ -82,7 +84,15 @@ public class LoginUI extends JFrame {
                 if (loginController.authenticate(userIDTemp, userPasswordTemp)) {
                     loginFrame.setVisible(false);
                     loginFrame.dispose();
-                    MainMenu mainMenu = new MainMenu(fc,loginController.getUser(),LoginUI.this);
+                    if (mainMenuOpened == false) {
+                        mainMenu = new MainMenu(fc, loginController.getUser(), LoginUI.this);
+                        mainMenuOpened = true;
+                    } else if (mainMenuOpened == true) {
+                        mainMenu.setActiveFairCenter(fc);
+                        mainMenu.setActiveUser(loginController.getUser());
+                        mainMenu.getCheck().assignNew(fc, loginController.getUser());
+                        mainMenu.setLoginWindow(LoginUI.this);
+                    }
                     mainMenu.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this,

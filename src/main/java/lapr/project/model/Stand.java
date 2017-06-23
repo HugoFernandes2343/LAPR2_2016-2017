@@ -21,7 +21,7 @@ public class Stand {
     }
 
     public Stand() {
-
+        //Avoid xml conflicts
     }
 
     @Override

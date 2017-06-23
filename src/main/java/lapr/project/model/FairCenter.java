@@ -116,7 +116,8 @@ public class FairCenter {
 
 
     private void createDefaultUser() {
-        User eventManagerDefault = new User("default","default","default","default","","GMT+00","delta");
+        String defaultValue ="default";
+        User eventManagerDefault = new User(defaultValue,defaultValue,defaultValue,defaultValue,"","GMT+00","delta");
         this.registerUser(eventManagerDefault);
         this.getEventManagerRegistry().addEventManager(new EventManager(eventManagerDefault));
         

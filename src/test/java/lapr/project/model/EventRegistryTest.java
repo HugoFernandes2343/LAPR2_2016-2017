@@ -223,6 +223,8 @@ public class EventRegistryTest {
 //    public void testGetAllFaeUserReference() {
 //        System.out.println("getAllFaeUserReference");
 //        EventRegistry instance = new EventRegistry();
+//        User u = new User("ID", "password", "name", "keys");
+//        
 //        List<User> expResult = null;
 //        List<User> result = instance.getAllFaeUserReference();
 //        assertEquals(expResult, result);

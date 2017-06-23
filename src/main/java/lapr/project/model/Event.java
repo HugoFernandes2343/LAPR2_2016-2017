@@ -170,6 +170,7 @@ public class Event {
         this.faeList = xmlEvent.getFAEList();
         this.applicationList = xmlEvent.getApplicationList();
         this.stands.addAll(xmlEvent.stands);
+        setState(new EventFinalState(this));
     }
 
     @Override

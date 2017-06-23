@@ -37,22 +37,31 @@ public class MainMenu extends JFrame implements MainMenuElements {
 
     private User user;
     private FairCenter fc;
+    /**
+     * Window de login
+     */
+    private JFrame window;
 
-    private final int windowHeight = 600;
-    private final int windowWidth = 700;
+    private static final int windowHeight = 600;
+    private static final int windowWidth = 700;
 
     private ClearanceCheck check;
 
-//    private final JFrame this = new JFrame("[PH]FairCenter_Name");
     public MainMenu(FairCenter fc, User u, JFrame window) {
         this.fc = fc;
         this.setActiveUser(u);
-        createFrame(window);
+        this.window = window;
+        createFrame();
         this.pack();
         check = new ClearanceCheck(fc, user);
     }
 
-    private JFrame createFrame(JFrame window) {
+//    public MainMenu(User u){
+//        this.opened=true;
+//        this.user=u;
+//
+//    }
+    private JFrame createFrame() {
         this.setName("Event Center");
         this.setSize(windowWidth, windowHeight);
         BorderLayout layout = new BorderLayout();
@@ -87,19 +96,19 @@ public class MainMenu extends JFrame implements MainMenuElements {
             }
         };
         addWindowListener(exitListener);
-        createElements(window);
+        createElements();
         this.setLocationRelativeTo(null);
         this.pack();
         return this;
     }
 
-    private void createElements(JFrame window) {
+    private void createElements() {
         JPanel infoUser = new JPanel(new BorderLayout());
         JLabel userLabel = new JLabel("<html>Logged in as : " + this.user.getName() + " <br> Username : " + this.user.getUsername() + " <br> Email : " + this.user.getEmail());
         infoUser.add(userLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(0, 4, 8, 8));
         addAllButtons(buttonPanel);
-        addActions(window);
+        addActions();
         int width = 10, height = 25;
         LogoutButton.setSize(new Dimension(width, height));
         infoUser.add(LogoutButton, BorderLayout.EAST);
@@ -135,17 +144,17 @@ public class MainMenu extends JFrame implements MainMenuElements {
         buttonPanel.add(UC48Button);
         buttonPanel.add(UC49Button);
         buttonPanel.add(UC50Button);
-        //
     }
 
-    private void addActions(JFrame window) {
+    private void addActions() {
         String notImplemented = "Not Implemented";
         LogoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setActiveUser(null);
-                MainMenu.this.setVisible(false);
+                MainMenu.this.check.clear();
                 MainMenu.this.dispose();
+                MainMenu.this.setVisible(false);
                 window.setVisible(true);
             }
         });
@@ -218,7 +227,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
             @Override
             public void actionPerformed(ActionEvent e
             ) {
-                if (check.isRepresentative()) {
+                if (!check.isOrg() && !check.isEventManager() && !check.isFAE()) {
                     MainMenu.this.setVisible(false);
                     UC05UI uc05ui = new UC05UI(fc, user, MainMenu.this);
                     uc05ui.setVisible(true);
@@ -296,21 +305,42 @@ public class MainMenu extends JFrame implements MainMenuElements {
         }
         );
 
+        UC11Button.addActionListener(//representative
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e
+            ) {
+                if (check.isRepresentative()) {
+                    MainMenu.this.setVisible(false);
+                    UC11UI uc11ui = new UC11UI(fc, user, MainMenu.this);
+                    uc11ui.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(MainMenu.this,
+                            "Only Representatives with applications are allowed",
+                            "Not allowed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        }
+        );
+
         UC22Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                MainMenu.this.setVisible(false);
-                UC22UI uc22ui = new UC22UI(fc, user, MainMenu.this);
-                uc22ui.setVisible(true);
+                if (check.isOrg()) {
+                    MainMenu.this.setVisible(false);
+                    UC22UI uc22ui = new UC22UI(fc, user, MainMenu.this);
+                    uc22ui.setVisible(true);
+                }
             }
-
         });
-        
+
         UC32Button.addActionListener(
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (check.isOrg()) {
+                if (check.isEventManager()) {
                     try {
                         MainMenu.this.setVisible(false);
                         UC32UI uc32ui = new UC32UI(fc, MainMenu.this);
@@ -368,7 +398,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (check.isOrg()) {
+                if (check.isEventManager()) {
                     MainMenu.this.setVisible(false);
                     UC42UI uc42ui = new UC42UI(fc, user, MainMenu.this);
                     uc42ui.setVisible(true);
@@ -400,23 +430,42 @@ public class MainMenu extends JFrame implements MainMenuElements {
         }
         );
 
-//        UC44Button.addActionListener(
-//                new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (check.isEventManager()) {
-//                    MainMenu.this.setVisible(false);
-//                    UC44UI uc44ui = new UC44UI(fc,user, MainMenu.this);
-//                    uc44ui.setVisible(true);
-//                } else {
-//                    JOptionPane.showMessageDialog(MainMenu.this,
-//                            "Only Organizers are allowed",
-//                            "Not allowed",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        }
-//        );
+        UC44Button.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (check.isEventManager()) {
+                    MainMenu.this.setVisible(false);
+                    UC44UI uc44ui = new UC44UI(fc, MainMenu.this);
+                    uc44ui.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(MainMenu.this,
+                            "Only Organizers are allowed",
+                            "Not allowed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+
+        UC45Button.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (check.isEventManager()) {
+                    MainMenu.this.setVisible(false);
+                    UC45UI uc45ui = new UC45UI(fc, MainMenu.this);
+                    uc45ui.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(MainMenu.this,
+                            "Only Event Managers are allowed",
+                            "Not allowed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+
         UC46Button.addActionListener(
                 new ActionListener() {
             @Override
@@ -471,6 +520,42 @@ public class MainMenu extends JFrame implements MainMenuElements {
         }
         );
 
+        UC49Button.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (check.isEventManager()) {
+                    MainMenu.this.setVisible(false);
+                    UC49UI uc49ui = new UC49UI(fc, MainMenu.this);
+                    uc49ui.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(MainMenu.this,
+                            "Only Event Managers are allowed",
+                            "Not allowed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+
+        UC50Button.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (check.isEventManager()) {
+                    MainMenu.this.setVisible(false);
+                    UC50UI uc50ui = new UC50UI(fc, MainMenu.this);
+                    uc50ui.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(MainMenu.this,
+                            "Only Event Managers are allowed",
+                            "Not allowed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        );
+
     }
 
     private JPanel addImportExportAllDataButtons(JFrame menuWindow) {
@@ -504,5 +589,17 @@ public class MainMenu extends JFrame implements MainMenuElements {
 
     public void setActiveUser(User user) {
         this.user = user;
+    }
+
+    public void setActiveFairCenter(FairCenter fc) {
+        this.fc = fc;
+    }
+
+    public void setLoginWindow(JFrame window) {
+        this.window = window;
+    }
+
+    public ClearanceCheck getCheck() {
+        return this.check;
     }
 }
