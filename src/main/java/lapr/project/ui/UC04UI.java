@@ -36,7 +36,7 @@ import lapr.project.model.User;
 public class UC04UI extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    
+
     private final int windowWidth = 1000;
     private final int windowHeight = 600;
 
@@ -301,23 +301,15 @@ public class UC04UI extends JDialog {
                             "Selection Confirmation", JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if (confirm == 0) {
-                        if (uc04Controller.registerEvaluation()) {
-                            JOptionPane.showMessageDialog(UC04UI.this,
-                                    "Application evaluation sucessfull.",
-                                    appEvaluation,
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            dispose();
-                            setVisible(false);
-                            menuWindow.setVisible(true);
-                        } else {
-                            JOptionPane.showMessageDialog(UC04UI.this,
-                                    "Application evaluation was not registered. Please try again later.",
-                                    appEvaluation,
-                                    JOptionPane.ERROR_MESSAGE);
-                            dispose();
-                            setVisible(false);
-                            menuWindow.setVisible(true);
-                        }
+                        uc04Controller.registerEvaluation();
+                        JOptionPane.showMessageDialog(UC04UI.this,
+                                "Application evaluation sucessfull.",
+                                appEvaluation,
+                                JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        setVisible(false);
+                        menuWindow.setVisible(true);
+
                     } else {
                         dispose();
                         setVisible(false);

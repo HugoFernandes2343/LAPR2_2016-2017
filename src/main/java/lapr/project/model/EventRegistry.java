@@ -114,9 +114,7 @@ public class EventRegistry {
         return titles;
     }
 
-    public boolean registerApplication(Event event, Application application) {
-        return event.registerApplication(application);
-    }
+   
 
     public List<Event> getEventsByFAE(User u) {
         List<Event> allEvents = getAllEvents();
@@ -127,17 +125,6 @@ public class EventRegistry {
             }
         }
         return validEvents;
-    }
-
-    public boolean registerApplicationChanges(Event event, Application application) {
-        for (int i = 0; i < exhibitionList.size(); i++) {
-            Event registeredEvent = exhibitionList.get(i);
-            if (registeredEvent.equals(event)) {
-                exhibitionList.get(i).saveApplicationChanges(application);
-            }
-
-        }
-        return false;
     }
 
     public List<User> getAllFaeUserReference() {

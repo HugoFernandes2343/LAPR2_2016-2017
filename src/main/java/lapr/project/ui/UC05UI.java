@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  *
- * @author hugod
+ * @author LAPR2-G054
  */
 public class UC05UI extends JFrame {
 
@@ -41,7 +41,12 @@ public class UC05UI extends JFrame {
     private final int windowHeight = 250;
     private static final String confirmationDialog = "Are You Sure You Want To Exit?";
     private static final String confirmationTitle = "Exit Confirmation";
-
+    /**
+     * contructor of UC5UI
+     * @param fc fc fair center that contains all data
+     * @param u user that is usuing the funcionality
+     * @param menuWindow JFrame of the main menu window
+     */
     public UC05UI(FairCenter fc,User u, JFrame menuWindow) {
         this.uc05Controller = new UC05Controller(fc,u);
         this.setName("UC05");

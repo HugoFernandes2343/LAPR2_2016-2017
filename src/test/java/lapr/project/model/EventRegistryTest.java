@@ -172,22 +172,7 @@ public class EventRegistryTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    /**
-     * Test of registerApplication method, of class EventRegistry.
-     */
-    @Test
-    public void testRegisterApplication() {
-        System.out.println("registerApplication");
-        EventRegistry instance = new EventRegistry();
-        String title = "title", description = "description", place = "local", eventType = "Congress";
-        Date date = new Date();
-        Event event = instance.createEvent(title, description, place, date, date, date, date, eventType);
-        Application application = new Application("trade", "description", 919919919);
-        boolean expResult = true;
-        boolean result = instance.registerApplication(event, application);
-        assertEquals(expResult, result);
-    }
-
+    
     /**
      * Test of getEventsByFAE method, of class EventRegistry.
      */

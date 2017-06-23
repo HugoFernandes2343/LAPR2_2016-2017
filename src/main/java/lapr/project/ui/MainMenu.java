@@ -299,10 +299,13 @@ public class MainMenu extends JFrame implements MainMenuElements {
         UC22Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                MainMenu.this.setVisible(false);
+                UC22UI uc22ui = new UC22UI(fc, user, MainMenu.this);
+                uc22ui.setVisible(true);
             }
 
         });
+        
         UC32Button.addActionListener(
                 new ActionListener() {
             @Override

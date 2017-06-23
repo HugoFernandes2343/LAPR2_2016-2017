@@ -165,10 +165,6 @@ public class Event {
         return this.description;
     }
 
-    public boolean registerApplication(Application application) {
-        return applicationList.registerApplication(application);
-    }
-
     public void recieveXMLData(Event xmlEvent) {
         this.title = xmlEvent.title;
         this.faeList = xmlEvent.getFAEList();

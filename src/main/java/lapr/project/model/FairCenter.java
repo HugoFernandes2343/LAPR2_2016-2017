@@ -112,13 +112,8 @@ public class FairCenter {
         this.confirmedUsers.getUsersList().addAll(ev.getFAEListUserRef());
     }
 
-    public boolean registerApplication(Event event, Application application) {
-        return eventRegistry.registerApplication(event, application);
-    }
+    
 
-    public boolean registerApplicationChanges(Event event, Application application) {
-        return eventRegistry.registerApplicationChanges(event, application);
-    }
 
     private void createDefaultUser() {
         User eventManagerDefault = new User("default","default","default","default","","GMT+00","delta");
