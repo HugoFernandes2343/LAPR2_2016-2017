@@ -25,14 +25,14 @@ public class EncryptionTest {
     public void testEncryption() {
         Encryption instance = new Encryption("delta");
         System.out.println("encrypt");
-        String word = "helloWorldImAnEngineer@isep.ipp.pt";
+        String word = "helloWorldImAn-Engineer@isep.ipp.pt";
         String result = instance.encrypt(word);
-        System.out.println("Given word: helloWorldImAnEngineer@isep.ipp.pt");
-        System.out.println("Expected: helloWorldImAnEngineer@isep.ipp.pt");
+        System.out.println("Given word: helloWorldImAn-Engineer@isep.ipp.pt");
+        System.out.println("Expected: helloWorldImAn-Engineer@isep.ipp.pt");
         System.out.println("encryption Result: " + result);
         result = instance.decrypt(result);
         System.out.println("decryption Result: " + result);
-        String expResult = "helloWorldImAnEngineer@isep.ipp.pt";
+        String expResult = "helloWorldImAn-Engineer@isep.ipp.pt";
         assertEquals(expResult.trim(), result.trim());
 
     }

@@ -95,14 +95,6 @@ public class User {
      *
      * @return
      */
-    public Encryption getEncryption() {
-        return this.encryption;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getUsername() {
         return this.username;
     }
@@ -121,22 +113,6 @@ public class User {
      */
     public String getPassword() {
         return this.password;
-    }
-
-    /**
-     *
-     * @param lang
-     */
-    public void setCurrentLanguage(String lang) {
-        this.language = lang;
-    }
-
-    /**
-     *
-     * @param timezone
-     */
-    public void setTimezone(String timezone) {
-        this.timeZone = timezone;
     }
 
     public String getCurrentLanguage() {
