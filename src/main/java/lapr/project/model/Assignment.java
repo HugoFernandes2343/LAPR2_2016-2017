@@ -10,27 +10,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 @XmlRootElement(name = "assignment")
 public class Assignment {
 
     @XmlElement(name = "fae")
     private FAE FAE;
-
+/**
+     * default constructor
+     *
+     * @param FAE user that has been assigned an application
+     */
     public Assignment(FAE FAE) {
         this.FAE = FAE;
     }
-
+ /**
+     * constructor to avoid xml conflicts
+     */
     private Assignment() {
         //Avoid xml conflicts
     }
-
+/**
+     * hashcode for the equals method
+     *
+     * @return int hashcode
+     */
     @Override
     public int hashCode() {
         return FAE.hashCode();
     }
-
+/**
+     * override of equals method
+     *
+     * @param o object to compare too
+     * @return true if equals false if not
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -45,7 +60,11 @@ public class Assignment {
         return FAE.equals(that.FAE);
 
     }
-
+/**
+     * get method of the attribute FAE
+     *
+     * @return FAE
+     */
     public FAE getFAE() {
         return FAE;
     }

@@ -11,7 +11,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G54
  */
 public class Calculations {
 
