@@ -22,11 +22,13 @@ import lapr.project.model.User;
  */
 public class UC48Controller {
 
+    private final Calculations calculations;
     private final FairCenter fc;
     protected User selectedFae;
 
     public UC48Controller(FairCenter fc) {
         this.fc = fc;
+        calculations = new Calculations();
     }
 
     public List<User> getAllFae() {
@@ -63,7 +65,7 @@ public class UC48Controller {
         }
 
         double globalSubmissionMeanRate = getSubmissionGlobalMeanRate();
-        return Calculations.getFaeMeanStandardDeviationRate(globalSubmissionMeanRate, faeReviews);
+        return calculations.getFaeMeanStandardDeviationRate(globalSubmissionMeanRate, faeReviews);
 
     }
 
@@ -87,7 +89,7 @@ public class UC48Controller {
         }
 
         double globalSubmissionMeanRate = getSubmissionGlobalMeanRate();
-        return Calculations.getFaeMeanStandardDeviation(globalSubmissionMeanRate, faeReviews);
+        return calculations.getFaeMeanStandardDeviation(globalSubmissionMeanRate, faeReviews);
 
     }
 
@@ -108,6 +110,6 @@ public class UC48Controller {
             }
         }
 
-        return Calculations.getFaeMeanRate(allFaeReviews);
+        return calculations.getFaeMeanRate(allFaeReviews);
     }
 }

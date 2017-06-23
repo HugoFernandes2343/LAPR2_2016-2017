@@ -20,11 +20,13 @@ import lapr.project.model.FairCenter;
  */
 public class UC42Controller {
 
+    private final Calculations calculations;
     private final FairCenter fc;
     protected Event selectedEvent;
 
     public UC42Controller(FairCenter fc) {
         this.fc = fc;
+        calculations = new Calculations();
     }
 
     public List<Event> getEvents() {
@@ -52,6 +54,6 @@ public class UC42Controller {
                 acceptanceList.add("not accepted");
             }
         }
-        return Calculations.getFrequency("accepted", acceptanceList);
+        return calculations.getFrequency("accepted", acceptanceList);
     }
 }

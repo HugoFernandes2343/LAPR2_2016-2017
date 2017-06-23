@@ -22,11 +22,13 @@ import lapr.project.model.User;
  */
 public class UC46Controller {
 
+    private final Calculations calculations;
     private final FairCenter fc;
     protected User selectedFae;
 
     public UC46Controller(FairCenter fc) {
         this.fc = fc;
+        calculations = new Calculations();
     }
 
     public List<User> getAllFae() {
@@ -62,7 +64,7 @@ public class UC46Controller {
             }
         }
 
-        return Calculations.getFaeMeanRate(faeReviews);
+        return calculations.getFaeMeanRate(faeReviews);
     }
 
 }

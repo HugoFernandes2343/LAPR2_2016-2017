@@ -21,6 +21,7 @@ import lapr.project.model.User;
  */
 public class UC40Controller {
 
+    private final Calculations calculations;
     private final FairCenter fc;
     private final User user;
     protected Event selectedEvent;
@@ -28,6 +29,7 @@ public class UC40Controller {
     public UC40Controller(FairCenter fc, User user) {
         this.fc = fc;
         this.user = user;
+        calculations = new Calculations();
 
     }
 
@@ -47,7 +49,7 @@ public class UC40Controller {
                 allKeywords.add(keywords.get(j));
             }
         }
-        return Calculations.getEventKeywordsFrequencyTable(allKeywords);
+        return calculations.getEventKeywordsFrequencyTable(allKeywords);
     }
 
     public void setSelectedEvent(Event e) {

@@ -19,6 +19,7 @@ import lapr.project.model.User;
  */
 public class UC41Controller {
 
+    private final Calculations calculations;
     private final FairCenter fc;
     private final User user;
     protected Event selectedEvent;
@@ -27,6 +28,7 @@ public class UC41Controller {
     public UC41Controller(FairCenter fc, User user) {
         this.fc = fc;
         this.user = user;
+        calculations = new Calculations();
 
     }
 
@@ -42,15 +44,15 @@ public class UC41Controller {
         for (int i = 0; i < selectedEventStands.size(); i++) {
             eventStandsAreas[i] = selectedEventStands.get(i).getArea();
         }
-        return Calculations.getEventStandsFrequencyTable(eventStandsAreas);
+        return calculations.getEventStandsFrequencyTable(eventStandsAreas);
     }
 
     public double getStandsMeanRate() {
-        return Calculations.getMeanRate(eventStandsAreas);
+        return calculations.getMeanRate(eventStandsAreas);
     }
 
     public double getStandsStandardDeviationRate() {
-        return Calculations.getStandardDeviation(eventStandsAreas);
+        return calculations.getStandardDeviation(eventStandsAreas);
     }
 
     public void setSelectedEvent(Event e) {

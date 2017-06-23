@@ -7,12 +7,8 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 
 /**
  *
@@ -20,24 +16,11 @@ import org.junit.BeforeClass;
  */
 public class CalculationsTest {
 
+    private final Calculations calculations;
+
     public CalculationsTest() {
+        calculations = new Calculations();
 
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     /**
@@ -54,9 +37,8 @@ public class CalculationsTest {
         Object[] line3 = {"[80.2 ; 102.6[", 1, 5.0};
         Object[] line4 = {"[102.6 ; 125.0]", 5, 25.0};
         Object[][] expResult = {line0, line1, line2, line3, line4};
-        Object[][] result = Calculations.getEventStandsFrequencyTable(areas);
+        Object[][] result = calculations.getEventStandsFrequencyTable(areas);
         assertArrayEquals(expResult, result);
-
     }
 
     /**
@@ -67,10 +49,8 @@ public class CalculationsTest {
         System.out.println("getMeanRate");
         double[] areas = {37, 103, 59, 60, 103, 32, 44, 117, 34, 102, 40, 17, 67, 27, 52, 43, 125, 108, 15, 13};
         double expResult = 59.9;
-        double result = Calculations.getMeanRate(areas);
+        double result = calculations.getMeanRate(areas);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-
     }
 
     /**
@@ -81,10 +61,8 @@ public class CalculationsTest {
         System.out.println("getStandardDeviation");
         double[] areas = {37, 103, 59, 60, 103, 32, 44, 117, 34, 102, 40, 17, 67, 27, 52, 43, 125, 108, 15, 13};
         double expResult = 35.68;
-        double result = Calculations.getStandardDeviation(areas);
+        double result = calculations.getStandardDeviation(areas);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-
     }
 
     /**
@@ -96,10 +74,8 @@ public class CalculationsTest {
         double[] areas = {37, 103, 59, 60, 103, 32, 44, 117, 34, 102, 40, 17, 67, 27, 52, 43, 125, 108, 15, 13};
         double meanRate = 59.9;
         double expResult = 1272.99;
-        double result = Calculations.getVariance(areas, meanRate);
+        double result = calculations.getVariance(areas, meanRate);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-
     }
 
     /**
@@ -117,9 +93,8 @@ public class CalculationsTest {
         Object[] line1 = {"Delta", 25.0};
         Object[] line2 = {"Isep", 25.0};
         Object[][] expResult = {line0, line1, line2};
-        Object[][] result = Calculations.getEventKeywordsFrequencyTable(allKeywords);
+        Object[][] result = calculations.getEventKeywordsFrequencyTable(allKeywords);
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -135,9 +110,8 @@ public class CalculationsTest {
             allElements.add(keywords[i]);
         }
         double expResult = 50.0;
-        double result = Calculations.getFrequency(element, allElements);
+        double result = calculations.getFrequency(element, allElements);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -160,9 +134,8 @@ public class CalculationsTest {
         faeReviews.add(review1);
         faeReviews.add(review2);
         double expResult = 2.5;
-        double result = Calculations.getFaeMeanRate(faeReviews);
+        double result = calculations.getFaeMeanRate(faeReviews);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -186,9 +159,8 @@ public class CalculationsTest {
         faeReviews.add(review1);
         faeReviews.add(review2);
         double expResult = 2.5;
-        double result = Calculations.getFaeMeanStandardDeviationRate(globalSubmissionMeanRate, faeReviews);
+        double result = calculations.getFaeMeanStandardDeviationRate(globalSubmissionMeanRate, faeReviews);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -212,9 +184,99 @@ public class CalculationsTest {
         faeReviews.add(review1);
         faeReviews.add(review2);
         double expResult = 0.5;
-        double result = Calculations.getFaeMeanStandardDeviation(globalSubmissionMeanRate, faeReviews);
+        double result = calculations.getFaeMeanStandardDeviation(globalSubmissionMeanRate, faeReviews);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
+    }
+
+    /**
+     * Test of getCriticalValueUnilateralTest method, of class Calculations.
+     */
+    @Test
+    public void testGetCriticalValueUnilateralTest() {
+        System.out.println("getCriticalValueUnilateralTest");
+        int significance = 5;
+        Calculations instance = new Calculations();
+        double expResult = 1.65;
+        double result = instance.getCriticalValueUnilateralTest(significance);
+        assertEquals(expResult, result, 0.01);
+
+    }
+
+    /**
+     * Test of getTestStatistic method, of class Calculations.
+     */
+    @Test
+    public void testGetTestStatistic() {
+        System.out.println("getTestStatistic");
+        int sample = 30;
+        int nAccepted = 12;
+        Calculations instance = new Calculations();
+        Object expResult = -1.095;
+        Object result = instance.getTestStatistic(sample, nAccepted);
+        assertEquals((double) expResult, (double) result, 0.001);
+    }
+
+    /**
+     * Test of getDiferenceTestStatistic method, of class Calculations.
+     */
+    @Test
+    public void testGetDiferenceTestStatistic() {
+        System.out.println("getDiferenceTestStatistic");
+        int sample1 = 30;
+        int nAccepted1 = 12;
+        int sample2 = 30;
+        int nAccepted2 = 20;
+        Calculations instance = new Calculations();
+        Object expResult = -2.148;
+        Object result = instance.getDiferenceTestStatistic(sample1, nAccepted1, sample2, nAccepted2);
+        assertEquals((double) expResult, (double) result, 0.001);
+    }
+
+    /**
+     * Test of getCriticalValueBylateralTest method, of class Calculations.
+     */
+    @Test
+    public void testGetCriticalValueBylateralTest() {
+        System.out.println("getCriticalValueBylateralTest");
+        int significance = 5;
+        Calculations instance = new Calculations();
+        double expResult = 1.96;
+        double result = instance.getCriticalValueBylateralTest(significance);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    /**
+     * Test of getTestStatisticFae method, of class Calculations.
+     */
+    @Test
+    public void testGetTestStatisticFae() {
+        System.out.println("getTestStatisticFae");
+        double faeMeanStandardDeviationRate = 0.610;
+        double faeMeanStandardDeviation = 0.529;
+        int sample = 30;
+        Calculations instance = new Calculations();
+        Object expResult = -4.045;
+        Object result = instance.getTestStatisticFae(faeMeanStandardDeviationRate, faeMeanStandardDeviation, sample);
+        assertEquals((double) expResult, (double) result, 0.01);
+
+    }
+
+    /**
+     * Test of getDiferenceTestStatisticFae method, of class Calculations.
+     */
+    @Test
+    public void testGetDiferenceTestStatisticFae() {
+        System.out.println("getDiferenceTestStatisticFae");
+        int sample1 = 30;
+        double faeMeanDeviationRate1 = 0.610;
+        double standardDeviation1 = Math.sqrt(0.279);
+        int sample2 = 30;
+        double faeMeanDeviationRate2 = 0.666;
+        double standardDeviation2 = Math.sqrt(0.285);
+        Calculations instance = new Calculations();
+        Object expResult = -0.411;
+        Object result = instance.getDiferenceTestStatisticFae(sample1, faeMeanDeviationRate1, standardDeviation1, sample2, faeMeanDeviationRate2, standardDeviation2);
+        assertEquals((double) expResult, (double) result, 0.01);
     }
 
 }

@@ -7,6 +7,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.math3.distribution.NormalDistribution;
 
 /**
  *
@@ -14,7 +15,10 @@ import java.util.List;
  */
 public class Calculations {
 
-    public static Object[][] getEventStandsFrequencyTable(double[] areas) {
+    public Calculations() {
+    }
+
+    public Object[][] getEventStandsFrequencyTable(double[] areas) {
         for (int j = 0; j < areas.length; j++) {
             for (int a = j + 1; a < areas.length; a++) {
                 if (areas[j] > areas[a]) {
@@ -44,7 +48,7 @@ public class Calculations {
         return calculateStandsRelativeFrequency(frequencyTableData, areas);
     }
 
-    private static Object getStandsAbsoluteFrequency(double[] areas, double min, double max) {
+    private Object getStandsAbsoluteFrequency(double[] areas, double min, double max) {
         int counter = 0;
         for (int i = 0; i < areas.length; i++) {
             if (areas[i] >= min && areas[i] <= max) {
@@ -54,7 +58,7 @@ public class Calculations {
         return counter;
     }
 
-    private static Object[][] calculateStandsRelativeFrequency(Object[][] frequencyTableData, double[] areas) {
+    private Object[][] calculateStandsRelativeFrequency(Object[][] frequencyTableData, double[] areas) {
         double total = areas.length;
         for (int i = 0; i < frequencyTableData.length; i++) {
             double absoluteFrequency = (int) frequencyTableData[i][1];
@@ -63,7 +67,7 @@ public class Calculations {
         return frequencyTableData;
     }
 
-    public static double getMeanRate(double[] eventStandsAreas) {
+    public double getMeanRate(double[] eventStandsAreas) {
         double totalValue = 0;
         for (int i = 0; i < eventStandsAreas.length; i++) {
             totalValue = eventStandsAreas[i] + totalValue;
@@ -72,13 +76,13 @@ public class Calculations {
         return Math.round(meanRate * 100.00) / 100.00;
     }
 
-    public static double getStandardDeviation(double[] eventStandsAreas) {
+    public double getStandardDeviation(double[] eventStandsAreas) {
         double meanRate = getMeanRate(eventStandsAreas);
         double variance = getVariance(eventStandsAreas, meanRate);
         return Math.round(Math.sqrt(variance) * 100.00) / 100.00;
     }
 
-    public static double getVariance(double[] eventStandsAreas, double meanRate) {
+    public double getVariance(double[] eventStandsAreas, double meanRate) {
         double variance = 0;
         for (int i = 0; i < eventStandsAreas.length; i++) {
             variance = variance + Math.pow((eventStandsAreas[i] - meanRate), 2);
@@ -87,7 +91,7 @@ public class Calculations {
         return Math.round(variance * 100.00) / 100.00;
     }
 
-    public static Object[][] getEventKeywordsFrequencyTable(List<String> allKeywords) {
+    public Object[][] getEventKeywordsFrequencyTable(List<String> allKeywords) {
         List<String> keywordList = new ArrayList<>();
         for (int i = 0; i < allKeywords.size(); i++) {
             if (keywordNotCopied(keywordList, allKeywords.get(i))) {
@@ -102,7 +106,7 @@ public class Calculations {
         return KeywordsFrequencyTable;
     }
 
-    private static boolean keywordNotCopied(List<String> keywordList, String keyword) {
+    private boolean keywordNotCopied(List<String> keywordList, String keyword) {
         for (int i = 0; i < keywordList.size(); i++) {
             if (keywordList.get(i).equalsIgnoreCase(keyword)) {
                 return false;
@@ -111,7 +115,7 @@ public class Calculations {
         return true;
     }
 
-    public static double getFrequency(String element, List<String> allElements) {
+    public double getFrequency(String element, List<String> allElements) {
         double counter = 0;
         double totalKeywords = allElements.size();
         for (int i = 0; i < allElements.size(); i++) {
@@ -123,7 +127,7 @@ public class Calculations {
 
     }
 
-    public static double getFaeMeanRate(List<Review> faeReviews) {
+    public double getFaeMeanRate(List<Review> faeReviews) {
         double[] reviewsMean = new double[faeReviews.size()];
         for (int i = 0; i < faeReviews.size(); i++) {
             double[] meanOfAllReviewParameters = new double[4];
@@ -136,7 +140,7 @@ public class Calculations {
         return getMeanRate(reviewsMean);
     }
 
-    public static double getFaeMeanStandardDeviationRate(double globalSubmissionMeanRate, List<Review> faeReviews) {
+    public double getFaeMeanStandardDeviationRate(double globalSubmissionMeanRate, List<Review> faeReviews) {
         double[] standardReviewsMean = new double[faeReviews.size()];
         for (int i = 0; i < faeReviews.size(); i++) {
             double[] meanOfAllReviewParameters = new double[4];
@@ -149,7 +153,7 @@ public class Calculations {
         return getMeanRate(standardReviewsMean);
     }
 
-    public static double getFaeMeanStandardDeviation(double globalSubmissionMeanRate, List<Review> faeReviews) {
+    public double getFaeMeanStandardDeviation(double globalSubmissionMeanRate, List<Review> faeReviews) {
         double[] standardReviewsMean = new double[faeReviews.size()];
         for (int i = 0; i < faeReviews.size(); i++) {
             double[] meanOfAllReviewParameters = new double[4];
@@ -164,4 +168,49 @@ public class Calculations {
         return Math.round(Math.sqrt(variance) * 100.00) / 100.00;
     }
 
+    public double getCriticalValueUnilateralTest(int significance) {
+        double alpha = (double) significance / 100.00;
+        double critValue;
+        NormalDistribution nd = new NormalDistribution(0, 1);
+        critValue = nd.inverseCumulativeProbability(1.0 - alpha);
+        return critValue;
+    }
+
+    public Object getTestStatistic(int sample, int nAccepted) {
+        double p0 = 0.5;
+        double p, observedValue;
+        p = (double) nAccepted / sample;
+        observedValue = (p - p0) / Math.sqrt((p0 * (1 - p0)) / (double) sample);
+        return observedValue;
+    }
+
+    public Object getDiferenceTestStatistic(int sample1, int nAccepted1, int sample2, int nAccepted2) {
+        double p1, p2, observedValue;
+        p1 = (double) nAccepted1 / sample1;
+        p2 = (double) nAccepted2 / sample2;
+
+        observedValue = (p1 - p2) / Math.sqrt(((p1 * (1 - p1)) / (double) sample1) + ((p2 * (1 - p2)) / (double) sample2));
+        return observedValue;
+    }
+
+    public double getCriticalValueBylateralTest(int significance) {
+        double alpha = (double) significance / 100.00;
+        double critValue;
+        NormalDistribution nd = new NormalDistribution(0, 1);
+        critValue = nd.inverseCumulativeProbability(1.0 - alpha / 2.0);
+        return critValue;
+    }
+
+    public Object getTestStatisticFae(double faeMeanStandardDeviationRate, double faeMeanStandardDeviation, int sample) {
+        double p0 = 1.0;
+        double observedValue;
+        observedValue = (faeMeanStandardDeviationRate - p0) / (faeMeanStandardDeviation / Math.sqrt((double) sample));
+        return observedValue;
+    }
+
+    public Object getDiferenceTestStatisticFae(int sample1, double faeMeanDeviationRate1, double standardDeviation1, int sample2, double faeMeanDeviationRate2, double standardDeviation2) {
+        double observedValue;
+        observedValue = (faeMeanDeviationRate1 - faeMeanDeviationRate2) / Math.sqrt((Math.pow(standardDeviation1, 2) / (double) sample1) + (Math.pow(standardDeviation2, 2) / (double) sample2));
+        return observedValue;
+    }
 }
