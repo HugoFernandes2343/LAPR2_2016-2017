@@ -9,11 +9,18 @@ import lapr.project.model.FairCenter;
 
 /**
  *
- * @author PC
+ * @author LAPR2-G054
  */
 public class UC31Controller {
 
-    public UC31Controller(FairCenter fc,FairCenter newFC) {
+    /**
+     * changes the faircenter being used in the program to the one that comes
+     * from the file
+     *
+     * @param fc faircenter in which the program was operating
+     * @param newFC faircenter in which the program will operate
+     */
+    public UC31Controller(FairCenter fc, FairCenter newFC) {
         fc = new FairCenter(newFC);
     }
 

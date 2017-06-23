@@ -41,14 +41,16 @@ public class UC05UI extends JFrame {
     private final int windowHeight = 250;
     private static final String confirmationDialog = "Are You Sure You Want To Exit?";
     private static final String confirmationTitle = "Exit Confirmation";
+
     /**
      * contructor of UC5UI
+     *
      * @param fc fc fair center that contains all data
      * @param u user that is usuing the funcionality
      * @param menuWindow JFrame of the main menu window
      */
-    public UC05UI(FairCenter fc,User u, JFrame menuWindow) {
-        this.uc05Controller = new UC05Controller(fc,u);
+    public UC05UI(FairCenter fc, User u, JFrame menuWindow) {
+        this.uc05Controller = new UC05Controller(fc, u);
         this.setName("UC05");
         this.eventsList = uc05Controller.getEventsReadyForSubmit();
         this.eventsTitlesList = uc05Controller.getTitlesForSubmit(eventsList);
@@ -101,13 +103,12 @@ public class UC05UI extends JFrame {
         pos.gridy = 0;
         centralPanel.add(eventLabel, pos);
 
-        JLabel descriptionLabel = new JLabel();//uc05Controller.getEventByTitle(eventTitle)
-
+        JLabel descriptionLabel = new JLabel();
         pos.gridx = 2;
         pos.gridy = 0;
         centralPanel.add(descriptionLabel, pos);
 
-        JComboBox<String> eventList = new JComboBox<>(eventsTitlesList);// lembrar de por a posicao 0 vazia ""
+        JComboBox<String> eventList = new JComboBox<>(eventsTitlesList);
         eventList.setSelectedIndex(-1);
         eventList.addActionListener((ActionEvent ae) -> {
             if (eventList.getSelectedIndex() == -1 && eventsTitlesList.length == 0) {
@@ -209,7 +210,7 @@ public class UC05UI extends JFrame {
         pos.gridx = 1;
         pos.gridy = 0;
         centralPanel.add(tradeNameField, pos);
- 
+
         JLabel descriptionLabel = new JLabel("Trade name");
         pos.gridx = 0;
         pos.gridy = 1;
@@ -219,7 +220,7 @@ public class UC05UI extends JFrame {
         pos.gridx = 1;
         pos.gridy = 1;
         centralPanel.add(descriptionField, pos);
-        
+
         JLabel addressLabel = new JLabel("address");
         pos.gridx = 0;
         pos.gridy = 2;

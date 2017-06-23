@@ -18,7 +18,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 public class UC47Controller {
 
@@ -26,25 +26,50 @@ public class UC47Controller {
     private final FairCenter fc;
     protected User selectedFae;
 
+    /**
+     * constructor of UC47 controllers
+     *
+     * @param fc faircenter in which the controller operates
+     */
     public UC47Controller(FairCenter fc) {
         this.fc = fc;
         calculations = new Calculations();
     }
 
+    /**
+     * returns a list of all FAEs
+     *
+     * @return list of users
+     */
     public List<User> getAllFae() {
         EventRegistry er = fc.getEventRegistry();
         List<User> faeUserReferenceList = er.getAllFaeUserReference();
         return faeUserReferenceList;
     }
 
+    /**
+     * get method of selectedFAE attribute
+     *
+     * @return selectedFAE
+     */
     public Object getSelectedFae() {
         return selectedFae;
     }
 
+    /**
+     * set method of the selectedFAE attribute
+     *
+     * @param faeUserReference user to set as selectedFAE
+     */
     public void setSelectedFae(User faeUserReference) {
         selectedFae = faeUserReference;
     }
 
+    /**
+     * returns submission global mean rate
+     *
+     * @return global mean rate (double)
+     */
     public double getSubmissionGlobalMeanRate() {
         List<Review> allFaeReviews = new ArrayList<>();
         EventRegistry er = fc.getEventRegistry();

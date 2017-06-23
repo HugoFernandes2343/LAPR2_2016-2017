@@ -232,22 +232,7 @@ public class EventRegistryTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of checkForRepresentativeApplications method, of class
-//     * EventRegistry.
-//     */
-//    @Test
-//    public void testCheckForRepresentativeApplications() {
-//        System.out.println("checkForRepresentativeApplications");
-//        User user = null;
-//        EventRegistry instance = new EventRegistry();
-//        boolean expResult = false;
-//        boolean result = instance.checkForRepresentativeApplications(user);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+//    //
 //    /**
 //     * Test of getEventsWithApplicationFromUser method, of class EventRegistry.
 //     */

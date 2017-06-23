@@ -17,7 +17,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 public class UC40Controller {
 
@@ -26,6 +26,12 @@ public class UC40Controller {
     private final User user;
     protected Event selectedEvent;
 
+    /**
+     * constructor of UC40 controllers
+     *
+     * @param fc faircenter in which the controller operates
+     * @param user user that is using the UC40 feature
+     */
     public UC40Controller(FairCenter fc, User user) {
         this.fc = fc;
         this.user = user;
@@ -33,12 +39,22 @@ public class UC40Controller {
 
     }
 
+    /**
+     * get all organizer events
+     *
+     * @return list of event
+     */
     public List<Event> getEventsByOrganizer() {
         EventRegistry er = fc.getEventRegistry();
         List<Event> eventListByOrganizer = er.getEventsByOrganizer(user);
         return eventListByOrganizer;
     }
 
+    /**
+     * returns the event keyword frequency talbe
+     *
+     * @return matrix that is the table of frequency
+     */
     public Object[][] getEventKeywordFrequencyTable() {
         ApplicationList applicationList = selectedEvent.getApplicationList();
         List<Application> applications = applicationList.getApplications();
@@ -52,10 +68,20 @@ public class UC40Controller {
         return calculations.getEventKeywordsFrequencyTable(allKeywords);
     }
 
+    /**
+     * set of the selectedEvent attribute
+     *
+     * @param e event to set as selectedEvent
+     */
     public void setSelectedEvent(Event e) {
         this.selectedEvent = e;
     }
 
+    /**
+     * get of the selectedEvent
+     *
+     * @return selectedEvent
+     */
     public Event getSelectedEvent() {
         return this.selectedEvent;
     }

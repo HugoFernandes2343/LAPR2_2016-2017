@@ -13,7 +13,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author hugod
+ * @author LAPR2-G054
  */
 public class UC20Controller {
 
@@ -23,9 +23,10 @@ public class UC20Controller {
     private Stand stand;
 
     /**
+     * constructor of UC20 controllers
      *
-     * @param fc
-     * @param u
+     * @param fc faircenter in which the controller operates
+     * @param u user that is using the UC20 feature
      */
     public UC20Controller(FairCenter fc, User u) {
         this.user = u;
@@ -33,37 +34,40 @@ public class UC20Controller {
     }
 
     /**
+     * returns events in which the user is organizer
      *
-     * @param u
-     * @return
+     * @return list of events
      */
-    public List<Event> getOrganizerEvents(User u) {
-        List<Event> organizerEvents = fc.getEventRegistry().getEventsByOrganizer(u);
+    public List<Event> getOrganizerEvents() {
+        List<Event> organizerEvents = fc.getEventRegistry().getEventsByOrganizer(user);
         return organizerEvents;
     }
 
     /**
+     * set method of the event attribute
      *
-     * @param event
+     * @param event to be set as event
      */
     public void setEvent(Event event) {
         this.event = event;
     }
 
     /**
+     * creates a stand
      *
-     * @param area
-     * @param descricao
-     * @return
+     * @param area area of the new stand
+     * @param description description of the new stand
+     * @return string with the information from the new stand
      */
-    public String createStand(double area, String descricao) {
-        this.stand = new Stand(area, descricao);
+    public String createStand(double area, String description) {
+        this.stand = new Stand(area, description);
         return stand.toString();
     }
 
     /**
+     * registers stand
      *
-     * @return
+     * @return boolean if the operation is successful false if it is not
      */
     public boolean registerStand() {
         if (event.addStand(stand)) {

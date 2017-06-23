@@ -104,8 +104,6 @@ public class MainMenu extends JFrame implements MainMenuElements {
 
     private void createElements() {
         JPanel infoUser = new JPanel(new BorderLayout());
-        JLabel userLabel = new JLabel("<html>Logged in as : " + this.user.getName() + " <br> Username : " + this.user.getUsername() + " <br> Email : " + this.user.getEmail());
-        infoUser.add(userLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(0, 4, 8, 8));
         addAllButtons(buttonPanel);
         addActions();
@@ -350,7 +348,7 @@ public class MainMenu extends JFrame implements MainMenuElements {
                     }
                 } else {
                     JOptionPane.showMessageDialog(MainMenu.this,
-                            "Only Organizers are allowed",
+                            "Only Event Managers are allowed",
                             "Not allowed",
                             JOptionPane.ERROR_MESSAGE);
                 }

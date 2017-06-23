@@ -15,7 +15,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 public class UC41Controller {
 
@@ -25,6 +25,12 @@ public class UC41Controller {
     protected Event selectedEvent;
     private double[] eventStandsAreas;
 
+    /**
+     * constructor of UC41 controllers
+     *
+     * @param fc faircenter in which the controller operates
+     * @param user user that is using the UC41 feature
+     */
     public UC41Controller(FairCenter fc, User user) {
         this.fc = fc;
         this.user = user;
@@ -32,12 +38,22 @@ public class UC41Controller {
 
     }
 
+    /**
+     * gets all the events of the organizer
+     *
+     * @return list of events
+     */
     public List<Event> getEventsByOrganizer() {
         EventRegistry er = fc.getEventRegistry();
         List<Event> eventListByOrganizer = er.getEventsByOrganizer(user);
         return eventListByOrganizer;
     }
 
+    /**
+     * returns event stands frequency table
+     *
+     * @return matrix that represnts the frequency table
+     */
     public Object[][] getEventStandsFrequencyTable() {
         List<Stand> selectedEventStands = selectedEvent.getStands();
         eventStandsAreas = new double[selectedEventStands.size()];
@@ -47,18 +63,38 @@ public class UC41Controller {
         return calculations.getEventStandsFrequencyTable(eventStandsAreas);
     }
 
+    /**
+     * returns stands mean rate
+     *
+     * @return mean rate (double)
+     */
     public double getStandsMeanRate() {
         return calculations.getMeanRate(eventStandsAreas);
     }
 
+    /**
+     * returns standsStandardDeviationRate
+     *
+     * @return Standard Deviation Rate (double)
+     */
     public double getStandsStandardDeviationRate() {
         return calculations.getStandardDeviation(eventStandsAreas);
     }
 
+    /**
+     * set method of selectedEvent attribute
+     *
+     * @param e event to set as selectedEvent
+     */
     public void setSelectedEvent(Event e) {
         this.selectedEvent = e;
     }
 
+    /**
+     * get method of the selectedEvent attribute
+     *
+     * @return selectedEvent
+     */
     public Event getSelectedEvent() {
         return this.selectedEvent;
     }

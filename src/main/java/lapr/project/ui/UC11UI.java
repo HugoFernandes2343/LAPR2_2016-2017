@@ -29,7 +29,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author hugod
+ * @author LAPR2-G054
  */
 public class UC11UI extends JFrame {
 
@@ -49,16 +49,16 @@ public class UC11UI extends JFrame {
     private static final String confirmationDialog = "Are You Sure You Want To Exit?";
     private static final String confirmationTitle = "Exit Confirmation";
 
+    /**
+     *
+     * @param fc fair center that contains all data
+     * @param u user that is usuing the funcionality
+     * @param menuWindow JFrame of the main menu window
+     */
     public UC11UI(FairCenter fc, User u, JFrame menuWindow) {
-        this.uc11Controller = new UC11Controller(fc,u);
+        this.uc11Controller = new UC11Controller(fc, u);
         this.setName("UC11");
-        if (uc11Controller.checkForRepresentativeApplications() == true) {
-            this.eventsList = uc11Controller.getEventsWithApplicationsFromUser();
-        } else {
-            JOptionPane.showMessageDialog(UC11UI.this,
-                    "No application has been made by this user to any event");
-
-        }
+        this.eventsList = uc11Controller.getEventsWithApplicationsFromUser();
         this.eventsTitlesList = uc11Controller.getTitlesOfEvents(eventsList);
         createChooseEventFrame(menuWindow);
     }
@@ -109,7 +109,7 @@ public class UC11UI extends JFrame {
         pos.gridy = 0;
         centralPanel.add(eventLabel, pos);
 
-        JLabel descriptionLabel = new JLabel();//uc05Controller.getEventByTitle(eventTitle)
+        JLabel descriptionLabel = new JLabel();
 
         pos.gridx = 2;
         pos.gridy = 0;

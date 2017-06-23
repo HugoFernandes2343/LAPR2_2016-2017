@@ -11,33 +11,48 @@ import lapr.project.utils.ApplicationState;
 
 /**
  *
- * @author hugod
+ * @author LAPR2-G054
  */
 @XmlRootElement
 public class ApplicationCreatedState implements ApplicationState {
 
     @XmlTransient
     public Application a;
-
+/**
+     * default constructor
+     *
+     * @param a application to set as this application
+     */
     public ApplicationCreatedState(Application a) {
         this.a = a;
     }
-
+ /**
+     * constructor to avoid xml conflicts
+     */
     public ApplicationCreatedState() {
         //Avoiding xml conflicts
     }
-
+/**
+     * validate method that validates the transition into the next state
+     * @return true if able to go to next state false if not able
+     */
     @Override
     public boolean validateState() {
         //Specific
         return false;
     }
-
+/**
+     * override method of the abstract class
+     * @return false this transition can not happen
+     */
     @Override
     public boolean setApplicationCreatedState() {
         return false;
     }
-
+/**
+     * override method of the abstract class
+     * @return false this transition can not happen
+     */
     @Override
     public boolean setApplicationAssignedState() {
         if (validateState()) {
@@ -47,12 +62,18 @@ public class ApplicationCreatedState implements ApplicationState {
             return false;
         }
     }
-
+/**
+     * override method of the abstract class
+     * @return false this transition can not happen
+     */
     @Override
     public boolean setApplicationEvaluatedState() {
         return false;
     }
-
+/**
+     * override method of the abstract class
+     * @return false this transition can not happen
+     */
     @Override
     public boolean setApplicationGivenStandState() {
         return false;

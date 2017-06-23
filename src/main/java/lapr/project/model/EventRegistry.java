@@ -150,20 +150,7 @@ public class EventRegistry {
         return true;
     }
 
-    public boolean checkForRepresentativeApplications(User user) {
-        boolean applications = false;
-        for (int i = 0; i < congressList.size(); i++) {
-            if (congressList.get(i).checkForRepresentativeApplication(user)) {
-                applications = true;
-            }
-        }
-        for (int i = 0; i < exhibitionList.size(); i++) {
-            if (exhibitionList.get(i).checkForRepresentativeApplication(user)) {
-                applications = true;
-            }
-        }
-        return applications;
-    }
+
 
     public List<Event> getEventsWithApplicationFromUser(User user) {
         List<Event> eventsWithUserApplications = new ArrayList<>();

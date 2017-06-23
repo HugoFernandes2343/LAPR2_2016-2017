@@ -16,19 +16,29 @@ import lapr.project.model.FairCenter;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 public class UC43Controller {
 
     private final Calculations calculations;
     private final FairCenter fc;
 
+    /**
+     * constructor of UC43 controllers
+     *
+     * @param fc faircenter in which the controller operates
+     */
     public UC43Controller(FairCenter fc) {
         this.fc = fc;
         calculations = new Calculations();
 
     }
 
+    /**
+     * returns the global acceptance rate
+     *
+     * @return global acceptance rate (double)
+     */
     public double getGlobalAcceptanceRate() {
         EventRegistry er = fc.getEventRegistry();
         List<Event> eventList = er.getAllEvents();

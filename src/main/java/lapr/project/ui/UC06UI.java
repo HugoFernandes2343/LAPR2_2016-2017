@@ -29,7 +29,7 @@ import lapr.project.model.User;
 
 /**
  *
- * @author Hugo
+ * @author LAPR2-G054
  */
 public class UC06UI extends JFrame {
 
@@ -49,6 +49,12 @@ public class UC06UI extends JFrame {
 
     private UC06Controller controller;
 
+     /**
+     *
+     * @param fc fair center that contains all data
+     * @param u user that is usuing the funcionality
+     * @param menuWindow JFrame of the main menu window
+     */
     public UC06UI(FairCenter fc, User user, JFrame menuWindow) {
         this.menuWindow = menuWindow;
         controller = new UC06Controller(fc);

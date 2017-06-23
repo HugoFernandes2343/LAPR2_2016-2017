@@ -22,7 +22,7 @@ import lapr.project.model.Event;
 
 /**
  *
- * @author PC
+ * @author LAPR2-G054
  */
 public class UC02UI extends JDialog {
 
@@ -34,6 +34,12 @@ public class UC02UI extends JDialog {
     private final UC02Controller uc02Controller;
     private User u;
 
+    /**
+     *
+     * @param fc fair center that contains all data
+     * @param u user that is usuing the funcionality
+     * @param menuWindow JFrame of the main menu window
+     */
     public UC02UI(FairCenter fc, User u, JFrame menuWindow) {
         this.u = u;
         uc02Controller = new UC02Controller(fc, u);

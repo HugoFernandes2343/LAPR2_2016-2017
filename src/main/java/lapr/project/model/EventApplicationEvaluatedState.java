@@ -28,7 +28,7 @@ public class EventApplicationEvaluatedState implements EventState {
 
     @Override
     public boolean validate() {
-        return !e.getApplicationList().getDefinitiveApplications().isEmpty();
+        return !e.getApplicationList().getDecidedApplications().isEmpty();
     }
 
     @Override

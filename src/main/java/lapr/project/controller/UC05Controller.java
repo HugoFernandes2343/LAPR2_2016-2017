@@ -82,7 +82,6 @@ public class UC05Controller {
     /**
      * saves the application as part of the event
      *
-     * @return true indicating that the application has been registered
      */
     public void registerApplication() {
         application.setRepresentative(new Representative(user));
@@ -99,3 +98,4 @@ public class UC05Controller {
     }
 
 }
+

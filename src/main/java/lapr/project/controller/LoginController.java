@@ -10,11 +10,12 @@ import lapr.project.model.FairCenter;
 import lapr.project.model.User;
 
 /**
- * Class that controls the login data. Checks if the data inserted matches a User in the System. 
+ * Class that controls the login data. Checks if the data inserted matches a
+ * User in the System.
+ *
  * @author PC
  */
 public class LoginController {
-
 
     /**
      * Object that saves the User found in the system (if found)
@@ -22,7 +23,8 @@ public class LoginController {
     protected User user;
 
     /**
-     * The fair center object that holds all user data that is used to check the user existence
+     * The fair center object that holds all user data that is used to check the
+     * user existence
      */
     private FairCenter fairCenter;
 
@@ -32,14 +34,15 @@ public class LoginController {
 
     /**
      * Authenticate method used to check each user in the system for its data.
-     * Recieves the username or email and the password inserted in the UI.
-     * Then checks each user and tries to find a match
-     * 
+     * Recieves the username or email and the password inserted in the UI. Then
+     * checks each user and tries to find a match
+     *
      * @param id ID inserted
      * @param password password inserted
-     * @return boolean that confirms if the data inserted is accepted (true = accepted // false = not accepted)
+     * @return boolean that confirms if the data inserted is accepted (true =
+     * accepted // false = not accepted)
      */
-    public boolean authenticate(String id,String password) {
+    public boolean authenticate(String id, String password) {
         List<User> usersList;
         usersList = fairCenter.getConfirmedUsers().getUsersList();//Still dont know how to implement encryption without hash
         for (User u : usersList) {
@@ -53,7 +56,7 @@ public class LoginController {
 
     /**
      * Checks for a match for the inserted ID
-     * 
+     *
      * @param u current user being compared (from list)
      * @param id ID inserted
      * @return boolean confirmation
@@ -64,7 +67,7 @@ public class LoginController {
 
     /**
      * Checks for a match for the inserted password
-     * 
+     *
      * @param u current user being compared (from list)
      * @param password password inserted
      * @return boolean confirmation
@@ -73,6 +76,11 @@ public class LoginController {
         return u.getPassword().equals(password);
     }
 
+    /**
+     * get method of the attribute user
+     *
+     * @return the user that is saved in this object
+     */
     public User getUser() {
         return this.user;
     }
